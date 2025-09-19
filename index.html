@@ -126,6 +126,94 @@
 				width: 100%;
 			}
 			
+			/* Creative Attention Elements */
+			.attention-badge {
+				background: linear-gradient(135deg, #e74c3c, #c0392b);
+				color: white;
+				padding: 1rem 2rem;
+				border-radius: 50px;
+				font-size: 1rem;
+				font-weight: 600;
+				margin-bottom: 2rem;
+				display: inline-flex;
+				align-items: center;
+				gap: 0.8rem;
+				box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+				animation: badgePulse 2s ease-in-out infinite;
+			}
+			
+			@keyframes badgePulse {
+				0%, 100% { transform: scale(1); }
+				50% { transform: scale(1.05); }
+			}
+			
+			.section-banner {
+				text-align: center;
+				margin-bottom: 2rem;
+			}
+			
+			.banner-text {
+				background: linear-gradient(135deg, #f39c12, #e67e22);
+				color: white;
+				padding: 0.8rem 2rem;
+				border-radius: 25px;
+				font-size: 1.1rem;
+				font-weight: 600;
+				display: inline-block;
+				box-shadow: 0 6px 20px rgba(243, 156, 18, 0.3);
+				animation: bannerGlow 3s ease-in-out infinite;
+			}
+			
+			@keyframes bannerGlow {
+				0%, 100% { box-shadow: 0 6px 20px rgba(243, 156, 18, 0.3); }
+				50% { box-shadow: 0 8px 30px rgba(243, 156, 18, 0.6); }
+			}
+			
+			.section-teaser {
+				text-align: center;
+				margin-bottom: 2rem;
+			}
+			
+			.section-teaser span {
+				background: linear-gradient(135deg, #9b59b6, #8e44ad);
+				color: white;
+				padding: 0.7rem 1.8rem;
+				border-radius: 20px;
+				font-size: 1rem;
+				font-weight: 600;
+				display: inline-block;
+				box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+				animation: teaserFloat 4s ease-in-out infinite;
+			}
+			
+			@keyframes teaserFloat {
+				0%, 100% { transform: translateY(0px); }
+				50% { transform: translateY(-8px); }
+			}
+			
+			.section-hook {
+				text-align: center;
+				margin-bottom: 2rem;
+			}
+			
+			.section-hook span {
+				background: linear-gradient(135deg, #27ae60, #2ecc71);
+				color: white;
+				padding: 0.8rem 2rem;
+				border-radius: 30px;
+				font-size: 1.1rem;
+				font-weight: 600;
+				display: inline-block;
+				box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+				animation: hookBounce 3s ease-in-out infinite;
+			}
+			
+			@keyframes hookBounce {
+				0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+				40% { transform: translateY(-10px); }
+				60% { transform: translateY(-5px); }
+			}
+			
 			/* Hero Section */
 			.hero {
 				height: 100vh;
@@ -786,6 +874,10 @@
 		<section id="home" class="hero">
 			<div class="hero-content">
 				<h1>Data Analyst & Automation Engineer</h1>
+				<div class="attention-badge">
+					<i class="fas fa-bolt"></i>
+					<span>Data Problems? Consider Them Debugged.</span>
+				</div>
 				<p class="subtitle">Transforming Complex Data into Actionable Insights</p>
 				
 				<div class="hero-stats">
@@ -949,6 +1041,9 @@
 
 		<!-- Projects Section -->
 		<section id="projects">
+			<div class="section-hook">
+				<span>Ready to Meet Your New Digital Employee?</span>
+			</div>
 			<h2 class="section-title fade-in">Featured Projects</h2>
 			<div class="projects-grid">
 				<div class="project-card fade-in">
