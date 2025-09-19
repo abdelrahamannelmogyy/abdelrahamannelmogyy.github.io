@@ -3,7 +3,7 @@
 	<head>
 		<title>Abdelrahman Elmogy - Data Analyst & Automation Engineer</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
 		<style>
 			/* Modern CSS Styling */
 			@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -129,12 +129,14 @@
 			/* Hero Section */
 			.hero {
 				height: 100vh;
+				min-height: 600px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				text-align: center;
 				color: white;
 				position: relative;
+				padding: 2rem;
 			}
 			
 			.hero-content {
@@ -728,6 +730,13 @@
 			
 			/* Responsive Design */
 			@media (max-width: 768px) {
+				.hero {
+					min-height: 100vh;
+					height: auto;
+					padding: 6rem 1rem 2rem;
+					justify-content: flex-start;
+					padding-top: 120px;
+				}
 				.hero h1 { font-size: 2.5rem; }
 				.hero .subtitle { font-size: 1.2rem; }
 				.hero-stats { flex-direction: column; gap: 1.5rem; }
@@ -736,6 +745,7 @@
 				.timeline-item { text-align: left !important; padding: 0 !important; }
 				.timeline-line { display: none; }
 				section { padding: 4rem 1rem; }
+				header { padding: 1rem; }
 			}
 			
 			/* Scroll Animations */
@@ -1202,7 +1212,13 @@
 					<a href="https://www.linkedin.com/in/abdelrahman-elmogy-5086b4245/" target="_blank">Abdelrahman Elmogy</a>
 				</div>
 				
-				
+				<div class="contact-item fade-in">
+					<div class="contact-icon">
+						<i class="fas fa-map-marker-alt"></i>
+					</div>
+					<h3>Location</h3>
+					<span style="color: rgba(255,255,255,0.8);">Cairo, Egypt</span>
+				</div>
 				
 				<div class="contact-item fade-in">
 					<div class="contact-icon">
