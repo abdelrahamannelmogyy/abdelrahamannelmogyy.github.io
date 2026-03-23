@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
 		<meta name="description" content="Abdelrahman Elmogy — Data Analyst & Automation Engineer based in Cairo. Power BI, Python, SQL Server, VAPI Voice AI. Open to remote roles and relocation." />
-		<meta name="keywords" content="Data Analyst, Power BI, Python Automation, SQL Server, Business Intelligence, Cairo, Egypt" />
+		<meta name="keywords" content="Data Analyst, Power BI, Python Automation, SQL Server, VAPI, Business Intelligence, Cairo, Egypt" />
 		<meta property="og:title" content="Abdelrahman Elmogy — Data Analyst & Automation Engineer" />
 		<meta property="og:description" content="Turning complex data into actionable insights. Power BI · Python · VAPI Voice AI. Open to remote & relocation." />
 		<meta property="og:type" content="website" />
@@ -176,7 +176,7 @@
 			.hero-content {
 				max-width: 800px;
 				padding: 2rem;
-				animation: fadeInUp 1s ease;
+				animation: fadeSlideIn 0.7s ease both;
 			}
 			
 			@keyframes fadeInUp {
@@ -342,12 +342,12 @@
 			.timeline-item {
 				position: relative;
 				margin: 2rem 0;
-				opacity: 0;
-				animation: slideIn 0.7s ease forwards;
+				opacity: 1;
+				animation: slideIn 0.55s ease both;
 			}
 			.timeline-item:nth-child(1) { animation-delay: 0.05s; }
-			.timeline-item:nth-child(2) { animation-delay: 0.15s; }
-			.timeline-item:nth-child(3) { animation-delay: 0.25s; }
+			.timeline-item:nth-child(2) { animation-delay: 0.12s; }
+			.timeline-item:nth-child(3) { animation-delay: 0.2s; }
 			
 			.timeline-item:nth-child(odd) {
 				text-align: right;
@@ -360,7 +360,8 @@
 			}
 			
 			@keyframes slideIn {
-				to { opacity: 1; }
+				from { transform: translateY(16px); opacity: 0.7; }
+				to   { transform: translateY(0);    opacity: 1; }
 			}
 			
 			.timeline-content {
@@ -720,14 +721,11 @@
 			
 			/* Scroll Animations */
 			.fade-in {
-				opacity: 0;
-				transform: translateY(24px);
-				transition: opacity 0.6s ease, transform 0.6s ease;
-			}
-			.fade-in.visible {
 				opacity: 1;
 				transform: translateY(0);
+				animation: fadeSlideIn 0.55s ease both;
 			}
+			.fade-in.visible { opacity: 1; transform: none; }
 			/* Fallback: if JS hasn't run, never hide content */
 			@media (prefers-reduced-motion: reduce) {
 				.fade-in { opacity: 1 !important; transform: none !important; }
@@ -2216,7 +2214,7 @@
 				<!-- Availability badge -->
 				<div class="availability-badge">
 					<span class="avail-dot"></span>
-					Open to remote roles &amp; relocation
+					Open to remote roles &amp; relocation — EU &middot; Gulf &middot; Canada
 				</div>
 
 				<!-- Photo + Name row -->
