@@ -3003,7 +3003,7 @@
 
 				<!-- Left: form -->
 				<div class="contact-form-wrap fade-in">
-					<form class="contact-form" onsubmit="handleFormSubmit(event)">
+					<form class="contact-form" action="https://formspree.io/f/mnjolqqb" method="POST">
 						<div class="cf-row">
 							<div class="cf-field">
 								<label>Your name</label>
@@ -3170,21 +3170,7 @@
 				}
 			}
 
-			// ── Contact form ─────────────────────────────────
-			function handleFormSubmit(e) {
-				e.preventDefault();
-				const f = e.target;
-				const inputs  = f.querySelectorAll('input[type="text"]');
-				const name    = inputs[0].value;
-				const subject = inputs[1].value;
-				const email   = f.querySelector('input[type="email"]').value;
-				const message = f.querySelector('textarea').value;
-				window.location.href = 'mailto:Abdelrahmannelmogyy22@gmail.com'
-					+ '?subject=' + encodeURIComponent(subject)
-					+ '&body='    + encodeURIComponent('From: ' + name + ' <' + email + '>\n\n' + message);
-				f.style.display = 'none';
-				document.getElementById('cfSuccess').style.display = 'flex';
-			}
+			
 
 			// ── Init ─────────────────────────────────────────
 			document.addEventListener('DOMContentLoaded', () => {
