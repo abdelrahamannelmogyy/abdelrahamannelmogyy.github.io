@@ -1,2123 +1,329 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Abdelrahman Elmogy - Data Analyst & Automation Engineer</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
-		<meta name="description" content="Abdelrahman Elmogy — Data Analyst & Automation Engineer based in Cairo. Power BI, Python, SQL Server, VAPI Voice AI. Open to remote roles and relocation." />
-		<meta name="keywords" content="Data Analyst, Power BI, Python Automation, SQL Server, VAPI, Business Intelligence, Cairo, Egypt" />
-		<meta property="og:title" content="Abdelrahman Elmogy — Data Analyst & Automation Engineer" />
-		<meta property="og:description" content="Turning complex data into actionable insights. Power BI · Python · VAPI Voice AI. Open to remote & relocation." />
-		<meta property="og:type" content="website" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-		<style>
-			/* Modern CSS Styling */
-			@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
-
-			:root {
-				--navy-900: #060d1f;
-				--navy-800: #0b1428;
-				--navy-700: #0f1d35;
-				--navy-600: #152543;
-				--navy-card: rgba(15, 29, 53, 0.7);
-				--navy-border: rgba(74, 144, 194, 0.12);
-				--blue-accent: #4a90c2;
-				--blue-bright: #5ba3d9;
-				--text-primary: #e8eef5;
-				--text-muted: rgba(200, 218, 235, 0.65);
-			}
-			body {
-				font-family: 'Inter', sans-serif;
-				line-height: 1.6;
-				color: var(--text-primary);
-				background: var(--navy-900);
-				overflow-x: hidden;
-			}
-
-			/* Static navy background with subtle depth */
-			.bg-animation {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: -1;
-				background:
-					radial-gradient(ellipse at 15% 40%, rgba(74, 144, 194, 0.07) 0%, transparent 55%),
-					radial-gradient(ellipse at 85% 15%, rgba(91, 163, 217, 0.05) 0%, transparent 50%),
-					var(--navy-900);
-			}
-
-			/* Floating Particles */
-			.particles {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: -1;
-			}
-
-			.particle {
-				position: absolute;
-				background: var(--navy-border);
-				border-radius: 50%;
-				animation: float 20s infinite linear;
-			}
-
-			@keyframes float {
-				0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-				10% { opacity: 1; }
-				90% { opacity: 1; }
-				100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-			}
-
-			/* Header */
-			header {
-				position: fixed;
-				top: 0;
-				width: 100%;
-				background: rgba(6, 13, 31, 0.75);
-				backdrop-filter: blur(20px); border: 1px solid var(--navy-border);
-				z-index: 1000;
-				padding: 1rem 2rem;
-				transition: all 0.3s ease;
-			}
-
-			nav {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				max-width: 1200px;
-				margin: 0 auto;
-			}
-
-			.logo {
-				font-size: 1.5rem;
-				font-weight: 700;
-				color: var(--text-primary);
-			}
-
-			.nav-links {
-				display: flex;
-				list-style: none;
-				gap: 2rem;
-			}
-
-			.nav-links a {
-				color: var(--text-primary);
-				text-decoration: none;
-				transition: all 0.3s ease;
-				position: relative;
-			}
-
-			.nav-links a:hover {
-				transform: translateY(-2px);
-			}
-
-			.nav-links a::after {
-				content: '';
-				position: absolute;
-				width: 0;
-				height: 2px;
-				bottom: -5px;
-				left: 50%;
-				background: white;
-				transition: all 0.3s ease;
-				transform: translateX(-50%);
-			}
-
-			.nav-links a:hover::after {
-				width: 100%;
-			}
-
-			/* Attention badge */
-			.attention-badge {
-				background: rgba(52, 152, 219, 0.12);
-				color: rgba(255,255,255,0.85);
-				padding: 0.6rem 1.4rem;
-				border-radius: 50px;
-				font-size: 0.9rem;
-				font-weight: 500;
-				margin-bottom: 2rem;
-				display: inline-flex;
-				align-items: center;
-				gap: 0.6rem;
-				border: 1px solid rgba(52, 152, 219, 0.25);
-			}
-
-			.section-banner { text-align: center; margin-bottom: 2rem; }
-			.banner-text { color: rgba(255,255,255,0.6); font-size: 1rem; display: inline-block; }
-			.section-teaser { display: none; }
-			.section-hook { display: none; }
-
-			/* Hero Section */
-			.hero {
-				height: 100vh;
-				min-height: 600px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				text-align: center;
-				color: var(--text-primary);
-				position: relative;
-				padding: 2rem;
-			}
-
-			.hero-content {
-				max-width: 800px;
-				padding: 2rem;
-				animation: fadeSlideIn 0.7s ease both;
-			}
-
-			@keyframes fadeInUp {
-				0% { opacity: 0; transform: translateY(50px); }
-				100% { opacity: 1; transform: translateY(0); }
-			}
-
-			.hero h1 {
-				font-size: 3.5rem;
-				font-weight: 700;
-				margin-bottom: 1rem;
-				background: linear-gradient(45deg, #fff, #f0f0f0);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-			}
-
-			.hero .subtitle {
-				font-size: 1.5rem;
-				margin-bottom: 2rem;
-				opacity: 0.9;
-			}
-
-			.hero-stats {
-				display: flex;
-				justify-content: center;
-				gap: 3rem;
-				margin: 3rem 0;
-			}
-
-			.stat {
-				text-align: center;
-			}
-
-			.stat-number {
-				font-size: 2.5rem;
-				font-weight: 700;
-				display: block;
-			}
-
-			.stat-label {
-				font-size: 0.9rem;
-				opacity: 0.8;
-			}
-
-			.cta-buttons {
-				display: flex;
-				gap: 1rem;
-				justify-content: center;
-				margin-top: 2rem;
-			}
-
-			.btn {
-				padding: 1rem 2rem;
-				border: none;
-				border-radius: 50px;
-				text-decoration: none;
-				font-weight: 600;
-				transition: all 0.3s ease;
-				cursor: pointer;
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-			}
-
-			.btn-primary {
-				background: white;
-				color: #667eea;
-			}
-
-			.btn-secondary {
-				background: transparent;
-				color: var(--text-primary);
-				border: 2px solid white;
-			}
-
-			.btn:hover {
-				transform: translateY(-3px);
-				box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-			}
-
-			/* Sections */
-			section {
-				padding: 6rem 2rem;
-				max-width: 1200px;
-				margin: 0 auto;
-			}
-
-			.section-title {
-				text-align: center;
-				font-size: 2.5rem;
-				font-weight: 700;
-				margin-bottom: 3rem;
-				color: var(--text-primary);
-			}
-
-			/* Skills Section */
-			.skills-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-				gap: 2rem;
-				margin-top: 3rem;
-			}
-
-			.skill-card {
-				background: rgba(15, 29, 53, 0.55);
-				backdrop-filter: blur(20px); border: 1px solid var(--navy-border);
-				border-radius: 20px;
-				padding: 2rem;
-				text-align: center;
-				transition: all 0.3s ease;
-				border: 1px solid var(--navy-border);
-			}
-
-			.skill-card:hover {
-				transform: translateY(-10px);
-				background: rgba(15, 29, 53, 0.75);
-			}
-
-			.skill-icon {
-				font-size: 3rem;
-				color: var(--text-primary);
-				margin-bottom: 1rem;
-			}
-
-			.skill-card h3 {
-				color: var(--text-primary);
-				font-size: 1.5rem;
-				margin-bottom: 1rem;
-			}
-
-			.skill-card p {
-				color: var(--text-muted);
-			}
-
-			.skill-list {
-				list-style: none;
-				margin-top: 1rem;
-			}
-
-			.skill-list li {
-				color: var(--text-primary);
-				padding: 0.3rem 0;
-				font-size: 0.9rem;
-			}
-
-			/* Experience Section */
-			.experience-timeline {
-				position: relative;
-				margin: 3rem 0;
-			}
-
-			.timeline-line {
-				position: absolute;
-				left: 50%;
-				top: 0;
-				bottom: 0;
-				width: 2px;
-				background: rgba(74, 144, 194, 0.2);
-				transform: translateX(-50%);
-			}
-
-			.timeline-item {
-				position: relative;
-				margin: 2rem 0;
-				opacity: 1;
-				animation: slideIn 0.55s ease both;
-			}
-			.timeline-item:nth-child(1) { animation-delay: 0.05s; }
-			.timeline-item:nth-child(2) { animation-delay: 0.12s; }
-			.timeline-item:nth-child(3) { animation-delay: 0.2s; }
-
-			.timeline-item:nth-child(odd) {
-				text-align: right;
-				padding-right: calc(50% + 2rem);
-			}
-
-			.timeline-item:nth-child(even) {
-				text-align: left;
-				padding-left: calc(50% + 2rem);
-			}
-
-			@keyframes slideIn {
-				from { transform: translateY(16px); opacity: 0.7; }
-				to   { transform: translateY(0);    opacity: 1; }
-			}
-
-			.timeline-content {
-				background: rgba(15, 29, 53, 0.55);
-				backdrop-filter: blur(20px); border: 1px solid var(--navy-border);
-				border-radius: 15px;
-				padding: 2rem;
-				position: relative;
-				border: 1px solid var(--navy-border);
-			}
-
-			.timeline-date {
-				color: var(--blue-accent);
-				font-weight: 600;
-				font-size: 0.9rem;
-			}
-
-			.timeline-title {
-				color: var(--text-primary);
-				font-size: 1.3rem;
-				font-weight: 600;
-				margin: 0.5rem 0;
-			}
-
-			.timeline-company {
-				color: var(--text-muted);
-				font-style: italic;
-				margin-bottom: 1rem;
-			}
-
-			.timeline-description {
-				color: var(--text-primary);
-				line-height: 1.6;
-			}
-
-			/* Projects Grid */
-			.projects-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-				gap: 2rem;
-				margin-top: 3rem;
-			}
-
-			.project-card {
-				background: rgba(15, 29, 53, 0.55);
-				backdrop-filter: blur(20px); border: 1px solid var(--navy-border);
-				border-radius: 20px;
-				padding: 2rem;
-				transition: all 0.3s ease;
-				border: 1px solid var(--navy-border);
-				position: relative;
-				overflow: hidden;
-			}
-
-			.project-card::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: -100%;
-				width: 100%;
-				height: 100%;
-				background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-				transition: left 0.5s ease;
-			}
-
-			.project-card:hover::before {
-				left: 100%;
-			}
-
-			.project-card:hover {
-				transform: translateY(-10px);
-			}
-
-			.project-type {
-				color: var(--blue-accent);
-				font-size: 0.9rem;
-				font-weight: 600;
-				text-transform: uppercase;
-				letter-spacing: 1px;
-			}
-
-			.project-card h3 {
-				color: var(--text-primary);
-				font-size: 1.4rem;
-				margin: 1rem 0;
-			}
-
-			.project-card p {
-				color: var(--text-muted);
-				margin-bottom: 1rem;
-			}
-
-			.project-tech {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5rem;
-			}
-
-			.tech-tag {
-				background: rgba(74, 144, 194, 0.18);
-				color: var(--text-primary);
-				padding: 0.3rem 0.8rem;
-				border-radius: 20px;
-				font-size: 0.8rem;
-				font-weight: 500;
-			}
-
-			/* About Section */
-			.about-container {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-				gap: 2rem;
-				margin-top: 3rem;
-			}
-
-			.about-card {
-				background: rgba(15, 29, 53, 0.55);
-				backdrop-filter: blur(20px); border: 1px solid var(--navy-border);
-				border-radius: 25px;
-				padding: 2.5rem;
-				transition: all 0.3s ease;
-				border: 1px solid var(--navy-border);
-				position: relative;
-				overflow: hidden;
-			}
-
-			.about-card::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: -100%;
-				width: 100%;
-				height: 100%;
-				background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
-				transition: left 0.6s ease;
-			}
-
-			.about-card:hover::before {
-				left: 100%;
-			}
-
-			.about-card:hover {
-				transform: translateY(-4px);
-				background: rgba(255, 255, 255, 0.1);
-			}
-
-			.about-icon {
-				width: 56px;
-				height: 56px;
-				background: rgba(52, 152, 219, 0.12);
-				border-radius: 14px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				margin-bottom: 1.5rem;
-				font-size: 1.5rem;
-				color: var(--blue-accent);
-				border: 1px solid rgba(52, 152, 219, 0.2);
-			}
-
-			.about-content strong { color: #ffffff; font-weight: 600; }
-			.about-content h3 { color: #ffffff; font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; }
-			.about-content p { color: var(--text-muted); line-height: 1.8; font-size: 1rem; font-weight: 400; }
-
-			/* Contact Section legacy */
-			.cert-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-				gap: 2rem;
-				margin-top: 3rem;
-			}
-
-			.cert-card {
-				background: rgba(15, 29, 53, 0.55);
-				backdrop-filter: blur(20px); border: 1px solid var(--navy-border);
-				border-radius: 20px;
-				padding: 2rem;
-				transition: all 0.3s ease;
-				border: 1px solid var(--navy-border);
-				position: relative;
-				overflow: hidden;
-			}
-
-			.cert-card::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: -100%;
-				width: 100%;
-				height: 100%;
-				background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
-				transition: left 0.5s ease;
-			}
-
-			.cert-card:hover::before { left: 100%; }
-			.cert-card:hover { transform: translateY(-10px); background: rgba(15, 29, 53, 0.75); }
-
-			.cert-header { display: flex; align-items: center; margin-bottom: 1.5rem; }
-			.cert-icon {
-				width: 50px; height: 50px;
-				background: linear-gradient(135deg, var(--blue-accent), #2d6fa3);
-				border-radius: 12px;
-				display: flex; align-items: center; justify-content: center;
-				margin-right: 1rem; font-size: 1.5rem; color: var(--text-primary);
-			}
-			.cert-info h3 { color: var(--text-primary); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; }
-			.cert-provider { color: var(--blue-accent); font-size: 0.9rem; font-weight: 500; }
-			.cert-date { color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-			.cert-description { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-top: 1rem; }
-			.cert-badge {
-				position: absolute; top: 1rem; right: 1rem;
-				background: linear-gradient(135deg, #27ae60, #2ecc71);
-				color: var(--text-primary);
-				padding: 0.3rem 0.8rem; border-radius: 15px;
-				font-size: 0.8rem; font-weight: 600;
-			}
-			.cert-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-			.cert-skill-tag {
-				background: rgba(52, 152, 219, 0.2);
-				color: var(--blue-accent);
-				padding: 0.3rem 0.8rem; border-radius: 15px;
-				font-size: 0.8rem; font-weight: 500;
-			}
-			.contact-info {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-				gap: 2rem;
-				margin-top: 3rem;
-			}
-			.contact-item {
-				background: rgba(15, 29, 53, 0.55);
-				backdrop-filter: blur(20px); border: 1px solid var(--navy-border);
-				border-radius: 15px;
-				padding: 2rem;
-				text-align: center;
-				border: 1px solid var(--navy-border);
-				transition: all 0.3s ease;
-			}
-			.contact-item:hover { transform: translateY(-5px); background: rgba(15, 29, 53, 0.75); }
-			.contact-icon { font-size: 2.5rem; color: var(--blue-accent); margin-bottom: 1rem; }
-			.contact-item h3 { color: var(--text-primary); margin-bottom: 0.5rem; }
-			.contact-item a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; }
-			.contact-item a:hover { color: var(--text-primary); }
-
-			/* Responsive Design */
-			@media (max-width: 768px) {
-				.hero {
-					min-height: 100vh;
-					height: auto;
-					padding: 6rem 1rem 2rem;
-					justify-content: flex-start;
-					padding-top: 120px;
-				}
-				.hero h1 { font-size: 2.5rem; }
-				.hero .subtitle { font-size: 1.2rem; }
-				.hero-stats { flex-direction: column; gap: 1.5rem; }
-				.cta-buttons { flex-direction: column; align-items: center; }
-				.nav-links { display: none; }
-				.timeline-item { text-align: left !important; padding: 0 !important; }
-				.timeline-line { display: none; }
-				section { padding: 4rem 1rem; }
-				header { padding: 1rem; }
-			}
-
-			/* Scroll Animations */
-			.fade-in {
-				opacity: 1;
-				transform: translateY(0);
-				animation: fadeSlideIn 0.55s ease both;
-			}
-			.fade-in.visible { opacity: 1; transform: none; }
-			@media (prefers-reduced-motion: reduce) {
-				.fade-in { opacity: 1 !important; transform: none !important; }
-			}
-
-			/* ======= DARK NAVY THEME OVERRIDES ======= */
-			header {
-				background: rgba(6, 13, 31, 0.82) !important;
-				backdrop-filter: blur(24px) !important;
-				border-bottom: 1px solid var(--navy-border) !important;
-			}
-			.logo { color: var(--text-primary) !important; letter-spacing: -0.3px; }
-			.nav-links a { color: var(--text-muted) !important; font-size: 0.9rem; }
-			.nav-links a:hover { color: var(--text-primary) !important; }
-			.nav-links a::after { background: var(--blue-accent) !important; }
-			.nav-github {
-				background: var(--navy-border);
-				border: 1px solid rgba(74,144,194,0.25);
-				padding: 0.35rem 0.9rem !important;
-				border-radius: 6px;
-				color: var(--blue-bright) !important;
-				font-size: 0.85rem !important;
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4rem;
-			}
-			.nav-github:hover { background: rgba(74,144,194,0.15) !important; }
-
-			/* AVAILABILITY BADGE */
-			.availability-badge {
-				display: inline-flex;
-				align-items: center;
-				gap: 8px;
-				background: rgba(16, 185, 129, 0.08);
-				border: 1px solid rgba(16, 185, 129, 0.25);
-				color: #6ee7b7;
-				padding: 0.45rem 1.1rem;
-				border-radius: 50px;
-				font-size: 0.82rem;
-				font-weight: 500;
-				letter-spacing: 0.01em;
-				margin-bottom: 2.2rem;
-			}
-			.avail-dot {
-				width: 7px;
-				height: 7px;
-				border-radius: 50%;
-				background: #10b981;
-				box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
-				flex-shrink: 0;
-			}
-
-			/* HERO IDENTITY (photo + name) — BIGGER PHOTO */
-			.hero-identity {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				gap: 1.8rem;
-				margin-bottom: 1.6rem;
-			}
-			.hero-photo {
-				width: 160px;
-				height: 160px;
-				border-radius: 50%;
-				border: 3px solid var(--blue-accent);
-				background: var(--navy-700);
-				overflow: hidden;
-				flex-shrink: 0;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				position: relative;
-				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 6px rgba(74, 144, 194, 0.08);
-			}
-			.hero-photo img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				border-radius: 50%;
-				display: block;
-			}
-			.hero-name-block { text-align: left; }
-			.hero-name-block h1 {
-				font-size: 2.6rem;
-				font-weight: 700;
-				margin: 0 0 0.2rem;
-				color: var(--text-primary);
-				background: none;
-				-webkit-text-fill-color: unset;
-				letter-spacing: -0.5px;
-			}
-			.hero-title {
-				font-size: 1.05rem;
-				color: var(--blue-bright);
-				margin: 0;
-				font-weight: 400;
-				letter-spacing: 0.02em;
-			}
-			.hero-content > h1 { display: none; }
-
-			.hero .subtitle {
-				font-size: 1rem !important;
-				color: var(--text-muted) !important;
-				max-width: 520px;
-				margin: 0 auto 2.5rem;
-				line-height: 1.7;
-			}
-
-			.stat-number { color: var(--text-primary) !important; }
-			.stat-label { color: var(--text-muted) !important; }
-
-			.btn-primary { background: var(--blue-accent) !important; color: #fff !important; border: none !important; font-size: 0.9rem; }
-			.btn-primary:hover { background: var(--blue-bright) !important; }
-			.btn-secondary { background: transparent !important; color: var(--text-primary) !important; border: 1px solid rgba(74,144,194,0.4) !important; font-size: 0.9rem; }
-			.btn-secondary:hover { background: rgba(74,144,194,0.1) !important; border-color: var(--blue-accent) !important; }
-			.btn-ghost { background: transparent !important; color: var(--text-muted) !important; border: 1px solid rgba(74,144,194,0.15) !important; font-size: 0.9rem; }
-			.btn-ghost:hover { color: var(--text-primary) !important; border-color: rgba(74,144,194,0.35) !important; }
-			.btn { box-shadow: none !important; }
-			.btn:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 20px rgba(0,0,0,0.25) !important; }
-
-			.hero-links {
-				display: flex;
-				justify-content: center;
-				gap: 1.2rem;
-				margin-top: 2rem;
-			}
-			.hero-link {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4rem;
-				color: var(--text-muted);
-				text-decoration: none;
-				font-size: 0.85rem;
-				transition: color 0.2s;
-			}
-			.hero-link:hover { color: var(--blue-bright); }
-			.hero-link i { font-size: 0.9rem; }
-
-			.section-title { color: var(--text-primary) !important; font-size: 2rem !important; font-weight: 600 !important; }
-			.skill-card, .about-card, .project-card, .cert-card, .contact-item, .timeline-content {
-				background: rgba(11, 20, 40, 0.6) !important;
-				border: 1px solid var(--navy-border) !important;
-			}
-			.skill-card h3, .project-card h3, .cert-info h3, .contact-item h3 {
-				color: var(--text-primary) !important;
-			}
-			.skill-card p, .project-card p, .cert-description { color: var(--text-muted) !important; }
-			.skill-list li { color: var(--text-muted) !important; }
-			.project-type { color: var(--blue-bright) !important; }
-			.tech-tag {
-				background: rgba(74,144,194,0.1) !important;
-				color: var(--blue-bright) !important;
-				border: 1px solid rgba(74,144,194,0.15);
-			}
-			.cert-provider { color: var(--blue-bright) !important; }
-			.cert-skill-tag { background: rgba(74,144,194,0.1) !important; color: var(--blue-bright) !important; }
-			.timeline-date { color: var(--blue-bright) !important; }
-			.timeline-title { color: var(--text-primary) !important; }
-			.timeline-company { color: var(--text-muted) !important; }
-			.timeline-description, .timeline-description p, .timeline-description li { color: var(--text-muted) !important; }
-			.timeline-line { background: var(--navy-border) !important; }
-			.contact-icon { color: var(--blue-accent) !important; }
-			.contact-item a, .contact-item span { color: var(--text-muted) !important; }
-			.contact-item a:hover { color: var(--text-primary) !important; }
-			section:nth-child(odd) { background: transparent; }
-			.particle { background: rgba(74, 144, 194, 0.04) !important; }
-			.cert-badge {
-				background: rgba(74,144,194,0.15) !important;
-				color: var(--blue-bright) !important;
-				border: 1px solid rgba(74,144,194,0.2);
-			}
-			.contact-banner { text-align: center; margin-bottom: 2rem; }
-			.contact-banner span { color: var(--text-muted); font-size: 1rem; }
-			.about-icon {
-				background: rgba(74,144,194,0.1) !important;
-				border: 1px solid rgba(74,144,194,0.18) !important;
-				color: var(--blue-accent) !important;
-			}
-			.about-content h3 { color: var(--text-primary) !important; }
-			.about-content p { color: var(--text-muted) !important; }
-			.about-content strong { color: var(--text-primary) !important; }
-
-			/* Mobile hero adjustments */
-			@media (max-width: 600px) {
-				.hero-identity { flex-direction: column; gap: 1.2rem; }
-				.hero-name-block { text-align: center; }
-				.hero-photo { width: 130px; height: 130px; }
-				.hero-name-block h1 { font-size: 2rem; }
-				.availability-badge { font-size: 0.75rem; text-align: center; }
-				.cta-buttons { flex-direction: column; align-items: stretch; }
-				.cta-buttons .btn { justify-content: center; }
-				.hero-links { flex-wrap: wrap; gap: 0.8rem; }
-			}
-
-			/* ======= ABOUT SECTION ======= */
-			.about-layout {
-				display: grid;
-				grid-template-columns: 1fr 360px;
-				gap: 2.5rem;
-				align-items: start;
-				margin-top: 2.5rem;
-			}
-			.about-bio { display: flex; flex-direction: column; gap: 1rem; }
-			.bio-intro { font-size: 1.05rem; line-height: 1.8; color: var(--text-primary); margin: 0; }
-			.bio-intro strong { color: var(--blue-bright); font-weight: 600; }
-			.bio-body { font-size: 0.95rem; line-height: 1.8; color: var(--text-muted); margin: 0; }
-			.bio-body strong { color: var(--text-primary); font-weight: 500; }
-			.about-languages {
-				margin-top: 1.5rem;
-				padding-top: 1.5rem;
-				border-top: 1px solid var(--navy-border);
-			}
-			.lang-label {
-				font-size: 0.78rem;
-				text-transform: uppercase;
-				letter-spacing: 0.1em;
-				color: var(--text-muted);
-				margin-bottom: 0.8rem;
-				font-weight: 500;
-			}
-			.lang-list { display: flex; flex-direction: column; gap: 0.55rem; }
-			.lang-item {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				max-width: 280px;
-			}
-			.lang-name { font-size: 0.9rem; color: var(--text-primary); font-weight: 500; }
-			.lang-level {
-				font-size: 0.75rem;
-				font-weight: 500;
-				padding: 0.2rem 0.7rem;
-				border-radius: 20px;
-				letter-spacing: 0.03em;
-			}
-			.lang-level.native {
-				background: rgba(16, 185, 129, 0.1);
-				color: #6ee7b7;
-				border: 1px solid rgba(16, 185, 129, 0.2);
-			}
-			.lang-level.professional {
-				background: rgba(74, 144, 194, 0.1);
-				color: var(--blue-bright);
-				border: 1px solid rgba(74, 144, 194, 0.2);
-			}
-			.about-facts { display: flex; flex-direction: column; gap: 0.8rem; }
-			.fact-card {
-				display: flex;
-				align-items: center;
-				gap: 1rem;
-				background: rgba(11, 20, 40, 0.6);
-				border: 1px solid var(--navy-border);
-				border-radius: 12px;
-				padding: 0.9rem 1.1rem;
-				transition: border-color 0.2s, background 0.2s;
-			}
-			.fact-card:hover {
-				background: rgba(15, 29, 53, 0.75);
-				border-color: rgba(74, 144, 194, 0.25);
-			}
-			.fact-card .about-icon {
-				width: 36px !important;
-				height: 36px !important;
-				border-radius: 9px !important;
-				font-size: 0.95rem !important;
-				flex-shrink: 0;
-				margin: 0 !important;
-			}
-			.fact-title {
-				font-size: 0.72rem;
-				text-transform: uppercase;
-				letter-spacing: 0.08em;
-				color: var(--text-muted);
-				font-weight: 500;
-				margin-bottom: 0.15rem;
-			}
-			.fact-value { font-size: 0.88rem; color: var(--text-primary); font-weight: 400; line-height: 1.4; }
-			@media (max-width: 900px) {
-				.about-layout { grid-template-columns: 1fr; }
-				.about-facts { display: grid; grid-template-columns: 1fr 1fr; }
-			}
-			@media (max-width: 560px) {
-				.about-facts { grid-template-columns: 1fr; }
-			}
-
-			/* ======= EXPERIENCE ======= */
-			.timeline-meta {
-				display: flex;
-				align-items: center;
-				gap: 0.7rem;
-				margin-bottom: 0.5rem;
-				flex-wrap: wrap;
-			}
-			.timeline-date {
-				font-size: 0.8rem !important;
-				color: var(--text-muted) !important;
-				font-weight: 400 !important;
-				display: flex;
-				align-items: center;
-				gap: 0.4rem;
-			}
-			.timeline-date i { font-size: 0.75rem; color: var(--blue-accent); }
-			.timeline-badge {
-				font-size: 0.7rem;
-				font-weight: 600;
-				padding: 0.15rem 0.6rem;
-				border-radius: 20px;
-				letter-spacing: 0.04em;
-				text-transform: uppercase;
-			}
-			.timeline-badge.current {
-				background: rgba(16,185,129,0.1);
-				color: #6ee7b7;
-				border: 1px solid rgba(16,185,129,0.2);
-			}
-			.timeline-badge.freelance {
-				background: rgba(74,144,194,0.1);
-				color: var(--blue-bright);
-				border: 1px solid rgba(74,144,194,0.2);
-			}
-			.timeline-title {
-				font-size: 1.1rem !important;
-				font-weight: 600 !important;
-				color: var(--text-primary) !important;
-				margin: 0.2rem 0 0.3rem !important;
-			}
-			.timeline-company {
-				font-size: 0.85rem !important;
-				color: var(--text-muted) !important;
-				font-style: normal !important;
-				margin-bottom: 1rem !important;
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-			}
-			.timeline-company i { color: var(--blue-accent); font-size: 0.8rem; }
-			.exp-bullets {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: flex;
-				flex-direction: column;
-				gap: 0.6rem;
-			}
-			.exp-bullets li {
-				font-size: 0.9rem;
-				color: var(--text-muted);
-				line-height: 1.7;
-				padding-left: 1.1rem;
-				position: relative;
-			}
-			.exp-bullets li::before {
-				content: "";
-				position: absolute;
-				left: 0;
-				top: 0.65em;
-				width: 4px;
-				height: 4px;
-				border-radius: 50%;
-				background: var(--blue-accent);
-				flex-shrink: 0;
-			}
-			.exp-bullets li strong { color: var(--text-primary); font-weight: 600; }
-			.timeline-tags {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.4rem;
-				margin-top: 1rem;
-				padding-top: 0.8rem;
-				border-top: 1px solid var(--navy-border);
-			}
-			.tl-tag {
-				font-size: 0.75rem;
-				color: var(--blue-bright);
-				background: rgba(74,144,194,0.08);
-				border: 1px solid rgba(74,144,194,0.15);
-				padding: 0.2rem 0.65rem;
-				border-radius: 20px;
-				font-weight: 500;
-			}
-			.timeline-content { padding: 1.5rem 1.8rem !important; border-radius: 14px !important; }
-
-			/* ======= PROJECTS ======= */
-			.section-subtitle {
-				text-align: center;
-				color: var(--text-muted);
-				font-size: 0.95rem;
-				margin-top: -1.8rem;
-				margin-bottom: 2.8rem;
-			}
-			.featured-projects {
-				display: flex;
-				flex-direction: column;
-				gap: 1.6rem;
-				margin-bottom: 3rem;
-			}
-			.featured-card {
-				display: grid;
-				grid-template-columns: 1fr 260px;
-				gap: 0;
-				background: rgba(11, 20, 40, 0.65);
-				border: 1px solid var(--navy-border);
-				border-radius: 16px;
-				overflow: hidden;
-				transition: border-color 0.25s, box-shadow 0.25s;
-			}
-			.featured-card:hover {
-				border-color: rgba(74,144,194,0.3);
-				box-shadow: 0 8px 40px rgba(0,0,0,0.3);
-			}
-			.featured-left { padding: 1.8rem 2rem; border-right: 1px solid var(--navy-border); }
-			.featured-category {
-				font-size: 0.75rem;
-				text-transform: uppercase;
-				letter-spacing: 0.1em;
-				color: var(--blue-bright);
-				font-weight: 600;
-				margin-bottom: 0.7rem;
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-			}
-			.featured-category i { font-size: 0.8rem; }
-			.featured-title {
-				font-size: 1.2rem;
-				font-weight: 600;
-				color: var(--text-primary);
-				margin: 0 0 1.3rem;
-				line-height: 1.35;
-			}
-			.case-study { display: flex; flex-direction: column; gap: 0.75rem; }
-			.cs-row {
-				display: grid;
-				grid-template-columns: 68px 1fr;
-				gap: 0.8rem;
-				align-items: start;
-			}
-			.cs-label {
-				font-size: 0.7rem;
-				font-weight: 600;
-				text-transform: uppercase;
-				letter-spacing: 0.08em;
-				color: var(--blue-accent);
-				padding-top: 0.15rem;
-				opacity: 0.85;
-			}
-			.cs-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
-			.featured-right {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				padding: 1.8rem 1.4rem;
-				background: rgba(6, 13, 31, 0.4);
-			}
-			.featured-visual {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				gap: 1.2rem;
-				width: 100%;
-			}
-			.vis-icon {
-				width: 52px; height: 52px;
-				border-radius: 14px;
-				background: rgba(74,144,194,0.1);
-				border: 1px solid rgba(74,144,194,0.2);
-				display: flex; align-items: center; justify-content: center;
-				font-size: 1.4rem;
-				color: var(--blue-accent);
-			}
-			.vis-flow {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				gap: 0.3rem;
-				width: 100%;
-			}
-			.vis-step {
-				background: rgba(74,144,194,0.08);
-				border: 1px solid rgba(74,144,194,0.15);
-				border-radius: 8px;
-				padding: 0.4rem 0.9rem;
-				font-size: 0.78rem;
-				color: var(--text-muted);
-				text-align: center;
-				width: 100%;
-			}
-			.vis-arrow { font-size: 0.65rem; color: var(--blue-accent); opacity: 0.6; }
-			.vis-stats { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
-			.vis-stat-row {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding: 0.4rem 0.7rem;
-				background: rgba(74,144,194,0.06);
-				border-radius: 7px;
-				border: 1px solid rgba(74,144,194,0.1);
-			}
-			.vs-label { font-size: 0.72rem; color: var(--text-muted); }
-			.vs-val { font-size: 0.75rem; color: var(--blue-bright); font-weight: 500; }
-			.vis-metric { text-align: center; }
-			.vm-number {
-				font-size: 3rem;
-				font-weight: 700;
-				color: var(--blue-bright);
-				line-height: 1;
-			}
-			.vm-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem; }
-			.other-projects-label {
-				font-size: 0.75rem;
-				text-transform: uppercase;
-				letter-spacing: 0.12em;
-				color: var(--text-muted);
-				font-weight: 600;
-				margin-bottom: 1rem;
-				opacity: 0.7;
-			}
-			.other-projects-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-				gap: 1rem;
-			}
-			.other-card {
-				background: rgba(11, 20, 40, 0.55);
-				border: 1px solid var(--navy-border);
-				border-radius: 12px;
-				padding: 1.2rem 1.4rem;
-				transition: border-color 0.2s, background 0.2s;
-			}
-			.other-card:hover {
-				border-color: rgba(74,144,194,0.28);
-				background: rgba(15, 29, 53, 0.7);
-			}
-			.oc-top { margin-bottom: 0.6rem; }
-			.oc-category {
-				font-size: 0.7rem;
-				font-weight: 600;
-				text-transform: uppercase;
-				letter-spacing: 0.08em;
-				color: var(--blue-bright);
-				opacity: 0.85;
-			}
-			.other-card h4 {
-				font-size: 0.95rem;
-				font-weight: 600;
-				color: var(--text-primary);
-				margin: 0 0 0.5rem;
-				line-height: 1.4;
-			}
-			.other-card p {
-				font-size: 0.83rem;
-				color: var(--text-muted);
-				line-height: 1.6;
-				margin: 0 0 0.8rem;
-			}
-			.other-card .project-tech { margin-top: 0.6rem; }
-			.other-card .tech-tag { font-size: 0.72rem; padding: 0.15rem 0.55rem; }
-			@media (max-width: 820px) {
-				.featured-card { grid-template-columns: 1fr; }
-				.featured-left { border-right: none; border-bottom: 1px solid var(--navy-border); }
-				.featured-right { padding: 1.2rem; }
-				.vis-flow { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-				.vis-step { width: auto; }
-			}
-			@media (max-width: 500px) {
-				.other-projects-grid { grid-template-columns: 1fr; }
-			}
-
-			/* ======= SKILLS ======= */
-			.skills-layout {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1.4rem;
-				margin-top: 2.5rem;
-			}
-			.skill-group {
-				background: rgba(11, 20, 40, 0.6);
-				border: 1px solid var(--navy-border);
-				border-radius: 14px;
-				padding: 1.5rem 1.6rem;
-				transition: border-color 0.2s;
-			}
-			.skill-group:hover { border-color: rgba(74,144,194,0.28); }
-			.sg-header {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				margin-bottom: 1.4rem;
-				padding-bottom: 1rem;
-				border-bottom: 1px solid var(--navy-border);
-			}
-			.sg-icon {
-				width: 34px; height: 34px;
-				border-radius: 9px;
-				background: rgba(74,144,194,0.1);
-				border: 1px solid rgba(74,144,194,0.18);
-				display: flex; align-items: center; justify-content: center;
-				color: var(--blue-accent);
-				font-size: 0.9rem;
-				flex-shrink: 0;
-			}
-			.sg-title {
-				font-size: 0.88rem;
-				font-weight: 600;
-				color: var(--text-primary);
-				line-height: 1.3;
-			}
-			.skill-items { display: flex; flex-direction: column; gap: 0.9rem; }
-			.si-top {
-				display: flex;
-				justify-content: space-between;
-				align-items: baseline;
-				margin-bottom: 0.3rem;
-			}
-			.si-name { font-size: 0.85rem; color: var(--text-primary); font-weight: 400; }
-			.si-level { font-size: 0.7rem; color: var(--text-muted); font-weight: 400; }
-			.si-bar {
-				height: 3px;
-				background: rgba(74,144,194,0.12);
-				border-radius: 2px;
-				overflow: hidden;
-			}
-			.si-fill {
-				height: 100%;
-				background: linear-gradient(90deg, var(--blue-accent), var(--blue-bright));
-				border-radius: 2px;
-				animation: barGrow 1s ease forwards;
-				transform-origin: left;
-			}
-			@keyframes barGrow {
-				from { width: 0 !important; }
-			}
-			@media (max-width: 900px) {
-				.skills-layout { grid-template-columns: 1fr; }
-			}
-			@media (min-width: 600px) and (max-width: 900px) {
-				.skills-layout { grid-template-columns: repeat(2, 1fr); }
-			}
-
-			/* ======= CONTACT ======= */
-			.contact-layout {
-				display: grid;
-				grid-template-columns: 1fr 320px;
-				gap: 2rem;
-				margin-top: 2.5rem;
-				align-items: start;
-			}
-			.contact-form-wrap {
-				background: rgba(11, 20, 40, 0.6);
-				border: 1px solid var(--navy-border);
-				border-radius: 16px;
-				padding: 2rem;
-			}
-			.contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
-			.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-			.cf-field { display: flex; flex-direction: column; gap: 0.4rem; }
-			.cf-field label {
-				font-size: 0.78rem;
-				font-weight: 500;
-				color: var(--text-muted);
-				letter-spacing: 0.02em;
-			}
-			.cf-field input,
-			.cf-field textarea {
-				background: rgba(6, 13, 31, 0.6);
-				border: 1px solid var(--navy-border);
-				border-radius: 8px;
-				padding: 0.65rem 0.85rem;
-				color: var(--text-primary);
-				font-size: 0.88rem;
-				font-family: inherit;
-				transition: border-color 0.2s, background 0.2s;
-				resize: vertical;
-				outline: none;
-			}
-			.cf-field input::placeholder,
-			.cf-field textarea::placeholder { color: rgba(200,218,235,0.3); }
-			.cf-field input:focus,
-			.cf-field textarea:focus {
-				border-color: rgba(74,144,194,0.5);
-				background: rgba(6, 13, 31, 0.8);
-			}
-			.cf-submit { align-self: flex-start; padding: 0.7rem 1.6rem !important; border-radius: 8px !important; }
-			.cf-note { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
-			.cf-success {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				background: rgba(16,185,129,0.08);
-				border: 1px solid rgba(16,185,129,0.2);
-				border-radius: 10px;
-				padding: 1rem 1.2rem;
-				color: #6ee7b7;
-				font-size: 0.9rem;
-				margin-top: 1rem;
-			}
-			.cf-success i { font-size: 1.1rem; }
-
-			/* Form validation states */
-			.cf-field input.cf-invalid,
-			.cf-field textarea.cf-invalid {
-				border-color: rgba(226, 75, 74, 0.6) !important;
-				background: rgba(226, 75, 74, 0.04) !important;
-			}
-			.cf-error-msg {
-				font-size: 0.75rem;
-				color: #f08080;
-				min-height: 1em;
-				display: none;
-			}
-			.cf-error-msg.show { display: block; }
-			.cf-counter {
-				font-size: 0.7rem;
-				color: var(--text-muted);
-				text-align: right;
-				margin-top: 0.2rem;
-				opacity: 0.7;
-			}
-			.cf-counter.warn { color: #f0b44e; }
-			.cf-error-box {
-				display: flex;
-				align-items: center;
-				gap: 0.75rem;
-				background: rgba(226, 75, 74, 0.08);
-				border: 1px solid rgba(226, 75, 74, 0.25);
-				border-radius: 10px;
-				padding: 1rem 1.2rem;
-				color: #f08080;
-				font-size: 0.9rem;
-				margin-top: 1rem;
-			}
-			.cf-error-box i { font-size: 1.1rem; }
-			.cf-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-			.cf-submit.loading .fa-paper-plane { animation: cfSpin 0.8s linear infinite; }
-			@keyframes cfSpin {
-				from { transform: rotate(0deg); }
-				to   { transform: rotate(360deg); }
-			}
-
-			/* Sidebar */
-			.contact-sidebar { display: flex; flex-direction: column; gap: 1rem; }
-			.cs-links { display: flex; flex-direction: column; gap: 0.5rem; }
-			.cs-link-item {
-				display: flex;
-				align-items: center;
-				gap: 0.85rem;
-				background: rgba(11, 20, 40, 0.6);
-				border: 1px solid var(--navy-border);
-				border-radius: 10px;
-				padding: 0.8rem 1rem;
-				text-decoration: none;
-				transition: border-color 0.2s, background 0.2s;
-			}
-			.cs-link-item:not(.no-link):hover {
-				border-color: rgba(74,144,194,0.28);
-				background: rgba(15,29,53,0.75);
-			}
-			.cs-link-icon {
-				width: 32px; height: 32px;
-				border-radius: 8px;
-				background: rgba(74,144,194,0.1);
-				border: 1px solid rgba(74,144,194,0.15);
-				display: flex; align-items: center; justify-content: center;
-				font-size: 0.9rem;
-				color: var(--blue-accent);
-				flex-shrink: 0;
-			}
-			.whatsapp-icon { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2); color: #6ee7b7; }
-			.linkedin-icon  { background: rgba(74,144,194,0.12); border-color: rgba(74,144,194,0.2); color: var(--blue-bright); }
-			.github-icon    { background: rgba(200,218,235,0.07); border-color: rgba(200,218,235,0.12); color: var(--text-muted); }
-			.cs-link-label {
-				font-size: 0.7rem;
-				text-transform: uppercase;
-				letter-spacing: 0.07em;
-				color: var(--text-muted);
-				font-weight: 500;
-				margin-bottom: 0.1rem;
-			}
-			.cs-link-val {
-				font-size: 0.82rem;
-				color: var(--text-primary);
-				font-weight: 400;
-				word-break: break-all;
-			}
-			.cs-availability {
-				display: flex;
-				align-items: center;
-				gap: 0.6rem;
-				font-size: 0.82rem;
-				color: #6ee7b7;
-				background: rgba(16,185,129,0.07);
-				border: 1px solid rgba(16,185,129,0.18);
-				border-radius: 8px;
-				padding: 0.7rem 1rem;
-			}
-
-			/* Footer */
-			.site-footer {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				margin-top: 4rem;
-				padding-top: 1.5rem;
-				border-top: 1px solid var(--navy-border);
-				font-size: 0.8rem;
-				color: var(--text-muted);
-				flex-wrap: wrap;
-				gap: 0.5rem;
-			}
-			@media (max-width: 820px) {
-				.contact-layout { grid-template-columns: 1fr; }
-				.cf-row { grid-template-columns: 1fr; }
-				.contact-sidebar { order: -1; }
-				.cs-download .btn { width: 100%; justify-content: center; }
-			}
-
-			/* ============ FINAL POLISH ============ */
-			.hamburger {
-				display: none;
-				flex-direction: column;
-				justify-content: center;
-				gap: 5px;
-				background: none;
-				border: none;
-				cursor: pointer;
-				padding: 4px;
-				z-index: 1100;
-			}
-			.hamburger span {
-				display: block;
-				width: 22px;
-				height: 2px;
-				background: var(--text-primary);
-				border-radius: 2px;
-				transition: all 0.3s ease;
-				transform-origin: center;
-			}
-			.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-			.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-			.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-			@media (max-width: 768px) {
-				.hamburger { display: flex; }
-				.nav-links {
-					display: none !important;
-					position: fixed;
-					top: 0; left: 0; right: 0; bottom: 0;
-					background: rgba(6, 13, 31, 0.97);
-					backdrop-filter: blur(20px);
-					flex-direction: column !important;
-					align-items: center;
-					justify-content: center;
-					gap: 2rem !important;
-					z-index: 1050;
-				}
-				.nav-links.open { display: flex !important; }
-				.nav-links a { font-size: 1.3rem !important; color: var(--text-primary) !important; }
-				.nav-github { font-size: 1rem !important; padding: 0.5rem 1.2rem !important; }
-			}
-
-			.nav-links a.nav-active { color: var(--text-primary) !important; }
-			.nav-links a.nav-active::after { width: 100% !important; }
-
-			section {
-				padding: 5rem 2rem !important;
-				max-width: 1200px !important;
-				margin: 0 auto !important;
-			}
-			.hero { max-width: 100% !important; padding: 0 !important; }
-
-			.section-title { margin-bottom: 0.5rem !important; }
-			.section-subtitle { margin-bottom: 2.8rem; }
-			#home { max-width: 100% !important; padding: 0 !important; }
-			.hero { padding: 0 2rem !important; }
-
-			#scrollTop {
-				position: fixed;
-				bottom: 2rem; right: 2rem;
-				width: 40px; height: 40px;
-				border-radius: 50%;
-				background: rgba(74,144,194,0.15);
-				border: 1px solid rgba(74,144,194,0.3);
-				color: var(--blue-bright);
-				font-size: 0.9rem;
-				cursor: pointer;
-				display: flex; align-items: center; justify-content: center;
-				opacity: 0;
-				transform: translateY(10px);
-				transition: opacity 0.3s, transform 0.3s, background 0.2s;
-				z-index: 500;
-			}
-			#scrollTop.visible { opacity: 1; transform: translateY(0); }
-			#scrollTop:hover { background: rgba(74,144,194,0.28); }
-
-			::selection { background: rgba(74,144,194,0.3); color: var(--text-primary); }
-			::-webkit-scrollbar { width: 6px; }
-			::-webkit-scrollbar-track { background: var(--navy-900); }
-			::-webkit-scrollbar-thumb { background: rgba(74,144,194,0.25); border-radius: 3px; }
-			::-webkit-scrollbar-thumb:hover { background: rgba(74,144,194,0.45); }
-
-			.project-card::before,
-			.about-card::before,
-			.cert-card::before { display: none !important; }
-
-			section { background: transparent !important; }
-			#contact { border-top: 1px solid var(--navy-border); }
-
-			@media (prefers-reduced-motion: reduce) {
-				*, *::before, *::after {
-					animation-duration: 0.01ms !important;
-					transition-duration: 0.01ms !important;
-				}
-			}
-
-			/* CERTIFICATIONS */
-			.cert-new-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-				gap: 1.2rem;
-				margin-top: 2.5rem;
-			}
-			.cert-new-card {
-				background: rgba(11, 20, 40, 0.6);
-				border: 1px solid var(--navy-border);
-				border-radius: 14px;
-				padding: 1.4rem 1.5rem;
-				display: flex;
-				flex-direction: column;
-				gap: 1rem;
-				transition: border-color 0.2s, background 0.2s;
-			}
-			.cert-new-card:hover {
-				border-color: rgba(74,144,194,0.28);
-				background: rgba(15, 29, 53, 0.75);
-			}
-			.cert-new-top {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-			}
-			.cert-new-icon {
-				width: 40px; height: 40px;
-				border-radius: 10px;
-				display: flex; align-items: center; justify-content: center;
-				font-size: 1rem;
-				flex-shrink: 0;
-			}
-			.c-blue-icon  { background: rgba(74,144,194,0.12);  border: 1px solid rgba(74,144,194,0.2);  color: var(--blue-bright); }
-			.c-teal-icon  { background: rgba(29,158,117,0.1);   border: 1px solid rgba(29,158,117,0.2);  color: #4ec9a8; }
-			.c-red-icon   { background: rgba(226,75,74,0.1);    border: 1px solid rgba(226,75,74,0.2);   color: #f08080; }
-			.c-amber-icon { background: rgba(186,117,23,0.12);  border: 1px solid rgba(186,117,23,0.2);  color: #f0b44e; }
-			.c-green-icon { background: rgba(99,153,34,0.1);    border: 1px solid rgba(99,153,34,0.2);   color: #8fce5a; }
-			.cert-new-meta {
-				display: flex;
-				flex-direction: column;
-				align-items: flex-end;
-				gap: 0.3rem;
-			}
-			.cert-new-badge {
-				font-size: 0.68rem;
-				font-weight: 600;
-				text-transform: uppercase;
-				letter-spacing: 0.07em;
-				padding: 0.18rem 0.65rem;
-				border-radius: 20px;
-			}
-			.data-badge       { background: rgba(74,144,194,0.1);  color: var(--blue-bright);  border: 1px solid rgba(74,144,194,0.2); }
-			.bi-badge         { background: rgba(74,144,194,0.1);  color: var(--blue-bright);  border: 1px solid rgba(74,144,194,0.2); }
-			.network-badge    { background: rgba(29,158,117,0.1);  color: #4ec9a8;             border: 1px solid rgba(29,158,117,0.2); }
-			.security-badge   { background: rgba(226,75,74,0.1);   color: #f08080;             border: 1px solid rgba(226,75,74,0.2); }
-			.challenge-badge  { background: rgba(186,117,23,0.12); color: #f0b44e;             border: 1px solid rgba(186,117,23,0.2); }
-			.programming-badge{ background: rgba(99,153,34,0.1);   color: #8fce5a;             border: 1px solid rgba(99,153,34,0.2); }
-			.cert-new-date { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
-			.cert-new-body { display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
-			.cert-new-body h3 {
-				font-size: 0.95rem;
-				font-weight: 600;
-				color: var(--text-primary);
-				margin: 0;
-				line-height: 1.4;
-			}
-			.cert-new-issuer {
-				font-size: 0.78rem;
-				color: var(--blue-bright);
-				display: flex;
-				align-items: center;
-				gap: 0.4rem;
-				opacity: 0.85;
-			}
-			.cert-new-issuer i { font-size: 0.7rem; }
-			.cert-new-body p {
-				font-size: 0.82rem;
-				color: var(--text-muted);
-				line-height: 1.6;
-				margin: 0.2rem 0 0;
-			}
-			.cert-new-footer {
-				display: flex;
-				align-items: flex-end;
-				justify-content: space-between;
-				gap: 0.6rem;
-				padding-top: 0.8rem;
-				border-top: 1px solid var(--navy-border);
-			}
-			.cert-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-			.cert-verify-link {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.3rem;
-				font-size: 0.75rem;
-				color: var(--blue-accent);
-				text-decoration: none;
-				white-space: nowrap;
-				opacity: 0.8;
-				transition: opacity 0.2s;
-				flex-shrink: 0;
-			}
-			.cert-verify-link:hover { opacity: 1; }
-			.cert-verify-link i { font-size: 0.65rem; }
-
-			.cert-targets {
-				margin-top: 2rem;
-				background: rgba(11, 20, 40, 0.5);
-				border: 1px solid var(--navy-border);
-				border-radius: 14px;
-				padding: 1.2rem 1.6rem;
-			}
-			.ct-label {
-				font-size: 0.72rem;
-				text-transform: uppercase;
-				letter-spacing: 0.1em;
-				color: var(--text-muted);
-				font-weight: 600;
-				margin-bottom: 1rem;
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-			}
-			.ct-label i { color: var(--blue-accent); font-size: 0.75rem; }
-			.ct-items {
-				display: flex;
-				gap: 1rem;
-				flex-wrap: wrap;
-			}
-			.ct-item {
-				display: flex;
-				align-items: center;
-				gap: 0.8rem;
-				background: rgba(6, 13, 31, 0.5);
-				border: 1px dashed rgba(74,144,194,0.2);
-				border-radius: 10px;
-				padding: 0.7rem 1rem;
-				flex: 1;
-				min-width: 200px;
-			}
-			.ct-icon {
-				width: 34px; height: 34px;
-				border-radius: 8px;
-				background: rgba(74,144,194,0.08);
-				border: 1px solid rgba(74,144,194,0.15);
-				display: flex; align-items: center; justify-content: center;
-				color: var(--blue-accent);
-				font-size: 0.85rem;
-				flex-shrink: 0;
-			}
-			.ct-name { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.1rem; }
-			.ct-sub { font-size: 0.75rem; color: var(--text-muted); }
-			.ct-status {
-				margin-left: auto;
-				font-size: 0.7rem;
-				font-weight: 600;
-				text-transform: uppercase;
-				letter-spacing: 0.06em;
-				padding: 0.2rem 0.6rem;
-				border-radius: 20px;
-				white-space: nowrap;
-				flex-shrink: 0;
-			}
-			.ct-item:first-child .ct-status {
-				background: rgba(16,185,129,0.1);
-				color: #6ee7b7;
-				border: 1px solid rgba(16,185,129,0.2);
-			}
-			.ct-item:last-child .ct-status {
-				background: rgba(74,144,194,0.08);
-				color: var(--text-muted);
-				border: 1px solid rgba(74,144,194,0.15);
-			}
-			@media (max-width: 600px) {
-				.cert-new-grid { grid-template-columns: 1fr; }
-				.ct-items { flex-direction: column; }
-			}
-
-			/* HERO FINAL */
-			.hero-content {
-				max-width: 720px;
-				margin: 0 auto;
-				padding: 2rem;
-				text-align: center;
-			}
-			.hero-identity { justify-content: center; }
-			.hero-name-block { text-align: left; }
-			.hero-stats {
-				display: flex;
-				justify-content: center;
-				gap: 0;
-				margin: 2.5rem 0;
-				background: rgba(11,20,40,0.5);
-				border: 1px solid var(--navy-border);
-				border-radius: 12px;
-				overflow: hidden;
-			}
-			.stat {
-				flex: 1;
-				padding: 1.1rem 0.5rem;
-				border-right: 1px solid var(--navy-border);
-				text-align: center;
-			}
-			.stat:last-child { border-right: none; }
-			.stat-number {
-				font-size: 1.8rem !important;
-				font-weight: 700;
-				color: var(--text-primary) !important;
-				line-height: 1;
-				display: block;
-			}
-			.stat-label {
-				font-size: 0.72rem !important;
-				color: var(--text-muted) !important;
-				margin-top: 0.3rem;
-				display: block;
-				letter-spacing: 0.02em;
-			}
-			.attention-badge {
-				background: rgba(74, 144, 194, 0.08) !important;
-				border: 1px solid rgba(74,144,194,0.18) !important;
-				color: var(--text-muted) !important;
-				font-size: 0.85rem !important;
-				padding: 0.45rem 1.1rem !important;
-				margin-bottom: 1rem !important;
-			}
-			.attention-badge i { color: var(--blue-accent); font-size: 0.8rem; }
-			.cta-buttons {
-				display: flex;
-				gap: 0.7rem;
-				justify-content: center;
-				flex-wrap: wrap;
-				margin-top: 2rem;
-			}
-			.btn {
-				padding: 0.65rem 1.4rem !important;
-				border-radius: 8px !important;
-				font-size: 0.875rem !important;
-				font-weight: 500 !important;
-				letter-spacing: 0.01em;
-			}
-
-			.timeline-line {
-				left: 0 !important;
-				width: 2px !important;
-				background: var(--navy-border) !important;
-			}
-			.timeline-item {
-				text-align: left !important;
-				padding-left: 1.8rem !important;
-				padding-right: 0 !important;
-			}
-			.timeline-item:nth-child(odd),
-			.timeline-item:nth-child(even) {
-				text-align: left !important;
-				padding-right: 0 !important;
-				padding-left: 1.8rem !important;
-			}
-			.timeline-item::before {
-				content: "";
-				position: absolute;
-				left: -4px;
-				top: 1.8rem;
-				width: 10px;
-				height: 10px;
-				border-radius: 50%;
-				background: var(--blue-accent);
-				border: 2px solid var(--navy-900);
-				z-index: 1;
-			}
-			section[id] { scroll-margin-top: 80px; }
-			.skill-icon { color: var(--blue-accent) !important; font-size: 1.8rem !important; margin-bottom: 0.8rem; }
-			.skill-card h3 { font-size: 1.1rem !important; margin-bottom: 0.5rem; }
-			.skill-card p { font-size: 0.85rem !important; margin-bottom: 0.8rem; }
-			.skill-list li { font-size: 0.85rem !important; padding: 0.2rem 0 !important; }
-			.skills-grid { display: none !important; }
-			.about-card { border-radius: 14px !important; }
-			#contact { border-top: 1px solid var(--navy-border) !important; }
-			.site-footer { opacity: 0.7; }
-			.cert-grid { display: none !important; }
-		</style>
-	</head>
-	<body>
-		<!-- Animated Background -->
-		<div class="bg-animation"></div>
-		<div class="particles" id="particles"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abdelrahman Elmogy | Data &amp; Automation Engineer</title>
+<meta name="description" content="Data &amp; Automation Engineer in Cairo, Egypt. SQL Server, Python, APIs, Power BI and applied AI. Open to remote roles and relocation worldwide.">
+<meta name="author" content="Abdelrahman Elmogy">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#060d1f">
+<link rel="canonical" href="https://abdelrahamannelmogyy.github.io/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Abdelrahman Elmogy">
+<meta property="og:title" content="Abdelrahman Elmogy | Data &amp; Automation Engineer">
+<meta property="og:description" content="Data &amp; Automation Engineer in Cairo, Egypt. SQL Server, Python, APIs, Power BI and applied AI. Open to remote roles and relocation worldwide.">
+<meta property="og:url" content="https://abdelrahamannelmogyy.github.io/">
+<meta property="og:image" content="https://abdelrahamannelmogyy.github.io/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Abdelrahman Elmogy, Data and Automation Engineer: a pipeline map from data sources to business outcomes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Abdelrahman Elmogy | Data &amp; Automation Engineer">
+<meta name="twitter:description" content="Data &amp; Automation Engineer in Cairo, Egypt. SQL Server, Python, APIs, Power BI and applied AI. Open to remote roles and relocation worldwide.">
+<meta name="twitter:image" content="https://abdelrahamannelmogyy.github.io/assets/img/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/styles.css?v=2.0.0">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Abdelrahman Elmogy",
+  "jobTitle": "Data & Automation Engineer",
+  "description": "Data & Automation Engineer in Cairo, Egypt. SQL Server, Python, APIs, Power BI and applied AI. Open to remote roles and relocation worldwide.",
+  "url": "https://abdelrahamannelmogyy.github.io/",
+  "image": "https://abdelrahamannelmogyy.github.io/profile.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cairo",
+    "addressCountry": "EG"
+  },
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Mansoura University"
+  },
+  "knowsAbout": [
+    "Data engineering",
+    "Business intelligence",
+    "Power BI",
+    "Python",
+    "SQL Server",
+    "ETL",
+    "REST APIs",
+    "Workflow automation"
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/abdelrahman-elmogyy/",
+    "https://github.com/abdelrahamannelmogyy"
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<!-- Icons: Font Awesome Free 6.4 by @fontawesome (https://fontawesome.com), CC BY 4.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" class="sr-only" aria-hidden="true" focusable="false">
+<symbol id="i-github" viewBox="0 0 512 512"><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5l0 52C323 491.5 335.5 500 350.5 494 441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5l0-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21z"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32L31.9 32C14.3 32 0 46.5 0 64.3L0 447.7C0 465.5 14.3 480 31.9 480L416 480c17.6 0 32-14.5 32-32.3l0-383.4C448 46.5 433.6 32 416 32zM135.4 416l-66.4 0 0-213.8 66.5 0 0 213.8-.1 0zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77zM384.3 416l-66.4 0 0-104c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9l0 105.8-66.4 0 0-213.8 63.7 0 0 29.2 .9 0c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9l0 117.2z"/></symbol>
+<symbol id="i-whatsapp" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1c-41.9-42-97.7-65.1-157-65.1-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480 117.7 449.1c32.4 17.7 68.9 27 106.1 27l.1 0c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3 18.6-68.1-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1s56.2 81.2 56.1 130.5c0 101.8-84.9 184.6-186.6 184.6zM325.1 300.5c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8s-14.3 18-17.6 21.8c-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7s-12.5-30.1-17.1-41.2c-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2s-9.7 1.4-14.8 6.9c-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4s4.6-24.1 3.2-26.4c-1.3-2.5-5-3.9-10.5-6.6z"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 384 512"><path fill="currentColor" d="M169.4 502.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 402.7 224 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 370.7-105.4-105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 384 512"><path fill="currentColor" d="M214.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3 160 480c0 17.7 14.3 32 32 32s32-14.3 32-32l0-370.7 105.4 105.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 448 512"><path fill="currentColor" d="M338.8-9.9c11.9 8.6 16.3 24.2 10.9 37.8L271.3 224 416 224c13.5 0 25.5 8.4 30.1 21.1s.7 26.9-9.6 35.5l-288 240c-11.3 9.4-27.4 9.9-39.3 1.3s-16.3-24.2-10.9-37.8L176.7 288 32 288c-13.5 0-25.5-8.4-30.1-21.1s-.7-26.9 9.6-35.5l288-240c11.3-9.4 27.4-9.9 39.3-1.3z"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 512 512"><path fill="currentColor" d="M200 48l112 0c4.4 0 8 3.6 8 8l0 40-128 0 0-40c0-4.4 3.6-8 8-8zm-56 8l0 40-80 0C28.7 96 0 124.7 0 160l0 96 512 0 0-96c0-35.3-28.7-64-64-64l-80 0 0-40c0-30.9-25.1-56-56-56L200 0c-30.9 0-56 25.1-56 56zM512 304l-192 0 0 16c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-16-192 0 0 112c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-112z"/></symbol>
+<symbol id="i-building" viewBox="0 0 384 512"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM176 352l32 0c17.7 0 32 14.3 32 32l0 80-96 0 0-80c0-17.7 14.3-32 32-32zM96 112c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM240 96l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM96 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm144-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16z"/></symbol>
+<symbol id="i-calculator" viewBox="0 0 384 512"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm16 168a24 24 0 1 1 -48 0 24 24 0 1 1 48 0zm80 24a24 24 0 1 1 0-48 24 24 0 1 1 0 48zm128-24a24 24 0 1 1 -48 0 24 24 0 1 1 48 0zM88 352a24 24 0 1 1 0-48 24 24 0 1 1 0 48zm128-24a24 24 0 1 1 -48 0 24 24 0 1 1 48 0zm80 24a24 24 0 1 1 0-48 24 24 0 1 1 0 48zM64 424c0-13.3 10.7-24 24-24l112 0c13.3 0 24 10.7 24 24s-10.7 24-24 24L88 448c-13.3 0-24-10.7-24-24zm232-24c13.3 0 24 10.7 24 24s-10.7 24-24 24-24-10.7-24-24 10.7-24 24-24z"/></symbol>
+<symbol id="i-calendar-alt" viewBox="0 0 448 512"><path fill="currentColor" d="M128 0c17.7 0 32 14.3 32 32l0 32 128 0 0-32c0-17.7 14.3-32 32-32s32 14.3 32 32l0 32 32 0c35.3 0 64 28.7 64 64l0 288c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 128C0 92.7 28.7 64 64 64l32 0 0-32c0-17.7 14.3-32 32-32zM64 240l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm128 0l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zM64 368l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zm112 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16z"/></symbol>
+<symbol id="i-chart-bar" viewBox="0 0 512 512"><path fill="currentColor" d="M32 32c17.7 0 32 14.3 32 32l0 336c0 8.8 7.2 16 16 16l400 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L80 480c-44.2 0-80-35.8-80-80L0 64C0 46.3 14.3 32 32 32zm96 64c0-17.7 14.3-32 32-32l192 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-192 0c-17.7 0-32-14.3-32-32zm32 80l128 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 112l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></symbol>
+<symbol id="i-chart-line" viewBox="0 0 512 512"><path fill="currentColor" d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64L0 400c0 44.2 35.8 80 80 80l400 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L80 416c-8.8 0-16-7.2-16-16L64 64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7 262.6 153.4c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l73.4-73.4 57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z"/></symbol>
+<symbol id="i-chart-pie" viewBox="0 0 576 512"><path fill="currentColor" d="M512.4 240l-176 0c-17.7 0-32-14.3-32-32l0-176c0-17.7 14.4-32.2 31.9-29.9 107 14.2 191.8 99 206 206 2.3 17.5-12.2 31.9-29.9 31.9zM222.6 37.2c18.1-3.8 33.8 11 33.8 29.5l0 197.3c0 5.6 2 11 5.5 15.3L394 438.7c11.7 14.1 9.2 35.4-6.9 44.1-34.1 18.6-73.2 29.2-114.7 29.2-132.5 0-240-107.5-240-240 0-115.5 81.5-211.9 190.2-234.8zM477.8 288l64 0c18.5 0 33.3 15.7 29.5 33.8-10.2 48.4-35 91.4-69.6 124.2-12.3 11.7-31.6 9.2-42.4-3.9L374.9 340.4c-17.3-20.9-2.4-52.4 24.6-52.4l78.2 0z"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 512 512"><path fill="currentColor" d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zM374 145.7c-10.7-7.8-25.7-5.4-33.5 5.3L221.1 315.2 169 263.1c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l72 72c5 5 11.8 7.5 18.8 7s13.4-4.1 17.5-9.8L379.3 179.2c7.8-10.7 5.4-25.7-5.3-33.5z"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 576 512"><path fill="currentColor" d="M0 336c0 79.5 64.5 144 144 144l304 0c70.7 0 128-57.3 128-128 0-51.6-30.5-96.1-74.5-116.3 6.7-13.1 10.5-28 10.5-43.7 0-53-43-96-96-96-17.7 0-34.2 4.8-48.4 13.1-24.1-45.8-72.2-77.1-127.6-77.1-79.5 0-144 64.5-144 144 0 8 .7 15.9 1.9 23.5-56.9 19.2-97.9 73.1-97.9 136.5z"/></symbol>
+<symbol id="i-code" viewBox="0 0 576 512"><path fill="currentColor" d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 150.6 182.6c12.5-12.5 12.5-32.8 0-45.3z"/></symbol>
+<symbol id="i-cogs" viewBox="0 0 640 512"><path fill="currentColor" d="M415.9 210.5c12.2-3.3 25 2.5 30.5 13.8L465 261.9c10.3 1.4 20.4 4.2 29.9 8.1l35-23.3c10.5-7 24.4-5.6 33.3 3.3l19.2 19.2c8.9 8.9 10.3 22.9 3.3 33.3l-23.3 34.9c1.9 4.7 3.6 9.6 5 14.7 1.4 5.1 2.3 10.1 3 15.2l37.7 18.6c11.3 5.6 17.1 18.4 13.8 30.5l-7 26.2c-3.3 12.1-14.6 20.3-27.2 19.5l-42-2.7c-6.3 8.1-13.6 15.6-21.9 22l2.7 41.9c.8 12.6-7.4 24-19.5 27.2l-26.2 7c-12.2 3.3-24.9-2.5-30.5-13.8l-18.6-37.6c-10.3-1.4-20.4-4.2-29.9-8.1l-35 23.3c-10.5 7-24.4 5.6-33.3-3.3l-19.2-19.2c-8.9-8.9-10.3-22.8-3.3-33.3l23.3-35c-1.9-4.7-3.6-9.6-5-14.7s-2.3-10.2-3-15.2l-37.7-18.6c-11.3-5.6-17-18.4-13.8-30.5l7-26.2c3.3-12.1 14.6-20.3 27.2-19.5l41.9 2.7c6.3-8.1 13.6-15.6 21.9-22l-2.7-41.8c-.8-12.6 7.4-24 19.5-27.2l26.2-7zM448.4 340a44 44 0 1 0 .1 88 44 44 0 1 0 -.1-88zM224.9-45.5l26.2 7c12.1 3.3 20.3 14.7 19.5 27.2l-2.7 41.8c8.3 6.4 15.6 13.8 21.9 22l42-2.7c12.5-.8 23.9 7.4 27.2 19.5l7 26.2c3.2 12.1-2.5 24.9-13.8 30.5l-37.7 18.6c-.7 5.1-1.7 10.2-3 15.2s-3.1 10-5 14.7l23.3 35c7 10.5 5.6 24.4-3.3 33.3L307.3 262c-8.9 8.9-22.8 10.3-33.3 3.3L239 242c-9.5 3.9-19.6 6.7-29.9 8.1l-18.6 37.6c-5.6 11.3-18.4 17-30.5 13.8l-26.2-7c-12.2-3.3-20.3-14.7-19.5-27.2l2.7-41.9c-8.3-6.4-15.6-13.8-21.9-22l-42 2.7c-12.5 .8-23.9-7.4-27.2-19.5l-7-26.2c-3.2-12.1 2.5-24.9 13.8-30.5l37.7-18.6c.7-5.1 1.7-10.1 3-15.2 1.4-5.1 3-10 5-14.7L55.1 46.5c-7-10.5-5.6-24.4 3.3-33.3L77.6-6c8.9-8.9 22.8-10.3 33.3-3.3l35 23.3c9.5-3.9 19.6-6.7 29.9-8.1l18.6-37.6c5.6-11.3 18.3-17 30.5-13.8zM192.4 84a44 44 0 1 0 0 88 44 44 0 1 0 0-88z"/></symbol>
+<symbol id="i-crosshairs" viewBox="0 0 576 512"><path fill="currentColor" d="M288-16c17.7 0 32 14.3 32 32l0 18.3c98.1 14 175.7 91.6 189.7 189.7l18.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-18.3 0c-14 98.1-91.6 175.7-189.7 189.7l0 18.3c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-18.3C157.9 463.7 80.3 386.1 66.3 288L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l18.3 0C80.3 125.9 157.9 48.3 256 34.3L256 16c0-17.7 14.3-32 32-32zM131.2 288c12.7 62.7 62.1 112.1 124.8 124.8l0-12.8c0-17.7 14.3-32 32-32s32 14.3 32 32l0 12.8c62.7-12.7 112.1-62.1 124.8-124.8L432 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l12.8 0C432.1 161.3 382.7 111.9 320 99.2l0 12.8c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-12.8C193.3 111.9 143.9 161.3 131.2 224l12.8 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-12.8 0zM288 208a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></symbol>
+<symbol id="i-download" viewBox="0 0 448 512"><path fill="currentColor" d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 210.7-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7 256 32zM64 320c-35.3 0-64 28.7-64 64l0 32c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-32c0-35.3-28.7-64-64-64l-46.9 0-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320 64 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></symbol>
+<symbol id="i-envelope" viewBox="0 0 512 512"><path fill="currentColor" d="M48 64c-26.5 0-48 21.5-48 48 0 15.1 7.1 29.3 19.2 38.4l208 156c17.1 12.8 40.5 12.8 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48L48 64zM0 196L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-188-198.4 148.8c-34.1 25.6-81.1 25.6-115.2 0L0 196z"/></symbol>
+<symbol id="i-exclamation-circle" viewBox="0 0 512 512"><path fill="currentColor" d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zm0-192a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z"/></symbol>
+<symbol id="i-external-link-alt" viewBox="0 0 512 512"><path fill="currentColor" d="M290.4 19.8C295.4 7.8 307.1 0 320 0L480 0c17.7 0 32 14.3 32 32l0 160c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9L400 157.3 246.6 310.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L354.7 112 297.4 54.6c-9.2-9.2-11.9-22.9-6.9-34.9zM0 176c0-44.2 35.8-80 80-80l80 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-80 0c-8.8 0-16 7.2-16 16l0 256c0 8.8 7.2 16 16 16l256 0c8.8 0 16-7.2 16-16l0-80c0-17.7 14.3-32 32-32s32 14.3 32 32l0 80c0 44.2-35.8 80-80 80L80 512c-44.2 0-80-35.8-80-80L0 176z"/></symbol>
+<symbol id="i-file-contract" viewBox="0 0 384 512"><path fill="currentColor" d="M0 64C0 28.7 28.7 0 64 0L213.5 0c17 0 33.3 6.7 45.3 18.7L365.3 125.3c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zm208-5.5l0 93.5c0 13.3 10.7 24 24 24L325.5 176 208 58.5zM88 64C74.7 64 64 74.7 64 88s10.7 24 24 24l48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0zm70.3 160c-11.3 0-21.9 5.1-28.9 13.9L69.3 409c-8.3 10.3-6.6 25.5 3.7 33.7s25.5 6.6 33.7-3.8l47.1-58.8 15.2 50.7c3 10.2 12.4 17.1 23 17.1l104 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-86.1 0-16.1-53.6c-4.7-15.7-19.1-26.4-35.5-26.4z"/></symbol>
+<symbol id="i-file-invoice-dollar" viewBox="0 0 384 512"><path fill="currentColor" d="M0 64C0 28.7 28.7 0 64 0L213.5 0c17 0 33.3 6.7 45.3 18.7L365.3 125.3c12 12 18.7 28.3 18.7 45.3L384 448c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zm208-5.5l0 93.5c0 13.3 10.7 24 24 24L325.5 176 208 58.5zM64 88c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64C74.7 64 64 74.7 64 88zm0 96c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0c-13.3 0-24 10.7-24 24zm112 76l0 4c-28.8 .3-52 23.7-52 52.5 0 25.7 18.5 47.6 43.9 51.8l41.7 7c6 1 10.4 6.2 10.4 12.3 0 6.9-5.6 12.5-12.5 12.5L152 400c-11 0-20 9-20 20s9 20 20 20l24 0 0 4c0 11 9 20 20 20s20-9 20-20l0-4.7c25-4.1 44-25.7 44-51.8 0-25.7-18.5-47.6-43.9-51.8l-41.7-7c-6-1-10.4-6.2-10.4-12.3 0-6.9 5.6-12.5 12.5-12.5l47.5 0c11 0 20-9 20-20s-9-20-20-20l-8 0 0-4c0-11-9-20-20-20s-20 9-20 20z"/></symbol>
+<symbol id="i-fingerprint" viewBox="0 0 512 512"><path fill="currentColor" d="M48 256c0-114.9 93.1-208 208-208 63.1 0 119.6 28.1 157.8 72.5 8.6 10.1 23.8 11.2 33.8 2.6s11.2-23.8 2.6-33.8C403.3 34.6 333.7 0 256 0 114.6 0 0 114.6 0 256l0 40c0 13.3 10.7 24 24 24s24-10.7 24-24l0-40zm458.5-52.9c-2.7-13-15.5-21.3-28.4-18.5s-21.3 15.5-18.5 28.4c2.9 13.9 4.5 28.3 4.5 43.1l0 40c0 13.3 10.7 24 24 24s24-10.7 24-24l0-40c0-18.1-1.9-35.8-5.5-52.9zM256 80c-19 0-37.4 3-54.5 8.6-15.2 5-18.7 23.7-8.3 35.9 7.1 8.3 18.8 10.8 29.4 7.9 10.6-2.9 21.8-4.4 33.4-4.4 70.7 0 128 57.3 128 128l0 24.9c0 25.2-1.5 50.3-4.4 75.3-1.7 14.6 9.4 27.8 24.2 27.8 11.8 0 21.9-8.6 23.3-20.3 3.3-27.4 5-55 5-82.7l0-24.9c0-97.2-78.8-176-176-176zM150.7 148.7c-9.1-10.6-25.3-11.4-33.9-.4-23.1 29.8-36.8 67.1-36.8 107.7l0 24.9c0 24.2-2.6 48.4-7.8 71.9-3.4 15.6 7.9 31.1 23.9 31.1 10.5 0 19.9-7 22.2-17.3 6.4-28.1 9.7-56.8 9.7-85.8l0-24.9c0-27.2 8.5-52.4 22.9-73.1 7.2-10.4 8-24.6-.2-34.2zM256 160c-53 0-96 43-96 96l0 24.9c0 35.9-4.6 71.5-13.8 106.1-3.8 14.3 6.7 29 21.5 29 9.5 0 17.9-6.2 20.4-15.4 10.5-39 15.9-79.2 15.9-119.7l0-24.9c0-28.7 23.3-52 52-52s52 23.3 52 52l0 24.9c0 36.3-3.5 72.4-10.4 107.9-2.7 13.9 7.7 27.2 21.8 27.2 10.2 0 19-7 21-17 7.7-38.8 11.6-78.3 11.6-118.1l0-24.9c0-53-43-96-96-96zm24 96c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 24.9c0 59.9-11 119.3-32.5 175.2l-5.9 15.3c-4.8 12.4 1.4 26.3 13.8 31s26.3-1.4 31-13.8l5.9-15.3C267.9 411.9 280 346.7 280 280.9l0-24.9z"/></symbol>
+<symbol id="i-folder-open" viewBox="0 0 576 512"><path fill="currentColor" d="M56 225.6L32.4 296.2 32.4 96c0-35.3 28.7-64 64-64l138.7 0c13.8 0 27.3 4.5 38.4 12.8l38.4 28.8c5.5 4.2 12.3 6.4 19.2 6.4l117.3 0c35.3 0 64 28.7 64 64l0 16-365.4 0c-41.3 0-78 26.4-91.1 65.6zM477.8 448L99 448c-32.8 0-55.9-32.1-45.5-63.2l48-144C108 221.2 126.4 208 147 208l378.8 0c32.8 0 55.9 32.1 45.5 63.2l-48 144c-6.5 19.6-24.9 32.8-45.5 32.8z"/></symbol>
+<symbol id="i-globe" viewBox="0 0 512 512"><path fill="currentColor" d="M351.9 280l-190.9 0c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zM160.9 232l190.9 0C349 167.5 334.7 108.1 314.4 64.6 303 40.2 290.7 22.8 279.3 12.2 268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4zm-48 0C116.4 146.4 138.5 66.9 170.8 14.7 78.7 47.3 10.9 131.2 1.5 232l111.4 0zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3L1.5 280zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3l-111.4 0zm111.4-48C501.9 131.2 434.1 47.3 342 14.7 374.3 66.9 396.4 146.4 399.9 232l111.4 0z"/></symbol>
+<symbol id="i-graduation-cap" viewBox="0 0 576 512"><path fill="currentColor" d="M48 195.8l209.2 86.1c9.8 4 20.2 6.1 30.8 6.1s21-2.1 30.8-6.1l242.4-99.8c9-3.7 14.8-12.4 14.8-22.1s-5.8-18.4-14.8-22.1L318.8 38.1C309 34.1 298.6 32 288 32s-21 2.1-30.8 6.1L14.8 137.9C5.8 141.6 0 150.3 0 160L0 456c0 13.3 10.7 24 24 24s24-10.7 24-24l0-260.2zm48 71.7L96 384c0 53 86 96 192 96s192-43 192-96l0-116.6-142.9 58.9c-15.6 6.4-32.2 9.7-49.1 9.7s-33.5-3.3-49.1-9.7L96 267.4z"/></symbol>
+<symbol id="i-laptop-house" viewBox="0 0 640 512"><path fill="currentColor" d="M448 240l19.9 0c15.5 0 28.1-12.6 28.1-28.1 0-7.6-3.1-14.9-8.6-20.2L283.5-4.9C276.1-12 266.3-16 256-16s-20.1 4-27.5 11.1L24.6 191.7C19.1 197 16 204.3 16 211.9 16 227.4 28.6 240 44.1 240l19.9 0 0 144c0 35.3 28.7 64 64 64l85.7 0c7.4-6.6 16.4-11.4 26.3-14l0-130c0-5.5 .7-10.9 2-16l-10 0c-13.3 0-24-10.7-24-24l0-48c0-13.3 10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 24 144 0zM352 352l160 0 0 128-160 0 0-128zm-64-32l0 160-32 0c-8.8 0-16 7.2-16 16 0 26.5 21.5 48 48 48l288 0c26.5 0 48-21.5 48-48 0-8.8-7.2-16-16-16l-32 0 0-160c0-17.7-14.3-32-32-32l-224 0c-17.7 0-32 14.3-32 32z"/></symbol>
+<symbol id="i-map-marker-alt" viewBox="0 0 384 512"><path fill="currentColor" d="M0 188.6C0 84.4 86 0 192 0S384 84.4 384 188.6c0 119.3-120.2 262.3-170.4 316.8-11.8 12.8-31.5 12.8-43.3 0-50.2-54.5-170.4-197.5-170.4-316.8zM192 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128z"/></symbol>
+<symbol id="i-microphone-alt" viewBox="0 0 384 512"><path fill="currentColor" d="M96 96c0-53 43-96 96-96 50.3 0 91.6 38.7 95.7 88L232 88c-13.3 0-24 10.7-24 24s10.7 24 24 24l56 0 0 48-56 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l55.7 0c-4.1 49.3-45.3 88-95.7 88-53 0-96-43-96-96L96 96zM24 160c13.3 0 24 10.7 24 24l0 40c0 79.5 64.5 144 144 144s144-64.5 144-144l0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40c0 97.9-73.3 178.7-168 190.5l0 49.5 48 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-144 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0 0-49.5C73.3 402.7 0 321.9 0 224l0-40c0-13.3 10.7-24 24-24z"/></symbol>
+<symbol id="i-network-wired" viewBox="0 0 576 512"><path fill="currentColor" d="M248 88l80 0 0 48-80 0 0-48zm-8-56c-26.5 0-48 21.5-48 48l0 64c0 26.5 21.5 48 48 48l16 0 0 32-224 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0 0 32-16 0c-26.5 0-48 21.5-48 48l0 64c0 26.5 21.5 48 48 48l96 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48l-16 0 0-32 192 0 0 32-16 0c-26.5 0-48 21.5-48 48l0 64c0 26.5 21.5 48 48 48l96 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48l-16 0 0-32 96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-224 0 0-32 16 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48l-96 0zM448 376l8 0 0 48-80 0 0-48 72 0zm-256 0l8 0 0 48-80 0 0-48 72 0z"/></symbol>
+<symbol id="i-paper-plane" viewBox="0 0 576 512"><path fill="currentColor" d="M536.4-26.3c9.8-3.5 20.6-1 28 6.3s9.8 18.2 6.3 28l-178 496.9c-5 13.9-18.1 23.1-32.8 23.1-14.2 0-27-8.6-32.3-21.7l-64.2-158c-4.5-11-2.5-23.6 5.2-32.6l94.5-112.4c5.1-6.1 4.7-15-.9-20.6s-14.6-6-20.6-.9L229.2 276.1c-9.1 7.6-21.6 9.6-32.6 5.2L38.1 216.8c-13.1-5.3-21.7-18.1-21.7-32.3 0-14.7 9.2-27.8 23.1-32.8l496.9-178z"/></symbol>
+<symbol id="i-phone-volume" viewBox="0 0 576 512"><path fill="currentColor" d="M344-32c128.1 0 232 103.9 232 232 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-101.6-82.4-184-184-184-13.3 0-24-10.7-24-24s10.7-24 24-24zm8 192a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM320 88c0-13.3 10.7-24 24-24 75.1 0 136 60.9 136 136 0 13.3-10.7 24-24 24s-24-10.7-24-24c0-48.6-39.4-88-88-88-13.3 0-24-10.7-24-24zM144.1 1.4c19.7-5.4 40.3 4.7 48.1 23.5l40.5 97.3c6.9 16.5 2.1 35.6-11.8 47l-44.1 36.1c32.5 71.6 89 130 159.3 164.9L374.7 323c11.3-13.9 30.4-18.6 47-11.8L519 351.8c18.8 7.8 28.9 28.4 23.5 48.1l-1.5 5.5C523.4 470.1 460.9 525.3 384.6 509.2 209.6 472.1 71.9 334.4 34.8 159.4 18.7 83.1 73.9 20.6 138.5 2.9l5.5-1.5z"/></symbol>
+<symbol id="i-random" viewBox="0 0 512 512"><path fill="currentColor" d="M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9S384 204.9 384 192l0-32-32 0c-10.1 0-19.6 4.7-25.6 12.8l-32.4 43.2-40-53.3 21.2-28.3C293.3 110.2 321.8 96 352 96l32 0 0-32c0-12.9 7.8-24.6 19.8-29.6zM154 296l40 53.3-21.2 28.3C154.7 401.8 126.2 416 96 416l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c10.1 0 19.6-4.7 25.6-12.8L154 296zM438.6 470.6c-9.2 9.2-22.9 11.9-34.9 6.9S384 460.9 384 448l0-32-32 0c-30.2 0-58.7-14.2-76.8-38.4L121.6 172.8c-6-8.1-15.5-12.8-25.6-12.8l-64 0c-17.7 0-32-14.3-32-32S14.3 96 32 96l64 0c30.2 0 58.7 14.2 76.8 38.4L326.4 339.2c6 8.1 15.5 12.8 25.6 12.8l32 0 0-32c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64z"/></symbol>
+<symbol id="i-robot" viewBox="0 0 640 512"><path fill="currentColor" d="M352 0c0-17.7-14.3-32-32-32S288-17.7 288 0l0 64-96 0c-53 0-96 43-96 96l0 224c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-224c0-53-43-96-96-96l-96 0 0-64zM160 368c0-13.3 10.7-24 24-24l32 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-32 0c-13.3 0-24-10.7-24-24zm120 0c0-13.3 10.7-24 24-24l32 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-32 0c-13.3 0-24-10.7-24-24zm120 0c0-13.3 10.7-24 24-24l32 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-32 0c-13.3 0-24-10.7-24-24zM224 176a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm144 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zM64 224c0-17.7-14.3-32-32-32S0 206.3 0 224l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96zm544-32c-17.7 0-32 14.3-32 32l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32z"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 512 512"><path fill="currentColor" d="M128 320L24.5 320c-24.9 0-40.2-27.1-27.4-48.5L50 183.3C58.7 168.8 74.3 160 91.2 160l95 0c76.1-128.9 189.6-135.4 265.5-124.3 12.8 1.9 22.8 11.9 24.6 24.6 11.1 75.9 4.6 189.4-124.3 265.5l0 95c0 16.9-8.8 32.5-23.3 41.2l-88.2 52.9c-21.3 12.8-48.5-2.6-48.5-27.4L192 384c0-35.3-28.7-64-64-64l-.1 0zM400 160a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z"/></symbol>
+<symbol id="i-school" viewBox="0 0 576 512"><path fill="currentColor" d="M0 192c0-35.3 28.7-64 64-64l64 0 127.9-115.1c18.3-16.4 46-16.4 64.2 0L448 128 512 128c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192zM224 376l0 88 128 0 0-88c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zm-112 8c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0zm16-144l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16zM496 384c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0zm16-144l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16zM288 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128z"/></symbol>
+<symbol id="i-shield-alt" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0c4.6 0 9.2 1 13.4 2.9L457.8 82.8c22 9.3 38.4 31 38.3 57.2-.5 99.2-41.3 280.7-213.6 363.2-16.7 8-36.1 8-52.8 0-172.4-82.5-213.1-264-213.6-363.2-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.9 1 251.4 0 256 0zm0 66.8l0 378.1c138-66.8 175.1-214.8 176-303.4l-176-74.6 0 0z"/></symbol>
+<symbol id="i-sitemap" viewBox="0 0 512 512"><path fill="currentColor" d="M192 64c0-17.7 14.3-32 32-32l64 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-8 0 0 64 120 0c39.8 0 72 32.2 72 72l0 56 8 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l8 0 0-56c0-13.3-10.7-24-24-24l-120 0 0 80 8 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l8 0 0-80-120 0c-13.3 0-24 10.7-24 24l0 56 8 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l8 0 0-56c0-39.8 32.2-72 72-72l120 0 0-64-8 0c-17.7 0-32-14.3-32-32l0-64z"/></symbol>
+<symbol id="i-table" viewBox="0 0 448 512"><path fill="currentColor" d="M384 32c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64l-320 0-6.5-.3C25.2 476.4 0 449.1 0 416L0 96C0 60.7 28.7 32 64 32l320 0zM64 320l0 96 128 0 0-96-128 0zm192 0l0 96 128 0 0-96-128 0zM64 256l128 0 0-96-128 0 0 96zm192 0l128 0 0-96-128 0 0 96z"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 512 512"><path fill="currentColor" d="M144.3 0l224 0c26.5 0 48.1 21.8 47.1 48.2-.2 5.3-.4 10.6-.7 15.8l49.6 0c26.1 0 49.1 21.6 47.1 49.8-7.5 103.7-60.5 160.7-118 190.5-15.8 8.2-31.9 14.3-47.2 18.8-20.2 28.6-41.2 43.7-57.9 51.8l0 73.1 64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-192 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0 0-73.1c-16-7.7-35.9-22-55.3-48.3-18.4-4.8-38.4-12.1-57.9-23.1-54.1-30.3-102.9-87.4-109.9-189.9-1.9-28.1 21-49.7 47.1-49.7l49.6 0c-.3-5.2-.5-10.4-.7-15.8-1-26.5 20.6-48.2 47.1-48.2zM101.5 112l-52.4 0c6.2 84.7 45.1 127.1 85.2 149.6-14.4-37.3-26.3-86-32.8-149.6zM380 256.8c40.5-23.8 77.1-66.1 83.3-144.8L411 112c-6.2 60.9-17.4 108.2-31 144.8z"/></symbol>
+<symbol id="i-users-cog" viewBox="0 0 640 512"><path fill="currentColor" d="M320 224a104 104 0 1 0 0-208 104 104 0 1 0 0 208zM96 232a72 72 0 1 0 0-144 72 72 0 1 0 0 144zM0 416l0 32c0 17.7 14.3 32 32 32l86.7 0c-4.3-9.8-6.7-20.6-6.7-32l0-16c0-53.2 20-101.8 52.9-138.6-11.7-3.5-24.1-5.4-36.9-5.4-70.7 0-128 57.3-128 128zM616 160a72 72 0 1 0 -144 0 72 72 0 1 0 144 0zM160 432l0 16c0 17.7 14.3 32 32 32l156.8 0c-7.1-21.6-6.3-44.4 10.7-64-14-16.2-20.5-39.7-11.4-63.3 6.6-17.1 15.9-33.1 27.4-47.3 5.4-6.6 11.6-11.7 18.3-15.4-22.1-11.5-47.2-18-73.8-18-88.4 0-160 71.6-160 160zm464.6-44.1c6.3-3.6 9.5-11.1 6.8-18-4.8-12.4-11.5-24.1-19.9-34.4-4.6-5.7-12.7-6.7-19-3-21.8 12.6-48.6-2.8-48.6-28.1 0-7.3-4.9-13.8-12.1-14.9-12.9-2-26.8-2-39.7 0-7.2 1.1-12.1 7.6-12.1 14.9 0 25.2-26.8 40.7-48.6 28.1-6.3-3.6-14.4-2.6-19 3-8.4 10.3-15.1 22-19.9 34.4-2.6 6.8 .5 14.3 6.8 17.9 21.9 12.6 21.9 43.5 0 56.2-6.3 3.6-9.5 11.1-6.8 17.9 4.8 12.4 11.5 24.1 19.9 34.4 4.6 5.7 12.7 6.7 19 3 21.8-12.6 48.6 2.9 48.6 28.1 0 7.3 4.9 13.8 12.1 14.9 12.9 2 26.8 2 39.7 0 7.2-1.1 12.1-7.6 12.1-14.9 0-25.2 26.8-40.7 48.6-28.1 6.3 3.6 14.4 2.6 19-3 8.4-10.3 15.1-22 19.9-34.4 2.6-6.8-.5-14.3-6.8-17.9-21.9-12.6-21.9-43.5 0-56.2zM472 416a40 40 0 1 1 80 0 40 40 0 1 1 -80 0z"/></symbol>
+</svg>
+<div class="bg-field" aria-hidden="true"></div>
 
 		<!-- Header -->
 		<header>
-			<nav>
-				<div class="logo">Abdelrahman Elmogy</div>
-				<button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+			<nav aria-label="Primary">
+				<a class="logo" href="#home" aria-label="Abdelrahman Elmogy, back to top">Abdelrahman Elmogy</a>
+				<button type="button" class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
 				<ul class="nav-links" id="navLinks">
-					<li><a href="#home">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#skills">Skills</a></li>
-					<li><a href="#experience">Experience</a></li>
-					<li><a href="#projects">Projects</a></li>
-					<li><a href="#certifications">Certifications</a></li>
-					<li><a href="#contact">Contact</a></li>
-					<li><a href="https://github.com/" target="_blank" class="nav-github"><i class="fab fa-github"></i> GitHub</a></li>
+<li><a href="#projects">Work</a></li>
+<li><a href="#method">Method</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#experience">Experience</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#certifications">Credentials</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="https://github.com/abdelrahamannelmogyy" target="_blank" rel="noopener noreferrer" class="nav-github"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-github"></use></svg> GitHub<span class="sr-only"> (opens in a new tab)</span></a></li>
 				</ul>
 			</nav>
 		</header>
 
 		<!-- Hero Section -->
-		<section id="home" class="hero">
+		<main id="main" tabindex="-1">
+<section id="home" class="hero" aria-labelledby="hero-title">
+<canvas class="signal-field" id="signalField" aria-hidden="true"></canvas>
 			<div class="hero-content">
 				<div class="availability-badge">
-					<span class="avail-dot"></span>
-					Open to remote roles &amp; relocation — EU &middot; Gulf &middot; Canada
-				</div>
+<span class="avail-dot" aria-hidden="true"></span>
+<strong>Available now</strong><span class="sep" aria-hidden="true">&middot;</span>Cairo<span class="sep" aria-hidden="true">&middot;</span>Remote<span class="sep" aria-hidden="true">&middot;</span>Relocation
+</div>
 
 				<!-- Photo + Name (bigger photo, no AE initials) -->
 				<div class="hero-identity">
 					<div class="hero-photo">
-						<img src="profile.jpg" alt="Abdelrahman Elmogy" />
+						<img src="profile.jpg" alt="Portrait of Abdelrahman Elmogy" width="320" height="320" decoding="async" fetchpriority="high">
 					</div>
 					<div class="hero-name-block">
-						<h1>Abdelrahman Elmogy</h1>
-						<p class="hero-title">Data Analyst &amp; Automation Engineer</p>
+						<h1 id="hero-title">Abdelrahman Elmogy</h1>
+						<p class="hero-title">Data &amp; Automation Engineer</p>
 					</div>
 				</div>
 
-				<div class="attention-badge">
-					<i class="fas fa-bolt"></i>
-					<span>Data Problems? Consider Them Debugged.</span>
-				</div>
-
-				<p class="subtitle">Turning raw data into business decisions &mdash; Power BI &middot; Python &middot; Voice AI</p>
+				<p class="subtitle">I turn business processes into reliable data systems with SQL Server, Python, APIs, Power BI and applied AI.</p>
 
 				<div class="hero-stats">
 					<div class="stat">
-						<span class="stat-number">3+</span>
-						<span class="stat-label">Years Experience</span>
+						<span class="stat-number">7+</span>
+						<span class="stat-label">Systems Automated</span>
 					</div>
 					<div class="stat">
 						<span class="stat-number">60%</span>
-						<span class="stat-label">Efficiency Gained</span>
+						<span class="stat-label">Manual Effort Reduced</span>
 					</div>
 					<div class="stat">
-						<span class="stat-number">10+</span>
-						<span class="stat-label">Projects Delivered</span>
+						<span class="stat-number">8 hrs/week</span>
+<span class="stat-label">Reporting Time Saved</span>
 					</div>
 				</div>
 
 				<div class="cta-buttons">
-					<a href="cv-abdelrahman-elmogy.pdf" download class="btn btn-primary">
-						<i class="fas fa-download"></i> Download CV
+					<a href="CV_Abdelrahman_Elmogy_Master.pdf" download class="btn btn-primary">
+						<svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"></use></svg> Download CV
 					</a>
 					<a href="#projects" class="btn btn-secondary">
-						<i class="fas fa-rocket"></i> View My Work
+						<svg class="i" aria-hidden="true" focusable="false"><use href="#i-rocket"></use></svg> View Case Studies
 					</a>
 					<a href="#contact" class="btn btn-ghost">
-						<i class="fas fa-envelope"></i> Get In Touch
+						<svg class="i" aria-hidden="true" focusable="false"><use href="#i-envelope"></use></svg> Get In Touch
 					</a>
 				</div>
 
 				<div class="hero-links">
-					<a href="https://www.linkedin.com/in/abdelrahman-elmogy-5086b4245/" target="_blank" class="hero-link">
-						<i class="fab fa-linkedin"></i> LinkedIn
-					</a>
-					<a href="https://github.com/" target="_blank" class="hero-link">
-						<i class="fab fa-github"></i> GitHub
-					</a>
+					<a href="https://www.linkedin.com/in/abdelrahman-elmogyy/" target="_blank" rel="noopener noreferrer" class="hero-link">
+						<svg class="i" aria-hidden="true" focusable="false"><use href="#i-linkedin"></use></svg> LinkedIn
+					<span class="sr-only"> (opens in a new tab)</span></a>
+					<a href="https://github.com/abdelrahamannelmogyy" target="_blank" rel="noopener noreferrer" class="hero-link">
+						<svg class="i" aria-hidden="true" focusable="false"><use href="#i-github"></use></svg> GitHub
+					<span class="sr-only"> (opens in a new tab)</span></a>
 					<a href="mailto:Abdelrahmannelmogyy22@gmail.com" class="hero-link">
-						<i class="fas fa-envelope"></i> Email
+						<svg class="i" aria-hidden="true" focusable="false"><use href="#i-envelope"></use></svg> Email
 					</a>
 				</div>
 			</div>
 		</section>
+<section id="projects" aria-labelledby="projects-title">
+<h2 class="section-title reveal" id="projects-title">Case Studies</h2>
+<p class="section-lead reveal">Three systems in detail. Each one separates what I <strong>analysed</strong>, <strong>built</strong>, <strong>integrated</strong>, <strong>automated</strong> and <strong>measured</strong>.</p>
+<div class="cs-list">
+<article class="cs reveal" id="cs-dispatch" data-label="Cross-Channel Campaign Dispatch Engine">
+<header class="cs-head">
+<span class="cs-num" aria-hidden="true">01</span>
+<div>
+<p class="cs-kicker">Data pipeline · API integration · Automation</p>
+<h3 class="cs-title">Cross-Channel Campaign Dispatch Engine</h3>
+<p class="cs-aka">Internal name: Campaign AutoFlow</p>
+</div>
+</header>
+<p class="cs-context">Collections campaigns at Maharah International ran across IVR, WhatsApp and email.</p>
+<dl class="cs-meta"><div><dt>Employer</dt><dd>Maharah International</dd></div><div><dt>Role</dt><dd>Data &amp; Automation Engineer</dd></div><div><dt>Period</dt><dd>Jul 2024 – Sep 2026</dd></div></dl>
+<div class="cs-key">
+<div class="cs-block"><h4>Problem</h4><p>Campaign execution depended on staff manually preparing lists, sending messages, tracking responses and updating records, a repetitive cycle repeated several times a week.</p></div>
+<div class="cs-block cs-result"><h4>Result</h4><p>Campaign execution time reduced by 60%: from about half a day per cycle to reviewing a summary report.</p></div>
+</div>
+<button type="button" class="cs-toggle" aria-expanded="false" aria-controls="cs-dispatch-more"><span class="cs-toggle-text">Read the full case study</span><span class="chev" aria-hidden="true"></span></button>
+<div class="cs-more" id="cs-dispatch-more">
+<div class="cs-more-inner">
+<ol class="cs-steps"><li><span class="verb v-analysed">Analysed</span><span class="cs-step-text">Studied campaign dispatch patterns across IVR, WhatsApp and email to find where manual work sat in the loop.</span></li><li><span class="verb v-built">Built</span><span class="cs-step-text">A Python data pipeline that pulls segmented target lists straight from SQL Server.</span></li><li><span class="verb v-integrated">Integrated</span><span class="cs-step-text">Connected the pipeline to the IVR, WhatsApp and email channels through their APIs, so one run dispatches all three.</span></li><li><span class="verb v-automated">Automated</span><span class="cs-step-text">Outcomes are written back to the database automatically, so the loop runs with no manual steps.</span></li><li><span class="verb v-measured">Measured</span><span class="cs-step-text">Execution time down 60%. The team moved from about half a day per cycle to reviewing a summary report.</span></li></ol>
+<figure class="cs-evidence"><div class="dg-wrap"><svg class="dg dg-h" viewBox="0 0 770 196" role="img" aria-labelledby="dgt-dispatch-h dgd-dispatch-h" focusable="false"><title id="dgt-dispatch-h">Cross-Channel Campaign Dispatch Engine: data flow</title><desc id="dgd-dispatch-h">SQL Server provides segmented target lists to a Python pipeline. One run dispatches through the IVR, WhatsApp and email APIs. Outcomes are written back to SQL Server automatically and summarised in a report the team reviews.</desc><defs><marker id="ah-dispatch-h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="dg-arrow" d="M0 0L8 4L0 8z"/></marker></defs><g class="dg-edges"><path d="M136.0 98.0 C150.0 98.0 150.0 98.0 164.0 98.0" marker-end="url(#ah-dispatch-h)"/><path d="M292.0 98.0 C306.0 98.0 306.0 38.0 320.0 38.0" marker-end="url(#ah-dispatch-h)"/><path d="M292.0 98.0 C306.0 98.0 306.0 98.0 320.0 98.0" marker-end="url(#ah-dispatch-h)"/><path d="M292.0 98.0 C306.0 98.0 306.0 158.0 320.0 158.0" marker-end="url(#ah-dispatch-h)"/><path d="M448.0 38.0 C462.0 38.0 462.0 98.0 476.0 98.0" marker-end="url(#ah-dispatch-h)"/><path d="M448.0 98.0 C462.0 98.0 462.0 98.0 476.0 98.0" marker-end="url(#ah-dispatch-h)"/><path d="M448.0 158.0 C462.0 158.0 462.0 98.0 476.0 98.0" marker-end="url(#ah-dispatch-h)"/><path d="M604.0 98.0 C618.0 98.0 618.0 98.0 632.0 98.0" marker-end="url(#ah-dispatch-h)"/></g><g class="dg-node dg-src"><rect x="10.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="73.0" y="95.0" font-size="12.5">SQL Server</text><text class="dg-sub" x="73.0" y="110.0" font-size="10.5">segmented lists</text></g><g class="dg-node dg-mid"><rect x="166.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="229.0" y="95.0" font-size="12.5">Python pipeline</text><text class="dg-sub" x="229.0" y="110.0" font-size="10.5">one run, 3 channels</text></g><g class="dg-node dg-mid"><rect x="322.0" y="14.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="385.0" y="35.0" font-size="12.5">IVR</text><text class="dg-sub" x="385.0" y="50.0" font-size="10.5">via API</text></g><g class="dg-node dg-mid"><rect x="322.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="385.0" y="95.0" font-size="12.5">WhatsApp</text><text class="dg-sub" x="385.0" y="110.0" font-size="10.5">via API</text></g><g class="dg-node dg-mid"><rect x="322.0" y="134.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="385.0" y="155.0" font-size="12.5">Email</text><text class="dg-sub" x="385.0" y="170.0" font-size="10.5">via API</text></g><g class="dg-node dg-mid"><rect x="478.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="541.0" y="95.0" font-size="12.5">Write-back</text><text class="dg-sub" x="541.0" y="110.0" font-size="10.5">outcomes logged</text></g><g class="dg-node dg-out"><rect x="634.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="697.0" y="95.0" font-size="12.5">Summary report</text><text class="dg-sub" x="697.0" y="110.0" font-size="10.5">team reviews</text></g></svg><svg class="dg dg-v" viewBox="0 0 320 348" role="img" aria-labelledby="dgt-dispatch-v dgd-dispatch-v" focusable="false"><title id="dgt-dispatch-v">Cross-Channel Campaign Dispatch Engine: data flow</title><desc id="dgd-dispatch-v">SQL Server provides segmented target lists to a Python pipeline. One run dispatches through the IVR, WhatsApp and email APIs. Outcomes are written back to SQL Server automatically and summarised in a report the team reviews.</desc><defs><marker id="ah-dispatch-v" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="dg-arrow" d="M0 0L8 4L0 8z"/></marker></defs><g class="dg-edges"><path d="M160.0 56.0 C160.0 68.0 160.0 68.0 160.0 80.0" marker-end="url(#ah-dispatch-v)"/><path d="M160.0 126.0 C160.0 138.0 55.3 138.0 55.3 150.0" marker-end="url(#ah-dispatch-v)"/><path d="M160.0 126.0 C160.0 138.0 160.0 138.0 160.0 150.0" marker-end="url(#ah-dispatch-v)"/><path d="M160.0 126.0 C160.0 138.0 264.7 138.0 264.7 150.0" marker-end="url(#ah-dispatch-v)"/><path d="M55.3 196.0 C55.3 208.0 160.0 208.0 160.0 220.0" marker-end="url(#ah-dispatch-v)"/><path d="M160.0 196.0 C160.0 208.0 160.0 208.0 160.0 220.0" marker-end="url(#ah-dispatch-v)"/><path d="M264.7 196.0 C264.7 208.0 160.0 208.0 160.0 220.0" marker-end="url(#ah-dispatch-v)"/><path d="M160.0 266.0 C160.0 278.0 160.0 278.0 160.0 290.0" marker-end="url(#ah-dispatch-v)"/></g><g class="dg-node dg-src"><rect x="55.0" y="12.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="31.0" font-size="13">SQL Server</text><text class="dg-sub" x="160.0" y="46.0" font-size="11.5">segmented lists</text></g><g class="dg-node dg-mid"><rect x="55.0" y="82.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="101.0" font-size="13">Python pipeline</text><text class="dg-sub" x="160.0" y="116.0" font-size="11.5">one run, 3 channels</text></g><g class="dg-node dg-mid"><rect x="8.0" y="152.0" width="94.7" height="44.0" rx="9"/><text class="dg-main" x="55.3" y="178.2" font-size="12">IVR</text></g><g class="dg-node dg-mid"><rect x="112.7" y="152.0" width="94.7" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="178.2" font-size="12">WhatsApp</text></g><g class="dg-node dg-mid"><rect x="217.3" y="152.0" width="94.7" height="44.0" rx="9"/><text class="dg-main" x="264.7" y="178.2" font-size="12">Email</text></g><g class="dg-node dg-mid"><rect x="55.0" y="222.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="241.0" font-size="13">Write-back</text><text class="dg-sub" x="160.0" y="256.0" font-size="11.5">outcomes logged</text></g><g class="dg-node dg-out"><rect x="55.0" y="292.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="311.0" font-size="13">Summary report</text><text class="dg-sub" x="160.0" y="326.0" font-size="11.5">team reviews</text></g></svg></div><figcaption>Illustrative architecture, anonymised. It shows only the components this project used.</figcaption></figure>
+<div class="cs-stackrow"><span class="cs-stack-label">Stack</span><div class="tags"><span class="tag">Python</span><span class="tag">SQL Server</span><span class="tag">API Integration</span><span class="tag">IVR / WhatsApp / Email</span><span class="tag">Workflow Automation</span><span class="tag">Scheduling</span></div></div>
+</div>
+</div>
+</article>
+<article class="cs reveal" id="cs-tracker" data-label="Collection Performance Tracker">
+<header class="cs-head">
+<span class="cs-num" aria-hidden="true">02</span>
+<div>
+<p class="cs-kicker">Business intelligence · Real-time dashboards</p>
+<h3 class="cs-title">Collection Performance Tracker</h3>
 
-		<!-- About Section -->
-		<section id="about">
-			<h2 class="section-title fade-in">About Me</h2>
-			<div class="about-layout">
-				<div class="about-bio fade-in">
-					<p class="bio-intro">
-						I'm a <strong>Data Analyst and Automation Engineer</strong> based in Cairo, Egypt, with 2+ years of experience turning messy operational data into clear decisions — and then automating the work so it never has to be done manually again.
-					</p>
-					<p class="bio-body">
-						My focus sits at the intersection of <strong>business intelligence</strong> and <strong>intelligent automation</strong>. At Maharah International I built the reporting infrastructure from scratch — Power BI dashboards connected live to SQL Server, Python scripts that replaced hours of daily manual work, and a VAPI voice agent system integrated directly with the company's database for automated debt collection calls. That combination of BI + automation + voice AI is what makes my profile uncommon.
-					</p>
-					<p class="bio-body">
-						Outside my full-time role I work as a <strong>freelance Python developer</strong>, building automation tools for clients across different industries. I take on projects where the problem is real and the solution needs to be reliable.
-					</p>
-					<p class="bio-body">
-						I'm actively looking for opportunities to work with international teams — whether remotely or with relocation to Europe, the Gulf, or Canada — where data work actually moves the business forward.
-					</p>
-					<div class="about-languages">
-						<div class="lang-label">Languages</div>
-						<div class="lang-list">
-							<div class="lang-item">
-								<span class="lang-name">Arabic</span>
-								<span class="lang-level native">Native</span>
-							</div>
-							<div class="lang-item">
-								<span class="lang-name">English</span>
-								<span class="lang-level professional">Professional</span>
-							</div>
-						</div>
-					</div>
-				</div>
+</div>
+</header>
+<p class="cs-context">Live dashboards for Maharah International, and a budget-tracking dashboard for the finance department at Royal Canadian School.</p>
+<dl class="cs-meta"><div><dt>Employers</dt><dd>Maharah International · Royal Canadian School</dd></div><div><dt>Role</dt><dd>Data &amp; Automation Engineer · Data Analyst</dd></div><div><dt>Period</dt><dd>Aug 2023 – Sep 2026</dd></div></dl>
+<div class="cs-key">
+<div class="cs-block"><h4>Problem</h4><p>Management relied on manually compiled weekly reports, about 8 hours of reporting work every week.</p></div>
+<div class="cs-block cs-result"><h4>Result</h4><p>About 8 hours of weekly reporting removed, and management got real-time KPI visibility for the first time.</p></div>
+</div>
+<button type="button" class="cs-toggle" aria-expanded="false" aria-controls="cs-tracker-more"><span class="cs-toggle-text">Read the full case study</span><span class="chev" aria-hidden="true"></span></button>
+<div class="cs-more" id="cs-tracker-more">
+<div class="cs-more-inner">
+<ol class="cs-steps"><li><span class="verb v-analysed">Analysed</span><span class="cs-step-text">Mapped the reporting requirements across Maharah and Royal Canadian School before building anything.</span></li><li><span class="verb v-built">Built</span><span class="cs-step-text">Live Power BI dashboards for call centre performance, debt recovery trends and financial budgets, using DAX.</span></li><li><span class="verb v-integrated">Integrated</span><span class="cs-step-text">Connected Power BI directly to production SQL Server data.</span></li><li><span class="verb v-automated">Automated</span><span class="cs-step-text">Replaced the manual weekly reporting cycle: the dashboards stay current without anyone compiling a report.</span></li><li><span class="verb v-measured">Measured</span><span class="cs-step-text">About 8 hours of weekly reporting time removed; real-time KPI visibility for management.</span></li></ol>
+<figure class="cs-evidence"><div class="dg-wrap"><svg class="dg dg-h" viewBox="0 0 614 196" role="img" aria-labelledby="dgt-tracker-h dgd-tracker-h" focusable="false"><title id="dgt-tracker-h">Collection Performance Tracker: data flow</title><desc id="dgd-tracker-h">Production SQL Server data feeds a live-connected Power BI model using DAX. Three dashboard areas, call centre KPIs, debt recovery and financial budgets, give management real-time KPI visibility.</desc><defs><marker id="ah-tracker-h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="dg-arrow" d="M0 0L8 4L0 8z"/></marker></defs><g class="dg-edges"><path d="M136.0 98.0 C150.0 98.0 150.0 98.0 164.0 98.0" marker-end="url(#ah-tracker-h)"/><path d="M292.0 98.0 C306.0 98.0 306.0 38.0 320.0 38.0" marker-end="url(#ah-tracker-h)"/><path d="M292.0 98.0 C306.0 98.0 306.0 98.0 320.0 98.0" marker-end="url(#ah-tracker-h)"/><path d="M292.0 98.0 C306.0 98.0 306.0 158.0 320.0 158.0" marker-end="url(#ah-tracker-h)"/><path d="M448.0 38.0 C462.0 38.0 462.0 98.0 476.0 98.0" marker-end="url(#ah-tracker-h)"/><path d="M448.0 98.0 C462.0 98.0 462.0 98.0 476.0 98.0" marker-end="url(#ah-tracker-h)"/><path d="M448.0 158.0 C462.0 158.0 462.0 98.0 476.0 98.0" marker-end="url(#ah-tracker-h)"/></g><g class="dg-node dg-src"><rect x="10.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="73.0" y="95.0" font-size="12.5">SQL Server</text><text class="dg-sub" x="73.0" y="110.0" font-size="10.5">production data</text></g><g class="dg-node dg-mid"><rect x="166.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="229.0" y="95.0" font-size="12.5">Power BI model</text><text class="dg-sub" x="229.0" y="110.0" font-size="10.5">live connection</text></g><g class="dg-node dg-mid"><rect x="322.0" y="14.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="385.0" y="35.0" font-size="12.5">Call centre KPIs</text><text class="dg-sub" x="385.0" y="50.0" font-size="10.5">dashboard</text></g><g class="dg-node dg-mid"><rect x="322.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="385.0" y="95.0" font-size="12.5">Debt recovery</text><text class="dg-sub" x="385.0" y="110.0" font-size="10.5">dashboard</text></g><g class="dg-node dg-mid"><rect x="322.0" y="134.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="385.0" y="155.0" font-size="12.5">Budgets</text><text class="dg-sub" x="385.0" y="170.0" font-size="10.5">financial tracking</text></g><g class="dg-node dg-out"><rect x="478.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="541.0" y="95.0" font-size="12.5">Management</text><text class="dg-sub" x="541.0" y="110.0" font-size="10.5">real-time KPIs</text></g></svg><svg class="dg dg-v" viewBox="0 0 320 278" role="img" aria-labelledby="dgt-tracker-v dgd-tracker-v" focusable="false"><title id="dgt-tracker-v">Collection Performance Tracker: data flow</title><desc id="dgd-tracker-v">Production SQL Server data feeds a live-connected Power BI model using DAX. Three dashboard areas, call centre KPIs, debt recovery and financial budgets, give management real-time KPI visibility.</desc><defs><marker id="ah-tracker-v" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="dg-arrow" d="M0 0L8 4L0 8z"/></marker></defs><g class="dg-edges"><path d="M160.0 56.0 C160.0 68.0 160.0 68.0 160.0 80.0" marker-end="url(#ah-tracker-v)"/><path d="M160.0 126.0 C160.0 138.0 55.3 138.0 55.3 150.0" marker-end="url(#ah-tracker-v)"/><path d="M160.0 126.0 C160.0 138.0 160.0 138.0 160.0 150.0" marker-end="url(#ah-tracker-v)"/><path d="M160.0 126.0 C160.0 138.0 264.7 138.0 264.7 150.0" marker-end="url(#ah-tracker-v)"/><path d="M55.3 196.0 C55.3 208.0 160.0 208.0 160.0 220.0" marker-end="url(#ah-tracker-v)"/><path d="M160.0 196.0 C160.0 208.0 160.0 208.0 160.0 220.0" marker-end="url(#ah-tracker-v)"/><path d="M264.7 196.0 C264.7 208.0 160.0 208.0 160.0 220.0" marker-end="url(#ah-tracker-v)"/></g><g class="dg-node dg-src"><rect x="55.0" y="12.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="31.0" font-size="13">SQL Server</text><text class="dg-sub" x="160.0" y="46.0" font-size="11.5">production data</text></g><g class="dg-node dg-mid"><rect x="55.0" y="82.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="101.0" font-size="13">Power BI model</text><text class="dg-sub" x="160.0" y="116.0" font-size="11.5">live connection</text></g><g class="dg-node dg-mid"><rect x="8.0" y="152.0" width="94.7" height="44.0" rx="9"/><text class="dg-main" x="55.3" y="178.2" font-size="12">Call centre</text></g><g class="dg-node dg-mid"><rect x="112.7" y="152.0" width="94.7" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="178.2" font-size="12">Debt recovery</text></g><g class="dg-node dg-mid"><rect x="217.3" y="152.0" width="94.7" height="44.0" rx="9"/><text class="dg-main" x="264.7" y="178.2" font-size="12">Budgets</text></g><g class="dg-node dg-out"><rect x="55.0" y="222.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="241.0" font-size="13">Management</text><text class="dg-sub" x="160.0" y="256.0" font-size="11.5">real-time KPIs</text></g></svg></div><figcaption>Illustrative architecture, anonymised. It shows only the components this project used.</figcaption></figure>
+<div class="cs-stackrow"><span class="cs-stack-label">Stack</span><div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">SQL Server</span><span class="tag">Real-Time Dashboards</span></div></div>
+</div>
+</div>
+</article>
+<article class="cs reveal" id="cs-agent" data-label="Maharah AI Collection Agent">
+<header class="cs-head">
+<span class="cs-num" aria-hidden="true">03</span>
+<div>
+<p class="cs-kicker">Applied AI · Real-time integration</p>
+<h3 class="cs-title">Maharah AI Collection Agent</h3>
 
-				<div class="about-facts">
-					<div class="fact-card fade-in">
-						<div class="about-icon"><i class="fas fa-map-marker-alt"></i></div>
-						<div>
-							<div class="fact-title">Based in</div>
-							<div class="fact-value">Cairo, Egypt</div>
-						</div>
-					</div>
-					<div class="fact-card fade-in">
-						<div class="about-icon"><i class="fas fa-briefcase"></i></div>
-						<div>
-							<div class="fact-title">Current role</div>
-							<div class="fact-value">Data Analyst @ Maharah International</div>
-						</div>
-					</div>
-					<div class="fact-card fade-in">
-						<div class="about-icon"><i class="fas fa-code"></i></div>
-						<div>
-							<div class="fact-title">Core stack</div>
-							<div class="fact-value">Python · Power BI · SQL Server · VAPI</div>
-						</div>
-					</div>
-					<div class="fact-card fade-in">
-						<div class="about-icon"><i class="fas fa-globe"></i></div>
-						<div>
-							<div class="fact-title">Open to</div>
-							<div class="fact-value">Remote · Relocation EU / Gulf / CA</div>
-						</div>
-					</div>
-					<div class="fact-card fade-in">
-						<div class="about-icon"><i class="fas fa-graduation-cap"></i></div>
-						<div>
-							<div class="fact-title">Education</div>
-							<div class="fact-value">Udacity · CCNA · Cyber Ops · HackerRank</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Skills Section -->
-		<section id="skills">
-			<h2 class="section-title fade-in">Skills</h2>
-			<div class="skills-layout">
-				<div class="skill-group fade-in">
-					<div class="sg-header">
-						<div class="sg-icon"><i class="fas fa-chart-bar"></i></div>
-						<div class="sg-title">Business Intelligence &amp; Data</div>
-					</div>
-					<div class="skill-items">
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">Power BI</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:90%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">SQL Server</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:85%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">Excel &amp; Power Query</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:88%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">DAX</span><span class="si-level">Intermediate</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:72%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">KPI Design &amp; Monitoring</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:88%"></div></div>
-						</div>
-					</div>
-				</div>
-				<div class="skill-group fade-in">
-					<div class="sg-header">
-						<div class="sg-icon"><i class="fas fa-code"></i></div>
-						<div class="sg-title">Python &amp; Automation</div>
-					</div>
-					<div class="skill-items">
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">Python</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:88%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">Pandas &amp; NumPy</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:82%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">Workflow Automation</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:90%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">Web Scraping</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:85%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">REST API Integration</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:83%"></div></div>
-						</div>
-					</div>
-				</div>
-				<div class="skill-group fade-in">
-					<div class="sg-header">
-						<div class="sg-icon"><i class="fas fa-microphone"></i></div>
-						<div class="sg-title">Voice, Comms &amp; Other</div>
-					</div>
-					<div class="skill-items">
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">VAPI Voice AI</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:85%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">WhatsApp &amp; Email Automation</span><span class="si-level">Advanced</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:87%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">IVR / Call Center Systems</span><span class="si-level">Intermediate</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:74%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">Network Admin (CCNA)</span><span class="si-level">Intermediate</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:70%"></div></div>
-						</div>
-						<div class="skill-item">
-							<div class="si-top"><span class="si-name">Cybersecurity Ops</span><span class="si-level">Intermediate</span></div>
-							<div class="si-bar"><div class="si-fill" style="width:65%"></div></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Experience Section -->
-		<section id="experience">
-			<h2 class="section-title fade-in">Experience</h2>
+</div>
+</header>
+<p class="cs-context">A high-volume outbound collection operation serving leading Gulf telecom operators.</p>
+<dl class="cs-meta"><div><dt>Employer</dt><dd>Maharah International</dd></div><div><dt>Role</dt><dd>Data &amp; Automation Engineer</dd></div><div><dt>Period</dt><dd>Jul 2024 – Sep 2026</dd></div></dl>
+<div class="cs-key">
+<div class="cs-block"><h4>Problem</h4><p>Outbound collection calls were handled manually: agents looked up each account, dialled and logged results by hand.</p></div>
+<div class="cs-block cs-result"><h4>Result</h4><p>The first AI-powered voice solution deployed at the company, running at 85,000+ outbound calls a day.</p></div>
+</div>
+<button type="button" class="cs-toggle" aria-expanded="false" aria-controls="cs-agent-more"><span class="cs-toggle-text">Read the full case study</span><span class="chev" aria-hidden="true"></span></button>
+<div class="cs-more" id="cs-agent-more">
+<div class="cs-more-inner">
+<ol class="cs-steps"><li><span class="verb v-analysed">Analysed</span><span class="cs-step-text">Analysed call-handling bottlenecks in a high-volume outbound collection operation.</span></li><li><span class="verb v-built">Built</span><span class="cs-step-text">A conversational AI agent on SQL Server that reads live account data and personalises each call.</span></li><li><span class="verb v-integrated">Integrated</span><span class="cs-step-text">A real-time data integration layer between the AI engine and SQL Server, with lookup APIs (Flask / FastAPI) feeding live data into active conversations.</span></li><li><span class="verb v-automated">Automated</span><span class="cs-step-text">Every outcome is logged to the database automatically; the agent escalates to a human only when required.</span></li><li><span class="verb v-measured">Measured</span><span class="cs-step-text">Outcomes are tracked to refine performance. First voice-AI deployment at the company, running at 85,000+ outbound calls a day.</span></li></ol>
+<figure class="cs-evidence"><div class="dg-wrap"><svg class="dg dg-h" viewBox="0 0 614 136" role="img" aria-labelledby="dgt-agent-h dgd-agent-h" focusable="false"><title id="dgt-agent-h">Maharah AI Collection Agent: data flow</title><desc id="dgd-agent-h">Live account data in SQL Server reaches the conversational AI agent through a real-time Python and API integration layer. Each outcome is logged back to SQL Server, and the agent escalates to a human agent only when required.</desc><defs><marker id="ah-agent-h" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="dg-arrow" d="M0 0L8 4L0 8z"/></marker></defs><g class="dg-edges"><path d="M136.0 68.0 C150.0 68.0 150.0 68.0 164.0 68.0" marker-end="url(#ah-agent-h)"/><path d="M292.0 68.0 C306.0 68.0 306.0 68.0 320.0 68.0" marker-end="url(#ah-agent-h)"/><path d="M448.0 68.0 C462.0 68.0 462.0 38.0 476.0 38.0" marker-end="url(#ah-agent-h)"/><path d="M448.0 68.0 C462.0 68.0 462.0 98.0 476.0 98.0" marker-end="url(#ah-agent-h)"/></g><g class="dg-node dg-src"><rect x="10.0" y="44.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="73.0" y="65.0" font-size="12.5">SQL Server</text><text class="dg-sub" x="73.0" y="80.0" font-size="10.5">live account data</text></g><g class="dg-node dg-mid"><rect x="166.0" y="44.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="229.0" y="65.0" font-size="12.5">Python + API</text><text class="dg-sub" x="229.0" y="80.0" font-size="10.5">real-time layer</text></g><g class="dg-node dg-mid"><rect x="322.0" y="44.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="385.0" y="65.0" font-size="12.5">AI agent</text><text class="dg-sub" x="385.0" y="80.0" font-size="10.5">conversational</text></g><g class="dg-node dg-out"><rect x="478.0" y="14.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="541.0" y="35.0" font-size="12.5">Outcome logged</text><text class="dg-sub" x="541.0" y="50.0" font-size="10.5">back to SQL Server</text></g><g class="dg-node dg-out"><rect x="478.0" y="74.0" width="126.0" height="48.0" rx="9"/><text class="dg-main" x="541.0" y="95.0" font-size="12.5">Human agent</text><text class="dg-sub" x="541.0" y="110.0" font-size="10.5">only when needed</text></g></svg><svg class="dg dg-v" viewBox="0 0 320 278" role="img" aria-labelledby="dgt-agent-v dgd-agent-v" focusable="false"><title id="dgt-agent-v">Maharah AI Collection Agent: data flow</title><desc id="dgd-agent-v">Live account data in SQL Server reaches the conversational AI agent through a real-time Python and API integration layer. Each outcome is logged back to SQL Server, and the agent escalates to a human agent only when required.</desc><defs><marker id="ah-agent-v" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="dg-arrow" d="M0 0L8 4L0 8z"/></marker></defs><g class="dg-edges"><path d="M160.0 56.0 C160.0 68.0 160.0 68.0 160.0 80.0" marker-end="url(#ah-agent-v)"/><path d="M160.0 126.0 C160.0 138.0 160.0 138.0 160.0 150.0" marker-end="url(#ah-agent-v)"/><path d="M160.0 196.0 C160.0 208.0 81.5 208.0 81.5 220.0" marker-end="url(#ah-agent-v)"/><path d="M160.0 196.0 C160.0 208.0 238.5 208.0 238.5 220.0" marker-end="url(#ah-agent-v)"/></g><g class="dg-node dg-src"><rect x="55.0" y="12.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="31.0" font-size="13">SQL Server</text><text class="dg-sub" x="160.0" y="46.0" font-size="11.5">live account data</text></g><g class="dg-node dg-mid"><rect x="55.0" y="82.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="101.0" font-size="13">Python + API</text><text class="dg-sub" x="160.0" y="116.0" font-size="11.5">real-time layer</text></g><g class="dg-node dg-mid"><rect x="55.0" y="152.0" width="210.0" height="44.0" rx="9"/><text class="dg-main" x="160.0" y="171.0" font-size="13">AI agent</text><text class="dg-sub" x="160.0" y="186.0" font-size="11.5">conversational</text></g><g class="dg-node dg-out"><rect x="8.0" y="222.0" width="147.0" height="44.0" rx="9"/><text class="dg-main" x="81.5" y="248.2" font-size="12">Logged</text></g><g class="dg-node dg-out"><rect x="165.0" y="222.0" width="147.0" height="44.0" rx="9"/><text class="dg-main" x="238.5" y="248.2" font-size="12">Human</text></g></svg></div><figcaption>Illustrative architecture, anonymised. It shows only the components this project used.</figcaption></figure>
+<div class="cs-stackrow"><span class="cs-stack-label">Stack</span><div class="tags"><span class="tag">Conversational AI</span><span class="tag">Python</span><span class="tag">SQL Server</span><span class="tag">Real-Time API</span><span class="tag">Flask / FastAPI</span></div></div>
+</div>
+</div>
+</article>
+</div>
+<p class="more-link reveal"><a href="#more-work" class="text-link">Eleven more projects, from production automation to analysis studies</a></p>
+</section>
+<section id="method" aria-labelledby="method-title">
+<h2 class="section-title reveal" id="method-title">How I Work</h2>
+<p class="section-lead reveal">I work from the business problem outward: understand the process, identify the root cause, design the right data solution, then build, integrate and automate it end to end.</p>
+<ol class="method"><li class="method-step reveal"><span class="method-n">01</span><h3>Understand the process</h3><p>Map the workflow and its data before touching any code.</p><a class="method-eg" data-goto href="#cs-tracker">Example: reporting requirements mapped first</a></li><li class="method-step reveal"><span class="method-n">02</span><h3>Find the root cause</h3><p>Diagnose what actually creates the problem, not just the symptom.</p><a class="method-eg" data-goto href="#w-commission">Example: payroll errors traced to a manual Excel process</a></li><li class="method-step reveal"><span class="method-n">03</span><h3>Design the data solution</h3><p>Decide how data moves: sources, transformations, systems, outputs.</p><a class="method-eg" data-goto href="#cs-dispatch">Example: one pipeline, three channels, outcomes written back</a></li><li class="method-step reveal"><span class="method-n">04</span><h3>Build, integrate, automate</h3><p>Python, SQL and APIs, connected end to end.</p><a class="method-eg" data-goto href="#cs-agent">Example: live SQL Server data inside an active conversation</a></li><li class="method-step reveal"><span class="method-n">05</span><h3>Measure and refine</h3><p>Track outcomes, then improve the system.</p><a class="method-eg" data-goto href="#cs-agent">Example: call outcomes tracked to refine performance</a></li></ol>
+</section>
+<section id="skills" aria-labelledby="skills-title">
+<h2 class="section-title reveal" id="skills-title">Skills, Linked to Projects</h2>
+<p class="section-lead reveal">Select a skill to see where I used it. Dashed skills are part of my toolkit but not tied to a single project here.</p>
+<div class="caps"><div class="cap-group reveal"><h3 class="cap-title">Data &amp; BI</h3><div class="chips"><button type="button" class="chip" aria-pressed="false" data-used="cs-tracker,w-perfdash,w-callkpi,w-schoolbudget">Power BI</button><button type="button" class="chip" aria-pressed="false" data-used="cs-tracker,w-perfdash">DAX</button><button type="button" class="chip" aria-pressed="false" data-used="cs-dispatch,cs-tracker,cs-agent,w-perfdash">SQL Server</button><button type="button" class="chip" aria-pressed="false" data-used="w-commission,w-turnover,w-segmentation">Excel</button><button type="button" class="chip" aria-pressed="false" data-used="cs-tracker,w-callkpi">KPI Design</button><button type="button" class="chip" aria-pressed="false" data-used="cs-tracker,w-perfdash">Dashboard Architecture</button><span class="chip chip-static">Power Query</span></div><div class="cap-used" aria-live="polite" hidden></div></div><div class="cap-group reveal"><h3 class="cap-title">Data Engineering</h3><div class="chips"><button type="button" class="chip" aria-pressed="false" data-used="cs-dispatch,cs-agent,w-fraud,w-commission,w-paymentbot,w-talkhub,w-legaldesk,w-peopleops">Python</button><button type="button" class="chip" aria-pressed="false" data-used="exp-maharah">ETL</button><button type="button" class="chip" aria-pressed="false" data-used="cs-dispatch,w-fraud,w-commission">Data Pipelines</button><button type="button" class="chip" aria-pressed="false" data-used="w-legaldesk,w-peopleops">SQL</button><button type="button" class="chip" aria-pressed="false" data-used="w-fraud">Pandas</button><button type="button" class="chip" aria-pressed="false" data-used="w-fraud">Scikit-learn</button><span class="chip chip-static">NumPy</span><span class="chip chip-static">Database Design</span><span class="chip chip-static">SQLAlchemy</span><span class="chip chip-static">pyodbc</span></div><div class="cap-used" aria-live="polite" hidden></div></div><div class="cap-group reveal"><h3 class="cap-title">System Integration</h3><div class="chips"><button type="button" class="chip" aria-pressed="false" data-used="cs-dispatch,cs-agent,w-talkhub">API Integration</button><button type="button" class="chip" aria-pressed="false" data-used="exp-freelance">REST APIs</button><button type="button" class="chip" aria-pressed="false" data-used="cs-dispatch,cs-agent">Data Integration</button><button type="button" class="chip" aria-pressed="false" data-used="cs-agent,cs-tracker">Real-Time Data Flows</button><button type="button" class="chip" aria-pressed="false" data-used="w-legaldesk,w-peopleops,exp-freelance">SQL Databases</button><span class="chip chip-static">Webhooks</span></div><div class="cap-used" aria-live="polite" hidden></div></div><div class="cap-group reveal"><h3 class="cap-title">Automation &amp; AI</h3><div class="chips"><button type="button" class="chip" aria-pressed="false" data-used="cs-dispatch,w-commission,w-paymentbot,w-peopleops">Workflow Automation</button><button type="button" class="chip" aria-pressed="false" data-used="w-commission,w-peopleops,w-legaldesk">Business Process Automation</button><button type="button" class="chip" aria-pressed="false" data-used="cs-agent">Conversational AI</button><button type="button" class="chip" aria-pressed="false" data-used="cs-agent">AI Agents</button><button type="button" class="chip" aria-pressed="false" data-used="w-talkhub,cs-dispatch,exp-freelance">WhatsApp Automation</button><button type="button" class="chip" aria-pressed="false" data-used="cs-dispatch">IVR Systems</button><button type="button" class="chip" aria-pressed="false" data-used="exp-freelance">Web Scraping</button><button type="button" class="chip" aria-pressed="false" data-used="cs-dispatch">Task Scheduling</button></div><div class="cap-used" aria-live="polite" hidden></div></div><div class="cap-group reveal"><h3 class="cap-title">Development</h3><div class="chips"><button type="button" class="chip" aria-pressed="false" data-used="exp-maharah,cs-agent">Flask</button><button type="button" class="chip" aria-pressed="false" data-used="cs-agent">FastAPI</button><span class="chip chip-static">Selenium</span><span class="chip chip-static">BeautifulSoup</span><span class="chip chip-static">openpyxl</span><span class="chip chip-static">Git</span></div><div class="cap-used" aria-live="polite" hidden></div></div><div class="cap-group reveal"><h3 class="cap-title">Infrastructure</h3><div class="chips"><button type="button" class="chip" aria-pressed="false" data-used="exp-maharah,exp-rcs">Windows Server</button><button type="button" class="chip" aria-pressed="false" data-used="exp-maharah">System Migration</button><span class="chip chip-static">Linux</span><span class="chip chip-static">cPanel</span></div><div class="cap-used" aria-live="polite" hidden></div></div></div>
+</section>
+		<section id="experience" aria-labelledby="experience-title">
+<h2 class="section-title reveal" id="experience-title">Experience</h2>
 			<div class="experience-timeline">
 				<div class="timeline-line"></div>
-				<div class="timeline-item fade-in">
+				<div class="timeline-item reveal" id="exp-maharah" data-label="Maharah International (role)">
 					<div class="timeline-content">
 						<div class="timeline-meta">
-							<span class="timeline-date"><i class="fas fa-calendar-alt"></i> Jul 2024 &mdash; Present</span>
-							<span class="timeline-badge current">Current</span>
+							<span class="timeline-date"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-calendar-alt"></use></svg> Jul 2024 &mdash; Sep 2026</span>
 						</div>
-						<h3 class="timeline-title">Data Analyst</h3>
-						<div class="timeline-company"><i class="fas fa-building"></i> Maharah International for Debt Collection &mdash; Cairo</div>
+						<h3 class="timeline-title">Data &amp; Automation Engineer</h3>
+						<div class="timeline-company"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-building"></use></svg> Maharah International for Debt Collection &mdash; Cairo</div>
 						<div class="timeline-description">
 							<ul class="exp-bullets">
-								<li>Built Power BI dashboards connected live to SQL Server, reducing weekly reporting time by <strong>~8 hours</strong> and giving management real-time KPI visibility for the first time</li>
-								<li>Automated core operational workflows in Python, cutting manual processing effort by <strong>60%</strong> and eliminating a class of recurring data-entry errors</li>
-								<li>Integrated a VAPI voice agent with the company database, enabling automated outbound debt-collection calls with real-time account lookup &mdash; first of its kind in the company</li>
-								<li>Designed a commission calculator in Python that replaced a complex manual Excel process, saving the finance team several hours per payroll cycle</li>
+								<li>Analysed operational bottlenecks and built an AI-powered conversational solution integrated with SQL Server, reading and writing live business data in real time &mdash; first solution of its kind at the company</li>
+								<li>Built live Power BI dashboards connected directly to SQL Server, eliminating a weekly manual reporting cycle of <strong>~8 hours</strong> and giving management real-time KPI visibility</li>
+								<li>Automated core operational workflows in Python, cutting manual processing effort by <strong>60%</strong> and eliminating recurring data-entry errors that had affected financial reporting</li>
+								<li>Built a data pipeline connecting segmented SQL Server records to IVR, WhatsApp, and email APIs for coordinated multi-channel campaigns, with outcomes written back automatically</li>
+								<li>Led performance analysis of multi-channel campaigns using Power BI and Python, translating findings into optimisation and automation strategies adopted across the department</li>
 							</ul>
 						</div>
 						<div class="timeline-tags">
 							<span class="tl-tag">Power BI</span>
 							<span class="tl-tag">Python</span>
 							<span class="tl-tag">SQL Server</span>
-							<span class="tl-tag">VAPI</span>
-							<span class="tl-tag">DAX</span>
+							<span class="tl-tag">API Integration</span>
+							<span class="tl-tag">Conversational AI</span>
 						</div>
 					</div>
 				</div>
-				<div class="timeline-item fade-in">
+				<div class="timeline-item reveal" id="exp-freelance" data-label="Freelance work (role)">
 					<div class="timeline-content">
 						<div class="timeline-meta">
-							<span class="timeline-date"><i class="fas fa-calendar-alt"></i> Oct 2023 &mdash; Present</span>
+							<span class="timeline-date"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-calendar-alt"></use></svg> Oct 2023 &mdash; Present</span>
 							<span class="timeline-badge freelance">Freelance</span>
 						</div>
 						<h3 class="timeline-title">Python Developer</h3>
-						<div class="timeline-company"><i class="fas fa-laptop-house"></i> Remote &mdash; Independent</div>
+						<div class="timeline-company"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-laptop-house"></use></svg> Remote &mdash; Independent</div>
 						<div class="timeline-description">
 							<ul class="exp-bullets">
 								<li>Built automation tools for clients across multiple industries, reducing manual workloads by <strong>40%</strong> on average per engagement</li>
@@ -2133,13 +339,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="timeline-item fade-in">
+				<div class="timeline-item reveal" id="exp-rcs" data-label="Royal Canadian School (role)">
 					<div class="timeline-content">
 						<div class="timeline-meta">
-							<span class="timeline-date"><i class="fas fa-calendar-alt"></i> Aug 2023 &mdash; Jun 2024</span>
+							<span class="timeline-date"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-calendar-alt"></use></svg> Aug 2023 &mdash; Jun 2024</span>
 						</div>
 						<h3 class="timeline-title">System Administrator &amp; Data Analyst</h3>
-						<div class="timeline-company"><i class="fas fa-school"></i> Royal Canadian School &mdash; Egypt</div>
+						<div class="timeline-company"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-school"></use></svg> Royal Canadian School &mdash; Egypt</div>
 						<div class="timeline-description">
 							<ul class="exp-bullets">
 								<li>Managed IT infrastructure for 500+ students and staff, maintaining network uptime and system reliability across the institution</li>
@@ -2157,194 +363,136 @@
 				</div>
 			</div>
 		</section>
-
-		<!-- Projects Section -->
-		<section id="projects">
-			<h2 class="section-title fade-in">Projects</h2>
-			<div class="featured-projects">
-				<div class="featured-card fade-in">
-					<div class="featured-left">
-						<div class="featured-category"><i class="fas fa-microphone-alt"></i> Voice Technology</div>
-						<h3 class="featured-title">VAPI Voice Agent Integration</h3>
-						<div class="case-study">
-							<div class="cs-row">
-								<div class="cs-label">Problem</div>
-								<div class="cs-text">Debt collection outbound calls were entirely manual — agents had to look up each account, dial, and log results by hand. High volume, high error rate, slow follow-up.</div>
+		<section id="about" aria-labelledby="about-title">
+<h2 class="section-title reveal" id="about-title">About Me</h2>
+			<div class="about-layout">
+				<div class="about-bio reveal">
+					<p class="bio-intro">
+						I'm a <strong>Data &amp; Automation Engineer</strong> based in Cairo, Egypt, with 3+ years of experience turning business and operational problems into practical technical solutions — understanding the process, identifying the root cause, and designing, building, integrating, and automating the right solution end to end.
+					</p>
+					<p class="bio-body">
+						My focus sits at the intersection of <strong>business intelligence</strong>, <strong>data engineering</strong>, and <strong>intelligent automation</strong>. At Maharah International I built the reporting infrastructure from scratch — Power BI dashboards connected live to SQL Server, Python-based ETL pipelines that replaced hours of daily manual work, and an AI-powered conversational solution integrated directly with the company's database for automated, real-time operations. That combination of data engineering + BI + automation + applied AI is what makes my profile uncommon.
+					</p>
+					<p class="bio-body">
+						I also work as a <strong>freelance Python developer</strong>, building automation tools for clients across different industries. I take on projects where the problem is real and the solution needs to be reliable.
+					</p>
+					<p class="bio-body">
+						I'm actively looking for opportunities to work with international teams — whether remotely or with relocation — where data and automation work actually moves the business forward.
+					</p>
+					<div class="about-languages">
+						<div class="lang-label">Languages</div>
+						<div class="lang-list">
+							<div class="lang-item">
+								<span class="lang-name">Arabic</span>
+								<span class="lang-level native">Native</span>
 							</div>
-							<div class="cs-row">
-								<div class="cs-label">Solution</div>
-								<div class="cs-text">Built a VAPI voice agent integrated directly with the SQL Server database. The agent handles outbound calls autonomously, reads live account data in real time, logs outcomes, and escalates to a human only when needed.</div>
+							<div class="lang-item">
+								<span class="lang-name">English</span>
+								<span class="lang-level professional">Professional</span>
 							</div>
-							<div class="cs-row">
-								<div class="cs-label">Result</div>
-								<div class="cs-text">First voice-AI automation deployed in the company. Eliminated manual dialling for routine follow-up calls, freeing agents for complex cases.</div>
-							</div>
-						</div>
-						<div class="project-tech" style="margin-top:1.2rem;">
-							<span class="tech-tag">VAPI</span>
-							<span class="tech-tag">SQL Server</span>
-							<span class="tech-tag">Python</span>
-							<span class="tech-tag">API Integration</span>
-							<span class="tech-tag">Call Center</span>
-						</div>
-					</div>
-					<div class="featured-right">
-						<div class="featured-visual voice-visual">
-							<div class="vis-icon"><i class="fas fa-phone-volume"></i></div>
-							<div class="vis-flow">
-								<div class="vis-step">Database Query</div>
-								<div class="vis-arrow"><i class="fas fa-arrow-down"></i></div>
-								<div class="vis-step">Voice Agent Call</div>
-								<div class="vis-arrow"><i class="fas fa-arrow-down"></i></div>
-								<div class="vis-step">Outcome Logged</div>
+							<div class="lang-item">
+								<span class="lang-name">German</span>
+								<span class="lang-level professional">Elementary</span>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="featured-card fade-in">
-					<div class="featured-left">
-						<div class="featured-category"><i class="fas fa-shield-alt"></i> Data Analysis &amp; ML</div>
-						<h3 class="featured-title">Digital Fingerprint Fraud Analysis</h3>
-						<div class="case-study">
-							<div class="cs-row">
-								<div class="cs-label">Problem</div>
-								<div class="cs-text">Fraudulent digital transactions were hard to catch — existing checks were rule-based and missed subtle pattern-based abuse across accounts.</div>
-							</div>
-							<div class="cs-row">
-								<div class="cs-label">Solution</div>
-								<div class="cs-text">Built a Python pipeline using machine learning to extract behavioural patterns from digital transaction fingerprints — device signatures, timing anomalies, and usage clusters — to flag suspicious activity automatically.</div>
-							</div>
-							<div class="cs-row">
-								<div class="cs-label">Result</div>
-								<div class="cs-text">Surfaced a new class of suspicious patterns not caught by rule-based filters, giving the risk team a prioritised queue instead of raw data to review.</div>
-							</div>
-						</div>
-						<div class="project-tech" style="margin-top:1.2rem;">
-							<span class="tech-tag">Python</span>
-							<span class="tech-tag">Scikit-learn</span>
-							<span class="tech-tag">Pandas</span>
-							<span class="tech-tag">Pattern Recognition</span>
-							<span class="tech-tag">Fraud Detection</span>
+				<div class="about-facts">
+					<div class="fact-card reveal">
+						<div class="about-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-map-marker-alt"></use></svg></div>
+						<div>
+							<div class="fact-title">Based in</div>
+							<div class="fact-value">Cairo, Egypt</div>
 						</div>
 					</div>
-					<div class="featured-right">
-						<div class="featured-visual fraud-visual">
-							<div class="vis-icon"><i class="fas fa-fingerprint"></i></div>
-							<div class="vis-stats">
-								<div class="vis-stat-row"><span class="vs-label">Patterns analysed</span><span class="vs-val">Digital signals</span></div>
-								<div class="vis-stat-row"><span class="vs-label">Method</span><span class="vs-val">ML clustering</span></div>
-								<div class="vis-stat-row"><span class="vs-label">Output</span><span class="vs-val">Risk priority queue</span></div>
-							</div>
+					<div class="fact-card reveal">
+						<div class="about-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-briefcase"></use></svg></div>
+						<div>
+							<div class="fact-title">Latest role</div>
+							<div class="fact-value">Data &amp; Automation Engineer @ Maharah International</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="featured-card fade-in">
-					<div class="featured-left">
-						<div class="featured-category"><i class="fas fa-robot"></i> Python Automation</div>
-						<h3 class="featured-title">Campaign AutoFlow System</h3>
-						<div class="case-study">
-							<div class="cs-row">
-								<div class="cs-label">Problem</div>
-								<div class="cs-text">Marketing campaign execution required staff to manually prepare lists, send messages, track responses, and update records — a repetitive cycle done multiple times per week.</div>
-							</div>
-							<div class="cs-row">
-								<div class="cs-label">Solution</div>
-								<div class="cs-text">Designed an end-to-end Python automation system that pulls target lists from the database, dispatches campaigns via the configured channels, and writes outcomes back automatically — zero manual steps in the loop.</div>
-							</div>
-							<div class="cs-row">
-								<div class="cs-label">Result</div>
-								<div class="cs-text">Reduced campaign execution time by 60%. The team went from spending half a day on each campaign cycle to reviewing a summary report.</div>
-							</div>
-						</div>
-						<div class="project-tech" style="margin-top:1.2rem;">
-							<span class="tech-tag">Python</span>
-							<span class="tech-tag">SQL Server</span>
-							<span class="tech-tag">Workflow Automation</span>
-							<span class="tech-tag">Scheduling</span>
+					<div class="fact-card reveal">
+						<div class="about-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-code"></use></svg></div>
+						<div>
+							<div class="fact-title">Core stack</div>
+							<div class="fact-value">Python · Power BI · SQL Server · APIs · AI</div>
 						</div>
 					</div>
-					<div class="featured-right">
-						<div class="featured-visual autoflow-visual">
-							<div class="vis-icon"><i class="fas fa-cogs"></i></div>
-							<div class="vis-metric">
-								<div class="vm-number">60%</div>
-								<div class="vm-label">time saved per campaign</div>
-							</div>
+					<div class="fact-card reveal">
+						<div class="about-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-globe"></use></svg></div>
+						<div>
+							<div class="fact-title">Open to</div>
+							<div class="fact-value">Remote &amp; Relocation Worldwide</div>
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div class="other-projects-label fade-in">More projects</div>
-			<div class="other-projects-grid">
-				<div class="other-card fade-in">
-					<div class="oc-top"><span class="oc-category">Power BI</span></div>
-					<h4>Performance Measurement Dashboard</h4>
-					<p>Live KPI dashboard for Maharah International connected directly to SQL Server — replaced manual weekly reporting.</p>
-					<div class="project-tech">
-						<span class="tech-tag">Power BI</span><span class="tech-tag">SQL Server</span><span class="tech-tag">DAX</span>
-					</div>
-				</div>
-				<div class="other-card fade-in">
-					<div class="oc-top"><span class="oc-category">Power BI</span></div>
-					<h4>Call Center KPI Monitoring</h4>
-					<p>Real-time agent performance dashboard with predictive trend lines and automated alerts for KPI breaches.</p>
-					<div class="project-tech">
-						<span class="tech-tag">Power BI</span><span class="tech-tag">Analytics</span><span class="tech-tag">KPI</span>
-					</div>
-				</div>
-				<div class="other-card fade-in">
-					<div class="oc-top"><span class="oc-category">Power BI</span></div>
-					<h4>School Budget Dashboard</h4>
-					<p>Financial tracking dashboard for Royal Canadian School — replaced spreadsheet-based monthly reporting with live expense monitoring.</p>
-					<div class="project-tech">
-						<span class="tech-tag">Power BI</span><span class="tech-tag">Financial Analysis</span>
-					</div>
-				</div>
-				<div class="other-card fade-in">
-					<div class="oc-top"><span class="oc-category">Python</span></div>
-					<h4>Commission Calculator</h4>
-					<p>Automated commission calculation engine that replaced a complex manual Excel process, removing errors from every payroll cycle.</p>
-					<div class="project-tech">
-						<span class="tech-tag">Python</span><span class="tech-tag">Automation</span>
-					</div>
-				</div>
-				<div class="other-card fade-in">
-					<div class="oc-top"><span class="oc-category">Python</span></div>
-					<h4>Payment Checking Robot</h4>
-					<p>Automated payment verification bot that processes transactions and updates records with zero manual intervention.</p>
-					<div class="project-tech">
-						<span class="tech-tag">Python</span><span class="tech-tag">Integration</span>
-					</div>
-				</div>
-				<div class="other-card fade-in">
-					<div class="oc-top"><span class="oc-category">Excel</span></div>
-					<h4>Employee Turnover Analysis</h4>
-					<p>Statistical analysis identifying turnover drivers and retention patterns — delivered as an actionable HR report.</p>
-					<div class="project-tech">
-						<span class="tech-tag">Excel</span><span class="tech-tag">HR Analytics</span><span class="tech-tag">Statistics</span>
-					</div>
-				</div>
-				<div class="other-card fade-in">
-					<div class="oc-top"><span class="oc-category">Excel</span></div>
-					<h4>Collection Segmentation Study</h4>
-					<p>Segmentation analysis showing which customer types respond best to which collection strategy — used to reprioritise agent workflows.</p>
-					<div class="project-tech">
-						<span class="tech-tag">Excel</span><span class="tech-tag">Segmentation</span>
+					<div class="fact-card reveal">
+						<div class="about-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-graduation-cap"></use></svg></div>
+						<div>
+							<div class="fact-title">Education</div>
+							<div class="fact-value">Bachelor of Communication Engineering · Mansoura University</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-
-		<!-- Certifications Section -->
-		<section id="certifications">
-			<h2 class="section-title fade-in">Certifications</h2>
+<section id="more-work" aria-labelledby="more-work-title">
+<h2 class="section-title reveal" id="more-work-title">More Work</h2>
+<p class="section-lead reveal">Eleven further projects, from production automation to analysis studies.</p>
+<div class="work-list">
+<details class="work-item reveal" id="w-commission" data-label="Automated Commission Calculation Engine">
+<summary><span class="work-name">Automated Commission Calculation Engine</span><span class="work-cat">Process automation</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Automated commission calculation engine that replaced a complex manual Excel process, removing errors from every payroll cycle. The manual process itself was diagnosed as the root cause of the recurring payroll mistakes.</p><div class="tags"><span class="tag">Python</span><span class="tag">Excel Automation</span><span class="tag">Data Processing</span></div></div>
+</details>
+<details class="work-item reveal" id="w-paymentbot" data-label="Payment Checking Robot">
+<summary><span class="work-name">Payment Checking Robot</span><span class="work-cat">Process automation</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Automated payment verification bot that processes transactions and updates records with zero manual intervention.</p><div class="tags"><span class="tag">Python</span><span class="tag">Integration</span></div></div>
+</details>
+<details class="work-item reveal" id="w-talkhub" data-label="TalkHub: WhatsApp Business Automation">
+<summary><span class="work-name">TalkHub: WhatsApp Business Automation</span><span class="work-cat">Messaging automation · Freelance</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Scoped a client&rsquo;s messaging requirements across support, sales and broadcast use cases, then built a full-featured WhatsApp platform: two-way messaging, automated replies, broadcast campaigns and complete conversation logging.</p><div class="tags"><span class="tag">Python</span><span class="tag">WhatsApp API</span><span class="tag">Messaging Automation</span></div></div>
+</details>
+<details class="work-item reveal" id="w-legaldesk" data-label="LegalDesk: Case &amp; Document Management">
+<summary><span class="work-name">LegalDesk: Case &amp; Document Management</span><span class="work-cat">Document automation · Freelance</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Mapped a legal client&rsquo;s intake and documentation workflow end to end to find manual bottlenecks, then built the platform to run it: client intake, contract automation, case tracking and document generation.</p><div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Document Automation</span></div></div>
+</details>
+<details class="work-item reveal" id="w-peopleops" data-label="PeopleOps: HR Operations Platform">
+<summary><span class="work-name">PeopleOps: HR Operations Platform</span><span class="work-cat">Process automation · Freelance</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Audited workflow gaps across employee records, attendance and payroll to scope the requirements, then built a connected platform covering attendance tracking, recruitment, employee records and payroll integration.</p><div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Process Automation</span></div></div>
+</details>
+<details class="work-item reveal" id="w-fraud" data-label="Fraud Detection Model">
+<summary><span class="work-name">Fraud Detection Model</span><span class="work-cat">Data analysis &amp; ML</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><div class="work-psr"><div class="cs-row"><div class="cs-label">Problem</div><div class="cs-text">Fraudulent digital transactions were hard to catch: existing checks were rule-based and missed subtle pattern-based abuse across accounts.</div></div><div class="cs-row"><div class="cs-label">Solution</div><div class="cs-text">A Python pipeline using machine learning to extract behavioural patterns from digital transaction fingerprints (device signatures, timing anomalies and usage clusters) to flag suspicious activity automatically.</div></div><div class="cs-row"><div class="cs-label">Result</div><div class="cs-text">Surfaced a new class of suspicious patterns not caught by rule-based filters, giving the risk team a prioritised queue instead of raw data to review.</div></div></div><div class="tags"><span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">Pandas</span><span class="tag">Machine Learning</span></div></div>
+</details>
+<details class="work-item reveal" id="w-perfdash" data-label="Performance Measurement Dashboard">
+<summary><span class="work-name">Performance Measurement Dashboard</span><span class="work-cat">Business intelligence</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Live KPI dashboard for Maharah International connected directly to SQL Server, which replaced manual weekly reporting.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">SQL Server</span><span class="tag">DAX</span></div></div>
+</details>
+<details class="work-item reveal" id="w-callkpi" data-label="Call Center KPI Monitoring">
+<summary><span class="work-name">Call Center KPI Monitoring</span><span class="work-cat">Business intelligence</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Real-time agent performance dashboard with predictive trend lines and automated alerts for KPI breaches.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">Analytics</span><span class="tag">KPI</span></div></div>
+</details>
+<details class="work-item reveal" id="w-schoolbudget" data-label="School Budget Dashboard">
+<summary><span class="work-name">School Budget Dashboard</span><span class="work-cat">Business intelligence</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Financial tracking dashboard for Royal Canadian School that replaced spreadsheet-based monthly reporting with live expense monitoring.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">Financial Analysis</span></div></div>
+</details>
+<details class="work-item reveal" id="w-turnover" data-label="Employee Turnover Analysis">
+<summary><span class="work-name">Employee Turnover Analysis</span><span class="work-cat">Analysis study</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Statistical analysis identifying turnover drivers and retention patterns, delivered as an actionable HR report.</p><div class="tags"><span class="tag">Excel</span><span class="tag">HR Analytics</span><span class="tag">Statistics</span></div></div>
+</details>
+<details class="work-item reveal" id="w-segmentation" data-label="Collection Segmentation Study">
+<summary><span class="work-name">Collection Segmentation Study</span><span class="work-cat">Analysis study</span><span class="chev" aria-hidden="true"></span></summary>
+<div class="work-body"><p>Segmentation analysis showing which customer types respond best to which collection strategy, used to reprioritise agent workflows.</p><div class="tags"><span class="tag">Excel</span><span class="tag">Segmentation</span></div></div>
+</details>
+</div>
+</section>
+		<section id="certifications" aria-labelledby="certifications-title">
+<h2 class="section-title reveal" id="certifications-title">Certifications</h2>
 			<div class="cert-new-grid">
-				<div class="cert-new-card fade-in">
+				<div class="cert-new-card reveal">
 					<div class="cert-new-top">
-						<div class="cert-new-icon c-blue-icon"><i class="fas fa-chart-bar"></i></div>
+						<div class="cert-new-icon c-blue-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-chart-bar"></use></svg></div>
 						<div class="cert-new-meta">
 							<span class="cert-new-badge data-badge">Data</span>
 							<span class="cert-new-date">Feb &ndash; Apr 2023</span>
@@ -2352,7 +500,7 @@
 					</div>
 					<div class="cert-new-body">
 						<h3>Data Analysis Professional</h3>
-						<div class="cert-new-issuer"><i class="fas fa-building"></i> Udacity</div>
+						<div class="cert-new-issuer"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-building"></use></svg> Udacity</div>
 						<p>Advanced program covering statistical analysis, data visualisation, and business intelligence using Python, SQL, and analytics tools.</p>
 					</div>
 					<div class="cert-new-footer">
@@ -2362,15 +510,12 @@
 							<span class="cert-skill-tag">Statistics</span>
 							<span class="cert-skill-tag">Visualisation</span>
 						</div>
-						<a href="#" class="cert-verify-link" title="Add your credential URL here">
-							<i class="fas fa-external-link-alt"></i> Verify
-						</a>
 					</div>
 				</div>
 
-				<div class="cert-new-card fade-in">
+				<div class="cert-new-card reveal">
 					<div class="cert-new-top">
-						<div class="cert-new-icon c-blue-icon"><i class="fas fa-table"></i></div>
+						<div class="cert-new-icon c-blue-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-table"></use></svg></div>
 						<div class="cert-new-meta">
 							<span class="cert-new-badge bi-badge">BI</span>
 							<span class="cert-new-date">Nov &ndash; Dec 2023</span>
@@ -2378,7 +523,7 @@
 					</div>
 					<div class="cert-new-body">
 						<h3>Excel + Power BI Diploma</h3>
-						<div class="cert-new-issuer"><i class="fas fa-building"></i> Planet of Skills</div>
+						<div class="cert-new-issuer"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-building"></use></svg> Planet of Skills</div>
 						<p>Comprehensive training in advanced Excel functions and Power BI dashboard development for business intelligence reporting.</p>
 					</div>
 					<div class="cert-new-footer">
@@ -2388,15 +533,12 @@
 							<span class="cert-skill-tag">DAX</span>
 							<span class="cert-skill-tag">Dashboards</span>
 						</div>
-						<a href="#" class="cert-verify-link" title="Add your credential URL here">
-							<i class="fas fa-external-link-alt"></i> Verify
-						</a>
 					</div>
 				</div>
 
-				<div class="cert-new-card fade-in">
+				<div class="cert-new-card reveal">
 					<div class="cert-new-top">
-						<div class="cert-new-icon c-teal-icon"><i class="fas fa-network-wired"></i></div>
+						<div class="cert-new-icon c-teal-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-network-wired"></use></svg></div>
 						<div class="cert-new-meta">
 							<span class="cert-new-badge network-badge">Networking</span>
 							<span class="cert-new-date">Jul &ndash; Sep 2021</span>
@@ -2404,7 +546,7 @@
 					</div>
 					<div class="cert-new-body">
 						<h3>CCNA &mdash; Cisco Certified Network Associate</h3>
-						<div class="cert-new-issuer"><i class="fas fa-building"></i> ITI &mdash; Information Technology Institute</div>
+						<div class="cert-new-issuer"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-building"></use></svg> ITI &mdash; Information Technology Institute</div>
 						<p>Industry-standard networking certification covering fundamentals, routing &amp; switching protocols, and network security.</p>
 					</div>
 					<div class="cert-new-footer">
@@ -2414,15 +556,12 @@
 							<span class="cert-skill-tag">Routing</span>
 							<span class="cert-skill-tag">Security</span>
 						</div>
-						<a href="#" class="cert-verify-link" title="Add your credential URL here">
-							<i class="fas fa-external-link-alt"></i> Verify
-						</a>
 					</div>
 				</div>
 
-				<div class="cert-new-card fade-in">
+				<div class="cert-new-card reveal">
 					<div class="cert-new-top">
-						<div class="cert-new-icon c-red-icon"><i class="fas fa-shield-alt"></i></div>
+						<div class="cert-new-icon c-red-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-shield-alt"></use></svg></div>
 						<div class="cert-new-meta">
 							<span class="cert-new-badge security-badge">Security</span>
 							<span class="cert-new-date">Aug &ndash; Sep 2022</span>
@@ -2430,7 +569,7 @@
 					</div>
 					<div class="cert-new-body">
 						<h3>Cyber Ops Associate</h3>
-						<div class="cert-new-issuer"><i class="fas fa-building"></i> NTI &mdash; National Telecommunication Institute</div>
+						<div class="cert-new-issuer"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-building"></use></svg> NTI &mdash; National Telecommunication Institute</div>
 						<p>Cybersecurity operations training covering threat detection, incident response, SIEM tools, and security monitoring.</p>
 					</div>
 					<div class="cert-new-footer">
@@ -2440,15 +579,12 @@
 							<span class="cert-skill-tag">SIEM</span>
 							<span class="cert-skill-tag">Incident Response</span>
 						</div>
-						<a href="#" class="cert-verify-link" title="Add your credential URL here">
-							<i class="fas fa-external-link-alt"></i> Verify
-						</a>
 					</div>
 				</div>
 
-				<div class="cert-new-card fade-in">
+				<div class="cert-new-card reveal">
 					<div class="cert-new-top">
-						<div class="cert-new-icon c-amber-icon"><i class="fas fa-trophy"></i></div>
+						<div class="cert-new-icon c-amber-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-trophy"></use></svg></div>
 						<div class="cert-new-meta">
 							<span class="cert-new-badge challenge-badge">Challenge</span>
 							<span class="cert-new-date">Mar &ndash; Apr 2022</span>
@@ -2456,7 +592,7 @@
 					</div>
 					<div class="cert-new-body">
 						<h3>Data Analysis Challenger</h3>
-						<div class="cert-new-issuer"><i class="fas fa-building"></i> Udacity</div>
+						<div class="cert-new-issuer"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-building"></use></svg> Udacity</div>
 						<p>Intensive challenge program tackling real-world data problems with analytical thinking and Python-based solutions.</p>
 					</div>
 					<div class="cert-new-footer">
@@ -2465,15 +601,12 @@
 							<span class="cert-skill-tag">Problem Solving</span>
 							<span class="cert-skill-tag">Python</span>
 						</div>
-						<a href="#" class="cert-verify-link" title="Add your credential URL here">
-							<i class="fas fa-external-link-alt"></i> Verify
-						</a>
 					</div>
 				</div>
 
-				<div class="cert-new-card fade-in">
+				<div class="cert-new-card reveal">
 					<div class="cert-new-top">
-						<div class="cert-new-icon c-green-icon"><i class="fas fa-code"></i></div>
+						<div class="cert-new-icon c-green-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-code"></use></svg></div>
 						<div class="cert-new-meta">
 							<span class="cert-new-badge programming-badge">Programming</span>
 							<span class="cert-new-date">Sep &ndash; Nov 2022</span>
@@ -2481,7 +614,7 @@
 					</div>
 					<div class="cert-new-body">
 						<h3>Advanced &amp; Intermediate Programming</h3>
-						<div class="cert-new-issuer"><i class="fas fa-building"></i> HackerRank</div>
+						<div class="cert-new-issuer"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-building"></use></svg> HackerRank</div>
 						<p>Certified assessments in advanced algorithms, data structures, and Python programming proficiency.</p>
 					</div>
 					<div class="cert-new-footer">
@@ -2490,44 +623,32 @@
 							<span class="cert-skill-tag">Algorithms</span>
 							<span class="cert-skill-tag">Data Structures</span>
 						</div>
-						<a href="https://www.hackerrank.com/" target="_blank" class="cert-verify-link">
-							<i class="fas fa-external-link-alt"></i> Verify
-						</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="cert-targets fade-in">
-				<div class="ct-label"><i class="fas fa-crosshairs"></i> Currently targeting</div>
+			<div class="cert-targets reveal">
+				<div class="ct-label"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-crosshairs"></use></svg> Currently targeting</div>
 				<div class="ct-items">
 					<div class="ct-item">
-						<div class="ct-icon"><i class="fas fa-chart-pie"></i></div>
+						<div class="ct-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-chart-pie"></use></svg></div>
 						<div class="ct-info">
 							<div class="ct-name">Microsoft PL-300</div>
 							<div class="ct-sub">Power BI Data Analyst</div>
 						</div>
 						<span class="ct-status">In progress</span>
 					</div>
-					<div class="ct-item">
-						<div class="ct-icon"><i class="fas fa-cloud"></i></div>
-						<div class="ct-info">
-							<div class="ct-name">Azure AZ-900</div>
-							<div class="ct-sub">Cloud Fundamentals</div>
-						</div>
-						<span class="ct-status">Planned</span>
-					</div>
+					
 				</div>
 			</div>
 		</section>
-
-		<!-- Contact Section -->
-		<section id="contact">
-			<h2 class="section-title fade-in">Get In Touch</h2>
+		<section id="contact" aria-labelledby="contact-title">
+<h2 class="section-title reveal" id="contact-title">Get In Touch</h2>
 			<div class="contact-layout">
-				<div class="contact-form-wrap fade-in">
+				<div class="contact-form-wrap reveal">
 					<form class="contact-form" id="contactForm" action="https://formspree.io/f/mnjolqqb" method="POST" novalidate>
 						<!-- Honeypot anti-spam field -->
-						<div style="position:absolute;left:-9999px;" aria-hidden="true">
+						<div class="hp-field" aria-hidden="true">
 							<label>Don't fill this: <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
 						</div>
 
@@ -2535,89 +656,89 @@
 							<div class="cf-field">
 								<label for="cf-name">Your name</label>
 								<input type="text" id="cf-name" name="name" placeholder="Sarah Johnson"
-									   required minlength="2" maxlength="80" autocomplete="name" />
-								<span class="cf-error-msg" data-for="name"></span>
+									   required minlength="2" maxlength="80" autocomplete="name" aria-describedby="cf-err-name" />
+								<span class="cf-error-msg" id="cf-err-name" data-for="name" aria-live="polite"></span>
 							</div>
 							<div class="cf-field">
 								<label for="cf-email">Your email</label>
 								<input type="email" id="cf-email" name="email" placeholder="sarah@company.com"
-									   required maxlength="120" autocomplete="email" />
-								<span class="cf-error-msg" data-for="email"></span>
+									   required maxlength="120" autocomplete="email" aria-describedby="cf-err-email" />
+								<span class="cf-error-msg" id="cf-err-email" data-for="email" aria-live="polite"></span>
 							</div>
 						</div>
 
 						<div class="cf-field">
 							<label for="cf-subject">Subject</label>
 							<input type="text" id="cf-subject" name="subject" placeholder="Job opportunity / Project collaboration"
-								   required minlength="3" maxlength="120" />
-							<span class="cf-error-msg" data-for="subject"></span>
+								   required minlength="3" maxlength="120" aria-describedby="cf-err-subject" />
+							<span class="cf-error-msg" id="cf-err-subject" data-for="subject" aria-live="polite"></span>
 						</div>
 
 						<div class="cf-field">
 							<label for="cf-message">Message</label>
 							<textarea id="cf-message" name="message" rows="5"
 									  placeholder="Tell me about the role or project..."
-									  required minlength="20" maxlength="2000"></textarea>
-							<span class="cf-error-msg" data-for="message"></span>
+									  required minlength="20" maxlength="2000" aria-describedby="cf-err-message cfCounter"></textarea>
+							<span class="cf-error-msg" id="cf-err-message" data-for="message" aria-live="polite"></span>
 							<span class="cf-counter" id="cfCounter">0 / 2000</span>
 						</div>
 
 						<input type="hidden" name="_subject" id="cf-formspree-subject" value="New portfolio contact" />
 
 						<button type="submit" class="btn btn-primary cf-submit" id="cfSubmit">
-							<i class="fas fa-paper-plane"></i> <span class="cf-btn-text">Send Message</span>
+							<svg class="i icon-send" aria-hidden="true" focusable="false"><use href="#i-paper-plane"></use></svg> <span class="cf-btn-text">Send Message</span>
 						</button>
 						<p class="cf-note">Or reach me directly — I usually reply within 24 hours.</p>
 					</form>
 
-					<div class="cf-success" id="cfSuccess" style="display:none;">
-						<i class="fas fa-check-circle"></i>
+					<div class="cf-success" id="cfSuccess" role="status" hidden>
+						<svg class="i" aria-hidden="true" focusable="false"><use href="#i-check-circle"></use></svg>
 						<span>Message sent! I'll get back to you within 24 hours.</span>
 					</div>
 
-					<div class="cf-error-box" id="cfErrorBox" style="display:none;">
-						<i class="fas fa-exclamation-circle"></i>
+					<div class="cf-error-box" id="cfErrorBox" role="alert" hidden>
+						<svg class="i" aria-hidden="true" focusable="false"><use href="#i-exclamation-circle"></use></svg>
 						<span id="cfErrorText">Something went wrong. Please try again or email me directly.</span>
 					</div>
 				</div>
 
-				<div class="contact-sidebar fade-in">
+				<div class="contact-sidebar reveal">
 					<div class="cs-download">
-						<a href="cv-abdelrahman-elmogy.pdf" download class="btn btn-primary" style="width:100%;justify-content:center;">
-							<i class="fas fa-download"></i> Download CV
+						<a href="CV_Abdelrahman_Elmogy_Master.pdf" download class="btn btn-primary btn-block">
+							<svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"></use></svg> Download CV
 						</a>
 					</div>
 					<div class="cs-links">
 						<a href="mailto:Abdelrahmannelmogyy22@gmail.com" class="cs-link-item">
-							<div class="cs-link-icon"><i class="fas fa-envelope"></i></div>
+							<div class="cs-link-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-envelope"></use></svg></div>
 							<div class="cs-link-info">
 								<div class="cs-link-label">Email</div>
 								<div class="cs-link-val">Abdelrahmannelmogyy22@gmail.com</div>
 							</div>
 						</a>
-						<a href="https://wa.me/201014277880" target="_blank" class="cs-link-item">
-							<div class="cs-link-icon whatsapp-icon"><i class="fab fa-whatsapp"></i></div>
+						<a href="https://wa.me/201014277880" target="_blank" rel="noopener noreferrer" class="cs-link-item">
+							<div class="cs-link-icon whatsapp-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-whatsapp"></use></svg></div>
 							<div class="cs-link-info">
 								<div class="cs-link-label">WhatsApp</div>
 								<div class="cs-link-val">+20 101 427 7880</div>
 							</div>
-						</a>
-						<a href="https://www.linkedin.com/in/abdelrahman-elmogy-5086b4245/" target="_blank" class="cs-link-item">
-							<div class="cs-link-icon linkedin-icon"><i class="fab fa-linkedin"></i></div>
+						<span class="sr-only"> (opens in a new tab)</span></a>
+						<a href="https://www.linkedin.com/in/abdelrahman-elmogyy/" target="_blank" rel="noopener noreferrer" class="cs-link-item">
+							<div class="cs-link-icon linkedin-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-linkedin"></use></svg></div>
 							<div class="cs-link-info">
 								<div class="cs-link-label">LinkedIn</div>
 								<div class="cs-link-val">Abdelrahman Elmogy</div>
 							</div>
-						</a>
-						<a href="https://github.com/" target="_blank" class="cs-link-item">
-							<div class="cs-link-icon github-icon"><i class="fab fa-github"></i></div>
+						<span class="sr-only"> (opens in a new tab)</span></a>
+						<a href="https://github.com/abdelrahamannelmogyy" target="_blank" rel="noopener noreferrer" class="cs-link-item">
+							<div class="cs-link-icon github-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-github"></use></svg></div>
 							<div class="cs-link-info">
 								<div class="cs-link-label">GitHub</div>
-								<div class="cs-link-val">github.com/AbdelrahmanElmogy</div>
+								<div class="cs-link-val">github.com/abdelrahamannelmogyy</div>
 							</div>
-						</a>
+						<span class="sr-only"> (opens in a new tab)</span></a>
 						<div class="cs-link-item no-link">
-							<div class="cs-link-icon"><i class="fas fa-map-marker-alt"></i></div>
+							<div class="cs-link-icon"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-map-marker-alt"></use></svg></div>
 							<div class="cs-link-info">
 								<div class="cs-link-label">Location</div>
 								<div class="cs-link-val">Cairo, Egypt &mdash; open to relocation</div>
@@ -2625,233 +746,23 @@
 						</div>
 					</div>
 					<div class="cs-availability">
-						<div class="avail-dot" style="width:8px;height:8px;background:#10b981;border-radius:50%;box-shadow:0 0 6px rgba(16,185,129,0.7);flex-shrink:0;"></div>
+						<div class="avail-dot" aria-hidden="true"></div>
 						<span>Currently available for new opportunities</span>
 					</div>
 				</div>
 			</div>
-
-			<div class="site-footer">
-				<span>Abdelrahman Elmogy &copy; 2025</span>
+</section>
+</main>
+<footer class="site-footer-wrap">
+<div class="site-footer">
+				<span>Abdelrahman Elmogy &copy; 2026</span>
 				<span>Cairo, Egypt &mdash; Open to relocation</span>
 			</div>
-		</section>
+</footer>
 
-		<button id="scrollTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+		<button type="button" id="scrollTop" aria-label="Back to top"><svg class="i" aria-hidden="true" focusable="false"><use href="#i-arrow-up"></use></svg></button>
 
-		<script>
-			// ── Hamburger menu ──
-			const hamburger = document.getElementById('hamburger');
-			const navLinks  = document.getElementById('navLinks');
-			hamburger.addEventListener('click', () => {
-				hamburger.classList.toggle('open');
-				navLinks.classList.toggle('open');
-				document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
-			});
-			navLinks.querySelectorAll('a').forEach(link => {
-				link.addEventListener('click', () => {
-					hamburger.classList.remove('open');
-					navLinks.classList.remove('open');
-					document.body.style.overflow = '';
-				});
-			});
-
-			// ── Smooth scroll ──
-			document.querySelectorAll('a[href^="#"]').forEach(link => {
-				link.addEventListener('click', function(e) {
-					const target = document.querySelector(this.getAttribute('href'));
-					if (target) {
-						e.preventDefault();
-						const offset = 80;
-						const top = target.getBoundingClientRect().top + window.scrollY - offset;
-						window.scrollTo({ top, behavior: 'smooth' });
-					}
-				});
-			});
-
-			// ── Active nav on scroll ──
-			const sections  = document.querySelectorAll('section[id]');
-			const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
-			function updateActiveNav() {
-				const scrollY = window.scrollY + 120;
-				let current = '';
-				sections.forEach(sec => {
-					if (scrollY >= sec.offsetTop) current = sec.id;
-				});
-				navAnchors.forEach(a => {
-					a.classList.toggle('nav-active', a.getAttribute('href') === '#' + current);
-				});
-			}
-
-			// ── Header opacity on scroll ──
-			const header = document.querySelector('header');
-			function handleHeader() {
-				header.style.background = window.scrollY > 80
-					? 'rgba(6, 13, 31, 0.97)'
-					: 'rgba(6, 13, 31, 0.75)';
-			}
-
-			// ── Scroll-to-top button ──
-			const scrollTopBtn = document.getElementById('scrollTop');
-			function handleScrollTop() {
-				scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
-			}
-			scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-			// ── Subtle particles ──
-			function createParticles() {
-				const container = document.getElementById('particles');
-				for (let i = 0; i < 25; i++) {
-					const p = document.createElement('div');
-					p.className = 'particle';
-					p.style.cssText = `left:${Math.random()*100}%;width:${Math.random()*6+2}px;height:${Math.random()*6+2}px;animation-delay:${Math.random()*20}s;animation-duration:${Math.random()*20+15}s`;
-					container.appendChild(p);
-				}
-			}
-
-			// ── Contact form: AJAX submit + validation ──
-			(function () {
-				const form = document.getElementById('contactForm');
-				if (!form) return;
-
-				const submitBtn   = document.getElementById('cfSubmit');
-				const btnText     = submitBtn.querySelector('.cf-btn-text');
-				const successBox  = document.getElementById('cfSuccess');
-				const errorBox    = document.getElementById('cfErrorBox');
-				const errorText   = document.getElementById('cfErrorText');
-				const messageEl   = document.getElementById('cf-message');
-				const counterEl   = document.getElementById('cfCounter');
-				const subjectEl   = document.getElementById('cf-subject');
-				const formspreeSubj = document.getElementById('cf-formspree-subject');
-
-				const EMAIL_RX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-				if (messageEl && counterEl) {
-					const max = parseInt(messageEl.getAttribute('maxlength'), 10) || 2000;
-					const update = () => {
-						const len = messageEl.value.length;
-						counterEl.textContent = `${len} / ${max}`;
-						counterEl.classList.toggle('warn', len > max * 0.9);
-					};
-					messageEl.addEventListener('input', update);
-					update();
-				}
-
-				if (subjectEl && formspreeSubj) {
-					subjectEl.addEventListener('input', () => {
-						formspreeSubj.value = subjectEl.value
-							? `Portfolio contact: ${subjectEl.value.slice(0, 80)}`
-							: 'New portfolio contact';
-					});
-				}
-
-				function showErr(name, msg) {
-					const input = form.querySelector(`[name="${name}"]`);
-					const err   = form.querySelector(`.cf-error-msg[data-for="${name}"]`);
-					if (input) input.classList.add('cf-invalid');
-					if (err) { err.textContent = msg; err.classList.add('show'); }
-				}
-				function clearErr(name) {
-					const input = form.querySelector(`[name="${name}"]`);
-					const err   = form.querySelector(`.cf-error-msg[data-for="${name}"]`);
-					if (input) input.classList.remove('cf-invalid');
-					if (err) { err.textContent = ''; err.classList.remove('show'); }
-				}
-				function clearAll() {
-					['name', 'email', 'subject', 'message'].forEach(clearErr);
-					errorBox.style.display = 'none';
-				}
-
-				form.querySelectorAll('input, textarea').forEach(el => {
-					el.addEventListener('input', () => clearErr(el.name));
-				});
-
-				function validate(data) {
-					let ok = true;
-					const name = (data.name || '').trim();
-					const email = (data.email || '').trim();
-					const subject = (data.subject || '').trim();
-					const message = (data.message || '').trim();
-
-					if (name.length < 2) { showErr('name', 'Please enter your full name.'); ok = false; }
-					if (!EMAIL_RX.test(email)) { showErr('email', 'Please enter a valid email address.'); ok = false; }
-					if (subject.length < 3) { showErr('subject', 'Subject is too short.'); ok = false; }
-					if (message.length < 20) { showErr('message', 'Please write at least 20 characters so I can help properly.'); ok = false; }
-
-					return ok;
-				}
-
-				form.addEventListener('submit', async function (e) {
-					e.preventDefault();
-					clearAll();
-
-					if (form._gotcha && form._gotcha.value) {
-						successBox.style.display = 'flex';
-						form.style.display = 'none';
-						return;
-					}
-
-					const data = Object.fromEntries(new FormData(form).entries());
-					if (!validate(data)) {
-						const firstErr = form.querySelector('.cf-invalid');
-						if (firstErr) firstErr.focus();
-						return;
-					}
-
-					submitBtn.disabled = true;
-					submitBtn.classList.add('loading');
-					btnText.textContent = 'Sending...';
-
-					try {
-						const res = await fetch(form.action, {
-							method: 'POST',
-							headers: {
-								'Accept': 'application/json',
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify(data)
-						});
-
-						if (res.ok) {
-							form.reset();
-							if (counterEl) counterEl.textContent = '0 / 2000';
-							form.style.display = 'none';
-							successBox.style.display = 'flex';
-							successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-						} else {
-							let msg = 'Could not send the message. Please try again or email me directly.';
-							try {
-								const json = await res.json();
-								if (json && json.errors && json.errors.length) {
-									msg = json.errors.map(er => er.message).join(' ');
-								}
-							} catch (_) { /* ignore */ }
-							errorText.textContent = msg;
-							errorBox.style.display = 'flex';
-						}
-					} catch (err) {
-						errorText.textContent = 'Network error. Please check your connection and try again.';
-						errorBox.style.display = 'flex';
-					} finally {
-						submitBtn.disabled = false;
-						submitBtn.classList.remove('loading');
-						btnText.textContent = 'Send Message';
-					}
-				});
-			})();
-
-			// ── Init ──
-			document.addEventListener('DOMContentLoaded', () => {
-				createParticles();
-				updateActiveNav();
-				handleHeader();
-				handleScrollTop();
-			});
-			window.addEventListener('scroll', () => {
-				updateActiveNav();
-				handleHeader();
-				handleScrollTop();
-			}, { passive: true });
-		</script>
-	</body>
+<script src="assets/js/signal-field.js?v=2.0.0" defer></script>
+<script src="assets/js/app.js?v=2.0.0" defer></script>
+</body>
 </html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abdelrahamannelmogyy.github.io/sitemap.xml

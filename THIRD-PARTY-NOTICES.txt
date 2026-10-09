@@ -1,0 +1,7 @@
+Third-party material used by this site
+--------------------------------------
+Inter (variable font) - SIL Open Font License 1.1
+  (c) The Inter Project Authors. Full licence: assets/fonts/OFL-Inter.txt
+
+Font Awesome Free 6.4 icons (inline SVG sprite in index.html) - CC BY 4.0
+  (c) Fonticons, Inc. https://fontawesome.com/license/free
