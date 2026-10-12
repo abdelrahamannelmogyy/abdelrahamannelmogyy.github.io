@@ -3,8 +3,8 @@ Third-party material used by this site
 Inter (variable font) - SIL Open Font License 1.1
   (c) The Inter Project Authors. Full licence: OFL-Inter.txt
 
-Instrument Serif - SIL Open Font License 1.1
-  Full licence: OFL-InstrumentSerif.txt
+Newsreader - SIL Open Font License 1.1
+  Full licence: OFL-Newsreader.txt
 
 IBM Plex Mono - SIL Open Font License 1.1
   Full licence: OFL-IBMPlexMono.txt

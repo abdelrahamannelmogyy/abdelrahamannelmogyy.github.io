@@ -23,8 +23,8 @@
   size-adjust: 107.4%;
 }
 
-@font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("instrument-serif-400.woff2") format("woff2"); }
-@font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url("instrument-serif-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Newsreader"; font-style: normal; font-weight: 500; font-display: swap; src: url("newsreader-500.woff2") format("woff2"); }
+@font-face { font-family: "Newsreader"; font-style: italic; font-weight: 500; font-display: swap; src: url("newsreader-500-italic.woff2") format("woff2"); }
 @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("ibm-plex-mono-500.woff2") format("woff2"); }
 
 :root {
@@ -46,7 +46,7 @@
 
   /* Typography */
   --font-sans: "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --ivory: #f2ece0;
   --amber: #e9b15a;
@@ -1806,14 +1806,14 @@ body.menu-open { overflow: hidden; }
 .avail { display: inline-flex; flex: 1; flex-wrap: wrap; align-items: center; min-width: 0; gap: 0.15rem 0.5rem; }
 .avail strong { font-weight: 500; color: var(--ivory); }
 .avail-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 0 4px var(--success-a20); }
-.hero h1 { margin: 0; font-family: var(--font-display); font-size: clamp(2.9rem, 6.3vw, 5.1rem); font-weight: 400; line-height: 1.03; letter-spacing: -0.015em; text-wrap: balance; color: var(--ivory); }
+.hero h1 { margin: 0; font-family: var(--font-display); font-size: clamp(2.5rem, 5.2vw, 4.3rem); font-weight: 500; line-height: 1.06; letter-spacing: -0.02em; text-wrap: balance; color: var(--ivory); }
 .hero h1 em { font-style: italic; color: var(--amber); }
 .hero-sub { max-width: 34em; margin-top: 1.6rem; font-size: var(--fs-lg); line-height: 1.65; color: var(--text-muted); }
 .hero-sub strong { font-weight: 500; color: var(--text-primary); }
 .hero-proof { display: flex; flex-wrap: wrap; gap: 1.4rem 0; margin: 2.4rem 0 0; padding: 0; list-style: none; }
 .hero-proof li { padding: 0 2rem; border-left: 1px solid var(--navy-border); }
 .hero-proof li:first-child { padding-left: 0; border-left: 0; }
-.hero-proof .num { display: block; font-family: var(--font-display); font-size: clamp(2.4rem, 4.3vw, 3.75rem); line-height: 1; color: var(--amber); }
+.hero-proof .num { display: block; font-family: var(--font-display); font-size: clamp(2.1rem, 3.5vw, 3rem); font-weight: 500; line-height: 1; color: var(--amber); }
 .hero-proof .num small { font-size: 0.45em; opacity: 0.85; }
 .hero-proof .lab { display: block; margin-top: 0.65rem; font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.13em; line-height: 1.55; text-transform: uppercase; color: var(--text-muted); }
 .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem; margin-top: 2.5rem; }
@@ -1875,13 +1875,13 @@ body.menu-open { overflow: hidden; }
 /* ====================================================================
    TYPE ROLES: serif for statements and key numbers, mono for labels
    ==================================================================== */
-.logo { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 400; letter-spacing: 0; }
-.section-title { margin-bottom: 0.6rem; font-family: var(--font-display); font-size: clamp(2.1rem, 4.2vw, 3rem); font-weight: 400; line-height: 1.1; text-align: left; color: var(--ivory); }
+.logo { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; letter-spacing: -0.005em; }
+.section-title { margin-bottom: 0.6rem; font-family: var(--font-display); font-size: clamp(1.9rem, 3.6vw, 2.6rem); font-weight: 500; line-height: 1.12; text-align: left; color: var(--ivory); }
 .section-lead { margin-left: 0; margin-right: 0; text-align: left; }
-.cs-title, .dd-h { font-family: var(--font-display); font-weight: 400; color: var(--ivory); }
-.cs-title { font-size: clamp(1.7rem, 3vw, 2.2rem); line-height: 1.12; }
-.dd-h { font-size: var(--fs-2xl); }
-.dd-num { font-family: var(--font-display); font-weight: 400; color: var(--amber); }
+.cs-title, .dd-h { font-family: var(--font-display); font-weight: 500; color: var(--ivory); }
+.cs-title { font-size: clamp(1.5rem, 2.6vw, 1.95rem); line-height: 1.15; }
+.dd-h { font-size: var(--fs-xl); }
+.dd-num { font-family: var(--font-display); font-weight: 500; color: var(--amber); }
 .cs-kicker, .cs-meta dt, .cs-block h4, .cs-analysis h4, .cs-rates h4, .dd-sub, .cs-stack-label, .verb, .method-n, .cert-new-badge, .cert-new-date, .dg-legend { font-family: var(--font-mono); letter-spacing: 0.1em; }
 #experience strong { font-weight: 600; color: var(--amber); }
 
