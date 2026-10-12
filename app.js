@@ -454,21 +454,7 @@
     sync();
   });
 
-  /* ---------- Hero: the system story and the counting proof numbers ---------- */
-  var heroSys = $('.hero-system');
-  if (heroSys) {
-    var hsteps = $$('.sys-step', heroSys);
-    if (reduceMotion.matches) {
-      hsteps.forEach(function (s) { s.classList.add('is-on'); });
-      heroSys.classList.add('is-done');
-    } else {
-      var hi = 0;
-      (function lightUp() {
-        if (hi < hsteps.length) { hsteps[hi].classList.add('is-on'); hi += 1; setTimeout(lightUp, 460); }
-        else setTimeout(function () { heroSys.classList.add('is-done'); }, 250);
-      })();
-    }
-  }
+    /* ---------- Hero: counting proof numbers ---------- */
   if (!reduceMotion.matches) {
     $$('[data-count]').forEach(function (el) {
       var target = parseFloat(el.getAttribute('data-count')), t0 = null, dur = 1100;
@@ -484,5 +470,81 @@
       requestAnimationFrame(frame);
     });
   }
+
+  /* ---------- Motion system, release A: hero ecosystem and micro-interactions ---------- */
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var calmMotion = reduceMotion.matches || saveData;
+  if (calmMotion) document.documentElement.classList.add('calm-motion');
+  var eco = $('.hero-eco');
+  if (eco) {
+    var ecoSvgs = $$('svg.eco', eco), inView = true, settled = false;
+    if (calmMotion) {
+      eco.classList.add('is-calm');
+      ecoSvgs.forEach(function (s) { var p = $('.pt', s); if (p) p.remove(); if (s.pauseAnimations) s.pauseAnimations(); });
+    } else {
+      var run = function () {
+        var on = inView && !document.hidden && !settled;
+        ecoSvgs.forEach(function (s) { if (on) s.unpauseAnimations(); else s.pauseAnimations(); });
+        eco.classList.toggle('is-paused', !on);
+      };
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; run(); }, { threshold: 0.05 }).observe(eco);
+      document.addEventListener('visibilitychange', run);
+      setTimeout(function () { settled = true; eco.classList.add('is-calm'); run(); }, 30000);   /* the flow settles after 30 seconds */
+      if (finePointer) {
+        var hero = $('.hero'), tx = 0, ty = 0, pf = 0;
+        var apply = function () { pf = 0; eco.style.setProperty('--px', tx.toFixed(3)); eco.style.setProperty('--py', ty.toFixed(3)); };
+        hero.addEventListener('pointermove', function (e) {
+          var r = hero.getBoundingClientRect();
+          tx = ((e.clientX - r.left) / r.width - 0.5) * 2; ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+          if (!pf) pf = requestAnimationFrame(apply);
+        });
+        hero.addEventListener('pointerleave', function () { tx = 0; ty = 0; apply(); });
+      }
+    }
+  }
+  /* sliding indicator under the active nav link */
+  var navUl = $('#navLinks');
+  if (navUl) {
+    var ind = document.createElement('span'); ind.className = 'nav-indicator'; ind.setAttribute('aria-hidden', 'true'); navUl.appendChild(ind);
+    var moveInd = function () {
+      var a = $('a.nav-active', navUl);
+      if (!a || !a.offsetWidth) { ind.classList.remove('is-on'); navUl.classList.remove('has-ind'); return; }
+      ind.style.setProperty('--ix', (a.offsetLeft + 4) + 'px'); ind.style.setProperty('--iw', ((a.offsetWidth - 8) / 100).toFixed(3));
+      ind.classList.add('is-on'); navUl.classList.add('has-ind');
+    };
+    var mo = new MutationObserver(moveInd);
+    $$('a', navUl).forEach(function (a) { mo.observe(a, { attributes: true, attributeFilter: ['class'] }); });
+    window.addEventListener('resize', moveInd); moveInd();
+  }
+  /* magnetic primary buttons and a soft light on project cards (fine pointers only, never on touch or keyboard) */
+  if (finePointer && !calmMotion) {
+    $$('.hero-cta .btn, .cf-submit').forEach(function (b) {
+      b.addEventListener('pointermove', function (e) {
+        var r = b.getBoundingClientRect();
+        var x = Math.max(-6, Math.min(6, (e.clientX - (r.left + r.width / 2)) * 0.18)), y = Math.max(-6, Math.min(6, (e.clientY - (r.top + r.height / 2)) * 0.18));
+        b.classList.add('is-magnetic'); b.style.setProperty('--tx', x.toFixed(1) + 'px'); b.style.setProperty('--ty', y.toFixed(1) + 'px');
+      });
+      b.addEventListener('pointerleave', function () { b.classList.remove('is-magnetic'); b.style.removeProperty('--tx'); b.style.removeProperty('--ty'); });
+    });
+    $$('.cs').forEach(function (c) {
+      var light = document.createElement('span'); light.className = 'cs-light'; light.setAttribute('aria-hidden', 'true'); c.insertBefore(light, c.firstChild);
+      var lf = 0, lx = 0, ly = 0;
+      c.addEventListener('pointermove', function (e) {
+        var r = c.getBoundingClientRect(); lx = e.clientX - r.left; ly = e.clientY - r.top;
+        if (!lf) lf = requestAnimationFrame(function () { lf = 0; c.style.setProperty('--lx', lx + 'px'); c.style.setProperty('--ly', ly + 'px'); });
+      });
+    });
+  }
+  /* copy the email address, with spoken and visible confirmation */
+  $$('.copy-btn').forEach(function (btn) {
+    var label = $('.copy-label', btn), timer = 0;
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var done = function () { label.textContent = 'Copied'; btn.classList.add('is-done'); clearTimeout(timer); timer = setTimeout(function () { label.textContent = 'Copy'; btn.classList.remove('is-done'); }, 1800); };
+      var fallback = function () { var t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); done(); } catch (e) { label.textContent = 'Select it'; } document.body.removeChild(t); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+    });
+  });
 
 })();
