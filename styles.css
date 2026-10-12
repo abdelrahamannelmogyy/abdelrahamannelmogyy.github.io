@@ -1921,3 +1921,14 @@ section { padding: 3.9rem 2rem; }
 @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
 @media print { :root { --ivory: #111; --amber: #7a4d00; } .hero-system, .scroll-progress { display: none; } }
 
+
+/* Tracker and Dispatch deep dives: before/after and KPI lists */
+.dd-ba { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin: 0.8rem 0 1rem; }
+.dd-ba > div { padding: 1rem 1.1rem; background: rgba(6, 13, 31, 0.5); border: 1px solid var(--navy-border); border-radius: var(--radius-md); }
+.dd-ba > .ba-b { border-top: 3px solid var(--danger-soft); }
+.dd-ba > .ba-a { border-top: 3px solid var(--success); }
+.dd-ba h5 { margin-bottom: 0.6rem; font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.dd-ba ol { display: grid; gap: 0.4rem; margin: 0; padding-left: 1.25rem; font-size: var(--fs-md); line-height: 1.55; color: var(--text-primary); }
+.dd-kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0.55rem 0.9rem; margin: 0.4rem 0 1rem; padding: 0; list-style: none; }
+.dd-kpis li { padding: 0.55rem 0.8rem; font-size: var(--fs-md); color: var(--text-primary); background: rgba(6, 13, 31, 0.5); border: 1px solid var(--navy-border); border-left: 3px solid var(--amber); border-radius: 6px; }
+@media (max-width: 700px) { .dd-ba { grid-template-columns: 1fr; } }
