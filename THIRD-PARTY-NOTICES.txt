@@ -1,13 +1,13 @@
 Third-party material used by this site
 --------------------------------------
 Inter (variable font) - SIL Open Font License 1.1
-  (c) The Inter Project Authors. Full licence: assets/fonts/OFL-Inter.txt
+  (c) The Inter Project Authors. Full licence: OFL-Inter.txt
 
 Instrument Serif - SIL Open Font License 1.1
-  Full licence: assets/fonts/OFL-InstrumentSerif.txt
+  Full licence: OFL-InstrumentSerif.txt
 
 IBM Plex Mono - SIL Open Font License 1.1
-  Full licence: assets/fonts/OFL-IBMPlexMono.txt
+  Full licence: OFL-IBMPlexMono.txt
 
 Font files were obtained from the Fontsource packages (Latin subsets, WOFF2).
 
