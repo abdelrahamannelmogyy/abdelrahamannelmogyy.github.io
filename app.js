@@ -547,4 +547,86 @@
     });
   });
 
+  /* ---------- Motion system, release B: the story, the spine, the data-draw visuals ---------- */
+  var frame = function (fn) { var q = 0; return function () { if (!q) q = requestAnimationFrame(function () { q = 0; fn(); }); }; };
+  /* the pinned story: native scrolling drives it, nothing is intercepted */
+  var story = $('#story');
+  if (story) {
+    var sTrack = $('.story-track', story), sRail = $('.story-rail', story), sSteps = $$('.story-step', story), sNodes = $$('.story-node', story), sCur = -1;
+    var sN = sSteps.length;
+    var sMeasure = function () { sRail.style.setProperty('--rw', (sRail.clientWidth * (sN - 1) / sN) + 'px'); };
+    var sUpdate = function () {
+      var r = sTrack.getBoundingClientRect(), vh = window.innerHeight, total = r.height - vh;
+      var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+      var f = (0.5 + p * (sN - 1)) / sN;
+      sRail.style.setProperty('--f', ((f - 0.5 / sN) / ((sN - 1) / sN)).toFixed(4));
+      sRail.style.setProperty('--f2', f.toFixed(4));
+      story.classList.toggle('is-moving', p > 0.02);
+      var idx = Math.round(p * (sN - 1));
+      if (idx !== sCur) {
+        sCur = idx;
+        sSteps.forEach(function (s, i) { s.classList.toggle('is-on', i === idx); });
+        sNodes.forEach(function (nd, i) { nd.classList.toggle('is-on', i === idx); nd.classList.toggle('is-done', i < idx); });
+      }
+    };
+    var sStage = $('.story-stage', story), sList = $('.story-steps', story), sW = 0;
+    /* try the pinned layout, measure it, and keep it only if every step really fits the screen */
+    var sApply = function () {
+      if (reduceMotion.matches) return;
+      story.classList.add('is-pinned'); sList.style.minHeight = '';
+      var tallest = 0; sSteps.forEach(function (s) { tallest = Math.max(tallest, s.offsetHeight); });
+      sList.style.minHeight = tallest + 'px';
+      if (sStage.scrollHeight > sStage.clientHeight + 1) { story.classList.remove('is-pinned'); sList.style.minHeight = ''; return; }
+      sMeasure(); sUpdate();
+    };
+    if (!reduceMotion.matches) {
+      var sTick = frame(function () { if (story.classList.contains('is-pinned')) sUpdate(); });
+      window.addEventListener('scroll', sTick, { passive: true });
+      window.addEventListener('resize', function () {          /* height-only changes (the address bar) never re-decide */
+        if (window.innerWidth !== sW) { sW = window.innerWidth; sApply(); }
+        sTick();
+      });
+      sW = window.innerWidth; sApply();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(sApply);
+    }
+  }
+  /* the spine: page progress as a line, with a marker for each section */
+  var spine = $('.spine');
+  if (spine && window.matchMedia('(min-width: 1200px)').matches) {
+    var stops = [['home', 'Intro'], ['story', 'One call'], ['projects', 'Work'], ['method', 'Method'], ['skills', 'Skills'], ['experience', 'Experience'], ['about', 'About'], ['certifications', 'Credentials'], ['contact', 'Contact']]
+      .map(function (s) { return { el: document.getElementById(s[0]), label: s[1] }; }).filter(function (s) { return s.el; });
+    spine.innerHTML = '<span class="sp-line"></span><span class="sp-fill"></span>' + stops.map(function (s) { return '<b class="sp-mark"><em>' + s.label + '</em></b>'; }).join('') + '<i class="sp-dot"></i>';
+    var marks = $$('.sp-mark', spine);
+    var spLayout = function () {
+      var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      spine.style.setProperty('--sh', spine.clientHeight + 'px');
+      marks.forEach(function (m, i) { m.style.setProperty('--y', (Math.min(1, stops[i].el.offsetTop / max) * 100).toFixed(2) + '%'); });
+    };
+    var spUpdate = function () {
+      var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight), y = window.scrollY;
+      spine.style.setProperty('--sp', Math.min(1, Math.max(0, y / max)).toFixed(4));
+      var line = y + window.innerHeight * 0.4, act = 0;
+      stops.forEach(function (s, i) { if (s.el.offsetTop <= line) act = i; });
+      marks.forEach(function (m, i) { m.classList.toggle('is-active', i === act); m.classList.toggle('is-passed', i < act); });
+    };
+    marks.forEach(function (m, i) { m.addEventListener('click', function () { stops[i].el.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' }); }); });
+    var spTick = frame(spUpdate);
+    window.addEventListener('scroll', spTick, { passive: true });
+    window.addEventListener('resize', function () { spLayout(); spTick(); });
+    if ('ResizeObserver' in window) new ResizeObserver(function () { spLayout(); spTick(); }).observe(document.body);
+    spLayout(); spUpdate();
+  }
+  /* charts and rings draw when they scroll into view */
+  var draws = $$('[data-draw]');
+  if ('IntersectionObserver' in window && !reduceMotion.matches) {
+    var drawIO = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-drawn'); drawIO.unobserve(e.target); } }); }, { threshold: 0.5 });
+    draws.forEach(function (d) { drawIO.observe(d); });
+  } else { draws.forEach(function (d) { d.classList.add('is-drawn'); }); }
+
+  /* the ivory band: tell the page when it is over the light surface (spine, back-to-top button) on every screen size */
+  var ivoryEl = document.getElementById('contact');
+  if (ivoryEl) {
+    var ivTick = frame(function () { document.documentElement.classList.toggle('on-ivory', ivoryEl.getBoundingClientRect().top < window.innerHeight * 0.5); });
+    window.addEventListener('scroll', ivTick, { passive: true }); window.addEventListener('resize', ivTick); ivTick();
+  }
 })();

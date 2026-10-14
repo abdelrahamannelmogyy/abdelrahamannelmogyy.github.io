@@ -1604,7 +1604,7 @@ mark.chk { padding: 0 0.15em; color: #1f2937; background: #fde68a; border-radius
   border: 1px solid var(--blue-a15);
 }
 #contact {
-  border-top: 1px solid var(--navy-border);
+  border-top: 0;
 }
 
 @keyframes cfSpin {
@@ -1999,3 +1999,157 @@ section { padding: 3.9rem 2rem; }
 .js.calm-motion .eco .ring { animation: none; }
 .calm-motion .eco .pt { display: none; }
 .calm-motion .eco .ly { transform: none; transition: none; }
+
+/* ====================================================================
+   RELEASE B: scroll story, spine and data-draw visuals
+   One pinned moment only, driven by native scrolling (nothing is hijacked).
+   Pinning is a progressive enhancement: reduced motion, no JavaScript and short screens
+   get the same six steps as a plain list.
+   ==================================================================== */
+.story { padding: 0; }
+.story-stage { max-width: 1100px; margin: 0 auto; padding: 4.5rem 2rem 3.5rem; }
+.story-kicker { display: block; margin-bottom: 0.7rem; font: 500 var(--fs-xs) var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+.story-skip { display: inline-block; margin-top: 0.9rem; font-size: var(--fs-sm); color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
+.story-skip:hover, .story-skip:focus-visible { color: var(--text-primary); }
+.story-rail { position: relative; margin: 2.4rem 0 1.8rem; --rw: 0px; --f: 0; --f2: 0; }
+.story-line { display: block; height: 2px; background: var(--navy-border); }
+.story-fill { display: block; height: 100%; background: linear-gradient(90deg, var(--text-muted), var(--blue-bright) 55%, var(--amber)); transform-origin: left center; transform: scaleX(var(--f2)); }
+.story-nodes { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(6, 1fr); margin: -1.15rem 0 0; padding: 0; list-style: none; }
+.story-node { text-align: center; }
+.story-node .dot { display: grid; place-items: center; width: 2.3rem; height: 2.3rem; margin: 0 auto; font: 500 var(--fs-sm) var(--font-mono); color: var(--c); background: #0a1530; border: 1.5px solid var(--c); border-radius: 50%; transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease), color var(--dur-base) var(--ease); }
+.story-node .lab { display: block; margin-top: 0.55rem; font-size: var(--fs-xs); line-height: 1.35; color: var(--text-muted); transition: color var(--dur-base) var(--ease); }
+.story-node.is-done .dot { background: color-mix(in srgb, var(--c) 22%, #0a1530); }
+.story-node.is-on .dot { color: #04122a; background: var(--c); transform: scale(1.18); }
+.story-node.is-on .lab { color: var(--text-primary); }
+.story-packet { position: absolute; top: 0; left: calc(100% / 12); width: 12px; height: 12px; margin: -5px 0 0 -6px; background: #fff; border-radius: 50%; box-shadow: 0 0 0 6px rgba(91, 163, 217, 0.25); transform: translate3d(calc(var(--f) * var(--rw)), 0, 0); display: none; z-index: 0; }
+.story-steps { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.story-step { padding: 1.3rem 1.5rem; background: rgba(6, 13, 31, 0.55); border: 1px solid var(--navy-border); border-left: 3px solid var(--c); border-radius: var(--radius-md); }
+.story-count { display: block; margin-bottom: 0.45rem; font: 500 var(--fs-2xs) var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c); }
+.story-step h3 { margin: 0 0 0.45rem; font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 500; line-height: 1.2; color: var(--ivory); }
+.story-step p { margin: 0; max-width: 46rem; font-size: var(--fs-base); line-height: 1.65; color: var(--text-muted); }
+.story-tags { margin-top: 0.8rem; }
+.story-cta { display: inline-block; margin-top: 0.8rem; }
+.story-hint { display: none; margin: 1rem 0 0; font: 500 var(--fs-2xs) var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+
+.story.is-pinned .story-track { height: calc(100svh + 170svh); }
+.story.is-pinned .story-stage { position: sticky; top: 0; display: flex; flex-direction: column; justify-content: center; height: 100svh; padding-top: 5.2rem; padding-bottom: 1.6rem; overflow: hidden; }
+.story.is-pinned .story-packet { display: block; }
+.story.is-pinned .story-steps { position: relative; display: block; min-height: 11.5rem; }
+.story.is-pinned .story-step { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out); }
+.story.is-pinned .story-step.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.story.is-pinned .story-hint { display: block; transition: opacity var(--dur-base) var(--ease); }
+.story.is-pinned.is-moving .story-hint { opacity: 0; }
+
+@media (max-width: 700px) {
+  .story-stage { padding: 3.5rem 1.1rem 2.5rem; }
+  .story-nodes { margin-top: -1rem; }
+  .story-node .dot { width: 2rem; height: 2rem; }
+  .story-node .lab { display: none; }
+  .story.is-pinned .story-steps { min-height: 19rem; }
+  .story-step { padding: 1.1rem 1.1rem; }
+  .story-step h3 { font-size: var(--fs-xl); }
+  .story.is-pinned .story-track { height: calc(100svh + 150svh); }
+}
+@media (max-height: 700px) { .story-head .section-lead { display: none; } .story.is-pinned .story-stage { padding-top: 4.6rem; } }
+
+/* the spine: a page-progress line whose colour follows the data (grey raw, blue processed, amber insight) */
+.spine { position: fixed; left: 8px; top: 50%; z-index: 40; display: none; width: 14px; height: min(60vh, 500px); transform: translateY(-50%); pointer-events: none; --sp: 0; --sh: 0px; }
+@media (min-width: 1200px) { .js .spine { display: block; } }
+.sp-line, .sp-fill { position: absolute; top: 0; bottom: 0; left: 6px; width: 2px; border-radius: 2px; }
+.sp-line { background: rgba(160, 185, 220, 0.16); }
+.sp-fill { background: linear-gradient(180deg, var(--text-muted), var(--blue-bright) 50%, var(--amber)); clip-path: inset(0 0 calc((1 - var(--sp)) * 100%) 0); }
+.sp-dot { position: absolute; top: 0; left: 1px; width: 12px; height: 12px; margin-top: -6px; background: #fff; border-radius: 50%; box-shadow: 0 0 0 5px rgba(91, 163, 217, 0.25); transform: translateY(calc(var(--sp) * var(--sh))); }
+.sp-mark { position: absolute; top: var(--y); left: 3px; width: 8px; height: 8px; margin-top: -4px; background: #0a1530; border: 1.5px solid rgba(160, 185, 220, 0.5); border-radius: 50%; cursor: pointer; pointer-events: auto; transition: background var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease); }
+.sp-mark em { position: absolute; top: 50%; left: 20px; font: 500 var(--fs-2xs) var(--font-mono); font-style: normal; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; color: var(--text-muted); opacity: 0; transform: translateY(-50%); transition: opacity var(--dur-fast) var(--ease); }
+.sp-mark:hover em, .sp-mark.is-active em { opacity: 1; }
+.sp-mark.is-passed { border-color: var(--blue-bright); }
+.sp-mark.is-active { background: var(--amber); border-color: var(--amber); }
+
+/* data-draw visuals: they draw when they scroll into view */
+.draw-ring { display: flex; align-items: center; gap: 1.2rem; margin: 1rem 0 1.2rem; }
+.draw-ring svg { flex: none; width: 96px; height: 96px; }
+.draw-ring .r-track { fill: none; stroke: var(--navy-border); stroke-width: 9; }
+.draw-ring .r-val { fill: none; stroke: var(--amber); stroke-width: 9; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 40; transform: rotate(-90deg); transform-origin: 50% 50%; }
+.draw-ring .r-num { font-family: var(--font-display); font-size: 28px; font-weight: 500; fill: var(--amber); }
+.draw-ring .dd-lab { display: block; max-width: 24rem; }
+.draw-bars { display: grid; gap: 0.8rem; margin: 1rem 0 1.2rem; }
+.db-row { display: grid; grid-template-columns: 4.2rem 1fr; gap: 0.8rem; align-items: start; }
+.db-l { padding-top: 0.05rem; font: 500 var(--fs-xs) var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.db-track { display: block; height: 12px; overflow: hidden; background: var(--navy-border); border-radius: 9px; }
+.db-empty { background: transparent; border: 1px dashed var(--success); }
+.db-fill { display: block; width: 100%; height: 100%; border-radius: 9px; transform-origin: left center; }
+.db-before { background: var(--danger-soft); }
+.db-cap { display: block; margin-top: 0.4rem; font-size: var(--fs-sm); color: var(--text-muted); }
+.js [data-draw]:not(.is-drawn) .r-val { stroke-dashoffset: 100; }
+.js [data-draw]:not(.is-drawn) .db-before { transform: scaleX(0); }
+.js [data-draw].is-drawn .r-val { transition: stroke-dashoffset 1.3s var(--ease-inout); }
+.js [data-draw].is-drawn .db-before { transition: transform 1.2s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-draw]:not(.is-drawn) .r-val { stroke-dashoffset: 40; }
+  .js [data-draw]:not(.is-drawn) .db-before { transform: none; }
+  .js [data-draw].is-drawn .r-val, .js [data-draw].is-drawn .db-before, .story-node .dot, .story.is-pinned .story-step { transition: none; }
+  .sp-dot { display: none; }
+}
+@media print { .spine, .story-skip, .story-hint { display: none; } }
+
+/* the plain list needs no rail: it only means something while the story is pinned */
+.story:not(.is-pinned) .story-rail { display: none; }
+
+@media (max-width: 700px) {
+  .story-kicker, .story-head .section-lead { display: none; }
+  .story-head .section-title { font-size: var(--fs-3xl); margin-bottom: 0; }
+  .story-skip { margin-top: 0.5rem; }
+  .story-rail { margin: 1.5rem 0 1.2rem; }
+  .story-step h3 { font-size: var(--fs-lg); }
+  .story-step p { font-size: var(--fs-md); line-height: 1.55; }
+  .story.is-pinned .story-stage { padding-top: 4.6rem; }
+}
+
+/* ====================================================================
+   THE IVORY BAND: the page ends on a light surface, like the Recruiter view.
+   An ivory arc rises from the dark page; contact and footer sit on it.
+   Colours are remapped inside the scope only, so nothing else on the site changes.
+   Light-surface rules: ink on ivory (15:1), darker blue for links and focus (5.5:1 and 3:1+),
+   darker amber and status colours, light form fields, no dark glass cards.
+   ==================================================================== */
+:root { --ivory-bg: #f2ece0; --ink: #14181f; --edge: clamp(44px, 7vw, 100px); }
+.ivory-edge { position: relative; height: var(--edge); margin-top: 1.5rem; }
+.ivory-edge::before { content: ""; position: absolute; inset: 0; background: var(--ivory-bg); border-radius: 50% 50% 0 0 / 100% 100% 0 0; box-shadow: 0 -18px 54px rgba(242, 236, 224, 0.08); }
+.ivory { --text-primary: var(--ink); --text-muted: #4b5565; --navy-border: #d6d0c2; --surface-glass: #fbf8f2; --ivory: var(--ink); --amber: #9a6200;
+  --blue-accent: #1f5f8f; --blue-bright: #1f5f8f; --blue-btn: #1f5f8f; --blue-a10: rgba(31, 95, 143, 0.08); --blue-a15: rgba(31, 95, 143, 0.16); --blue-a28: rgba(31, 95, 143, 0.4); --blue-a30: rgba(31, 95, 143, 0.4);
+  --success: #0e8f65; --success-soft: #0b6f4d; --danger-soft: #b42318; --warn-soft: #8a5a00; --success-a20: rgba(14, 143, 101, 0.28);
+  background: var(--ivory-bg); color: var(--ink); box-shadow: 0 0 0 100vmax var(--ivory-bg); clip-path: inset(0 -100vmax); }
+.ivory .btn-primary:hover { background: #184d75; color: #fff; }
+.ivory .text-link { color: #1f5f8f; }
+.ivory :focus-visible { outline-color: #1f5f8f; }
+.ivory .cs-link-item:not(.no-link):hover { background: #fff; border-color: #1f5f8f; }
+.ivory .cs-link-icon { color: #1f5f8f; }
+.ivory .whatsapp-icon { color: #0b6f4d; background: rgba(14, 143, 101, 0.1); border-color: rgba(14, 143, 101, 0.3); }
+.ivory .linkedin-icon { color: #0a66c2; background: rgba(10, 102, 194, 0.08); border-color: rgba(10, 102, 194, 0.28); }
+.ivory .github-icon { color: #14181f; background: rgba(20, 24, 31, 0.06); border-color: rgba(20, 24, 31, 0.22); }
+.ivory .cs-availability { background: rgba(14, 143, 101, 0.08); border-color: rgba(14, 143, 101, 0.28); }
+.ivory .cf-field input, .ivory .cf-field textarea { background: #fff; color: var(--ink); border-color: #cfc8b8; }
+.ivory .cf-field input::placeholder, .ivory .cf-field textarea::placeholder { color: #6b7280; }
+.ivory .cf-field input:focus, .ivory .cf-field textarea:focus { background: #fff; border-color: #1f5f8f; }
+.ivory .cf-field input:focus-visible, .ivory .cf-field textarea:focus-visible { outline-color: #1f5f8f; }
+.ivory .cf-field input.cf-invalid, .ivory .cf-field textarea.cf-invalid { background: #fff; border-color: #b42318; }
+.ivory .cf-success { background: rgba(14, 143, 101, 0.09); }
+.ivory .cf-error-box { background: rgba(180, 35, 24, 0.07); border-color: rgba(180, 35, 24, 0.3); }
+.ivory .copy-btn { background: rgba(31, 95, 143, 0.08); border-color: rgba(31, 95, 143, 0.4); color: #1f5f8f; }
+.ivory .copy-btn:hover { color: #14181f; border-color: #1f5f8f; }
+.ivory .copy-btn.is-done { color: #fff; background: #0e8f65; border-color: #0e8f65; }
+.ivory .cs-light { display: none; }
+/* the spine and the page edge adapt while the ivory is under them */
+.on-ivory .sp-line { background: rgba(20, 24, 31, 0.14); }
+.on-ivory .sp-mark { background: var(--ivory-bg); border-color: rgba(20, 24, 31, 0.42); }
+.on-ivory .sp-mark em { color: #4b5565; }
+.on-ivory .sp-mark.is-passed { border-color: #1f5f8f; }
+.on-ivory .sp-mark.is-active { background: #9a6200; border-color: #9a6200; }
+/* the footer's own top margin must stay inside the ivory, not collapse out of it */
+.site-footer-wrap.ivory { display: flow-root; }
+.on-ivory #scrollTop { background: #14181f; border-color: #14181f; color: #fff; }
+.on-ivory #scrollTop:hover { background: #1f5f8f; border-color: #1f5f8f; }
+.sp-dot { box-shadow: 0 0 0 2px #14181f, 0 0 0 7px rgba(91, 163, 217, 0.25); }
+.on-ivory .sp-dot { background: #14181f; box-shadow: 0 0 0 2px #f2ece0, 0 0 0 6px rgba(31, 95, 143, 0.35); }
+@media (max-width: 700px) { .ivory-edge { margin-top: 0.5rem; } }
+@media print { .ivory-edge { display: none; } .ivory, .ivory .cf-field input, .ivory .cf-field textarea { background: #fff; box-shadow: none; clip-path: none; } }
