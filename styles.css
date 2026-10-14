@@ -2155,12 +2155,11 @@ section { padding: 3.9rem 2rem; }
 @media print { .ivory-edge { display: none; } .ivory, .ivory .cf-field input, .ivory .cf-field textarea { background: #fff; box-shadow: none; clip-path: none; } }
 
 /* ====================================================================
-   Case-study signature visuals: one small diagram per flagship card.
-   Still final frame for no JavaScript, reduced motion, data saver and print.
+   Case-study stories: one six-step story per flagship project.
+   The diagram lights the part each step describes; a progress bar drives the timing.
+   Without JavaScript, with reduced motion, data saver or print: a still diagram and the full list of steps.
    ==================================================================== */
-.cs-head { flex-wrap: wrap; }
-.cs-head > div { flex: 1 1 16rem; min-width: 0; }
-.sig { flex: 0 0 auto; width: min(100%, 330px); margin: 0 0 0 auto; }
+.sig { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 1.2rem 2.2rem; align-items: center; margin-top: 1.5rem; padding: 1.3rem 1.5rem; background: rgba(6, 13, 31, 0.45); border: 1px solid var(--navy-border); border-radius: var(--radius-md); }
 .sig-svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sig .s-box { fill: #0a1530; stroke-width: 1.1; }
 .sig .k-raw { stroke: var(--text-muted); stroke-opacity: 0.6; }
@@ -2177,31 +2176,63 @@ section { padding: 3.9rem 2rem; }
 .sig .s-pkt { fill: var(--blue-bright); opacity: 0; }
 .sig .s-ret { fill: var(--success); }
 .sig .s-rec { fill: var(--success); }
-.sig .s-alert { fill: var(--amber); }
-.sig .s-bar { fill: var(--amber); }
+.sig .s-alert, .sig .s-bar { fill: var(--amber); }
 .sig .s-alert-ring { fill: none; stroke: var(--amber); stroke-width: 1.5; opacity: 0; transform-box: fill-box; transform-origin: center; }
 .sig .s-grow { transform-box: fill-box; transform-origin: bottom; }
 .sig .s-draw { stroke-dasharray: 1; }
-.sig-replay { display: block; min-width: 44px; min-height: 24px; margin: 0.3rem 0 0 auto; padding: 0.2rem 0.3rem; font: 500 var(--fs-2xs) var(--font-mono); letter-spacing: 0.08em; color: var(--blue-bright); background: none; border: 0; border-radius: var(--radius-sm); cursor: pointer; transition: color var(--dur-fast) var(--ease); }
-.sig-replay:hover { color: var(--text-primary); }
-.sig-replay[hidden] { display: none; }
-@media screen {
-  .sig.is-armed:not(.is-play) .s-in { opacity: 0; }
-  .sig.is-armed:not(.is-play) .s-draw { stroke-dashoffset: 1; }
-  .sig.is-armed:not(.is-play) .s-grow { transform: scaleY(0); }
-}
-@media (max-width: 1100px) { .sig { order: 3; width: 100%; max-width: 400px; margin: 1.1rem 0 0; } }
-@media print { .sig-replay { display: none; } }
+.sig .s-scan { fill: var(--blue-bright); opacity: 0.7; }
+.sig .s-ovbg { fill: #060d1f; fill-opacity: 0.92; stroke: var(--navy-border); }
+.sig .s-big { font: 500 34px var(--font-display); fill: var(--ivory); text-anchor: middle; }
+.sig .s-big.s-amber { fill: var(--amber); }
+.sig .s-small { font: 400 12px var(--font-sans); fill: var(--text-muted); text-anchor: middle; }
+.sig:not(.is-story) .s-ov { display: none; }
+.sig-cap { min-width: 0; }
+.sig-title { margin-bottom: 0.7rem; font-family: var(--font-display); font-size: var(--fs-lg); line-height: 1.3; color: var(--ivory); }
+.sig-steps { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.sig-steps li { font-size: var(--fs-md); line-height: 1.6; color: var(--text-muted); }
+.sig-steps li b { font-weight: 600; color: var(--text-primary); }
+.sig-ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin-top: 0.9rem; }
+.sig-ctrl[hidden] { display: none; }
+.sig-prog { display: flex; flex: 1 0 100%; gap: 4px; }
+.sig-prog i { position: relative; flex: 1; height: 3px; overflow: hidden; background: var(--navy-border); border-radius: 2px; }
+.sig-prog i::after { content: ""; position: absolute; inset: 0; background: var(--blue-bright); transform: scaleX(0); transform-origin: left; }
+.sig-prog i.is-done::after { transform: none; }
+.sig-prog i.is-on::after { animation: sig-fill var(--step, 4s) linear both; }
+.sig-btns { display: flex; gap: 0.4rem; }
+.sig-btn { min-width: 44px; min-height: 32px; padding: 0.3rem 0.8rem; font: 500 var(--fs-xs) var(--font-sans); color: var(--text-primary); background: var(--blue-a10); border: 1px solid var(--blue-a30); border-radius: 99px; cursor: pointer; transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.sig-btn:hover:not(:disabled) { border-color: var(--blue-bright); }
+.sig-btn:disabled { opacity: 0.4; cursor: default; }
+.sig-count { font: 500 var(--fs-2xs) var(--font-mono); letter-spacing: 0.08em; color: var(--text-muted); }
+@media (max-width: 760px) { .sig { grid-template-columns: 1fr; padding: 1.1rem 1rem; } }
 
-.sig.is-play .s-in { animation: sig-in 0.45s var(--ease-out) var(--d, 0s) both; }
-.sig.is-play .s-draw { animation: sig-draw var(--t, 0.5s) var(--ease-inout) var(--d, 0s) both; }
-.sig.is-play .s-grow { animation: sig-grow 0.5s var(--ease-out) var(--d, 0s) both; }
-.sig.is-play .s-fy { animation: sig-fy var(--t, 0.7s) var(--ease-inout) var(--d, 0s) both; }
-.sig.is-play .s-fx { animation: sig-fx var(--t, 0.5s) var(--ease-out) var(--d, 0s) both; }
-.sig.is-play .s-ping { animation: sig-ping 0.9s var(--ease-out) var(--d, 0s) both; }
+/* story mode (JavaScript, motion allowed) */
+.sig.is-story [data-g] { opacity: 0.18; transition: opacity 0.45s var(--ease-out); }
+.sig.is-story [data-g].is-hl { opacity: 1; }
+.sig.is-story .s-ov { opacity: 0; transform: translateY(6px); transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out); }
+.sig.is-story .s-ov.is-hl { opacity: 1; transform: none; }
+.sig.is-story .sig-steps { gap: 0; }
+.sig.is-story .sig-steps li { grid-area: 1 / 1; opacity: 0; transform: translateY(6px); transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out); }
+.sig.is-story .sig-steps li.is-on { opacity: 1; transform: none; }
+.sig .go.s-in { animation: sig-in 0.45s var(--ease-out) var(--d, 0s) both; }
+.sig .go.s-draw { animation: sig-draw var(--t, 0.5s) var(--ease-inout) var(--d, 0s) both; }
+.sig .go.s-grow { animation: sig-grow 0.5s var(--ease-out) var(--d, 0s) both; }
+.sig .go.s-fy { animation: sig-fy var(--t, 0.7s) var(--ease-inout) var(--d, 0s) both; }
+.sig .go.s-fx { animation: sig-fx var(--t, 0.5s) var(--ease-out) var(--d, 0s) both; }
+.sig .go.s-ping { animation: sig-ping 0.9s var(--ease-out) var(--d, 0s) both; }
+.sig .go.s-sweep { animation: sig-sweep var(--t, 3s) var(--ease-inout) var(--d, 0s) both; }
+.sig.is-paused .sig-prog i::after { animation-play-state: paused; }
 @keyframes sig-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes sig-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes sig-grow { from { transform: scaleY(0); } to { transform: none; } }
 @keyframes sig-fy { 0% { opacity: 0; transform: none; } 15% { opacity: 1; } 50% { transform: translateY(var(--y)); } 85% { opacity: 1; } 100% { opacity: 0; transform: none; } }
 @keyframes sig-fx { 0% { opacity: 0; transform: none; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: translateX(var(--x)); } }
 @keyframes sig-ping { 0% { opacity: 0; transform: scale(1); } 6% { opacity: 0.9; } 100% { opacity: 0; transform: scale(2.6); } }
+@keyframes sig-sweep { 0% { opacity: 0; transform: none; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; transform: translateX(var(--x)); } }
+@keyframes sig-fill { from { transform: scaleX(0); } to { transform: none; } }
+@media print {
+  .sig-ctrl { display: none; }
+  .sig.is-story [data-g] { opacity: 1; }
+  .sig.is-story .s-ov { display: none; }
+  .sig.is-story .sig-steps { gap: 0.5rem; }
+  .sig.is-story .sig-steps li { grid-area: auto; opacity: 1; transform: none; }
+}
