@@ -629,17 +629,55 @@
     var ivTick = frame(function () { document.documentElement.classList.toggle('on-ivory', ivoryEl.getBoundingClientRect().top < window.innerHeight * 0.5); });
     window.addEventListener('scroll', ivTick, { passive: true }); window.addEventListener('resize', ivTick); ivTick();
   }
-  /* case-study signature visuals: play once when seen, replay on request (CSS keyframes do the motion) */
+  /* case-study stories: six steps per project; plays when seen, with pause, back, next and replay */
   var sigs = $$('.sig');
   if (sigs.length && !calmMotion && 'IntersectionObserver' in window) {
-    var playSig = function (s) { s.classList.remove('is-play'); void s.getBoundingClientRect(); s.classList.add('is-play'); };
-    var sigIO = new IntersectionObserver(function (en) {
-      en.forEach(function (e) { if (e.isIntersecting) { playSig(e.target); sigIO.unobserve(e.target); } });
-    }, { threshold: 0.6 });
-    sigs.forEach(function (s) {
-      var b = $('.sig-replay', s);
-      s.classList.add('is-armed'); sigIO.observe(s);
-      b.hidden = false; b.addEventListener('click', function () { playSig(s); });
+    sigs.forEach(function (fig) {
+      var steps = $$('.sig-steps li', fig), n = steps.length, segs = $$('.sig-prog i', fig), parts = $$('[data-g]', fig), anims = $$('[data-a]', fig);
+      var prev = $('.sig-prev', fig), next = $('.sig-next', fig), play = $('.sig-play', fig), count = $('.sig-count', fig), live = $('.sig-live', fig);
+      var cur = 0, playing = false, done = false, seen = false, inView = false;
+      var sync = function () {
+        fig.classList.toggle('is-paused', !(playing && inView && !document.hidden));
+        play.textContent = done ? 'Replay' : (playing ? 'Pause' : 'Play');
+      };
+      var token = 0, raf2 = function (fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); };
+      var show = function (i, announce) {
+        var hl = ' ' + steps[i].getAttribute('data-hl') + ' ', t = ++token;
+        cur = i; done = false;
+        parts.forEach(function (p) { p.classList.toggle('is-hl', hl.indexOf(' ' + p.getAttribute('data-g') + ' ') > -1); });
+        anims.concat(segs).forEach(function (a) { a.classList.remove('go', 'is-on'); });
+        steps.forEach(function (s, k) { s.classList.toggle('is-on', k === i); });
+        segs.forEach(function (s, k) { s.classList.toggle('is-done', k < i); });
+        count.textContent = 'Step ' + (i + 1) + ' of ' + n;
+        prev.disabled = i === 0; next.disabled = i === n - 1;
+        if (announce) live.textContent = steps[i].textContent;
+        sync();
+        raf2(function () {   /* two frames later the removed motion classes have applied, so adding them restarts the motion without forcing a layout */
+          if (t !== token) return;
+          anims.forEach(function (a) { if ((' ' + a.getAttribute('data-a') + ' ').indexOf(' ' + (i + 1) + ' ') > -1) a.classList.add('go'); });
+          segs[i].classList.add('is-on');
+        });
+      };
+      segs.forEach(function (s, k) {
+        s.addEventListener('animationend', function () {
+          if (k !== cur || !playing) return;
+          if (cur < n - 1) show(cur + 1);
+          else { playing = false; done = true; s.classList.add('is-done'); sync(); }
+        });
+      });
+      play.addEventListener('click', function () {
+        if (done) { playing = true; show(0); return; }
+        playing = !playing; sync();
+      });
+      prev.addEventListener('click', function () { if (cur > 0) show(cur - 1, true); });
+      next.addEventListener('click', function () { if (cur < n - 1) show(cur + 1, true); });
+      new IntersectionObserver(function (en) {
+        inView = en[0].isIntersecting;
+        if (inView && !seen) { seen = true; playing = true; show(0); }
+        sync();
+      }, { threshold: 0.5 }).observe(fig);
+      document.addEventListener('visibilitychange', sync);
+      fig.classList.add('is-story'); $('.sig-ctrl', fig).hidden = false; show(0);
     });
   }
 })();
