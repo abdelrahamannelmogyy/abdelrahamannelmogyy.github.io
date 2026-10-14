@@ -1938,7 +1938,7 @@ section { padding: 3.9rem 2rem; }
 .js .eco .pth { stroke-dasharray: 330; stroke-dashoffset: 330; animation: eco-draw 1.3s var(--ease-inout) forwards; animation-delay: var(--d); }
 .js .eco .bar { transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); animation: eco-grow 0.9s var(--ease-out) forwards; animation-delay: var(--d); }
 .js .eco .ring { animation: eco-ring 3.2s ease-out infinite 2.2s; }
-.js .eco .pt { opacity: 0; animation: eco-fade 0.5s ease forwards 2s; }
+.js .eco .pt { opacity: 0; animation: eco-fade 0.5s ease forwards 4.1s; }
 .js .eco .cap { opacity: 0; animation: eco-fade 0.7s ease forwards 0.4s; }
 .hero-eco.is-paused .ring, .hero-eco.is-calm .ring { animation-play-state: paused; }
 @keyframes eco-in { to { opacity: 1; transform: none; } }
@@ -2236,3 +2236,46 @@ section { padding: 3.9rem 2rem; }
   .sig.is-story .sig-steps { gap: 0.5rem; }
   .sig.is-story .sig-steps li { grid-area: auto; opacity: 1; transform: none; }
 }
+
+/* ====================================================================
+   Hero film: about 13 seconds, played once on arrival. A camera moves across the pipeline,
+   scene by scene, then pulls back to the still diagram. Transform and opacity only.
+   Reduced motion, data saver and no JavaScript: the still diagram, no film.
+   ==================================================================== */
+html:not(.js) .eco .pt { display: none; }
+.eco .cam { transition: transform 1.1s var(--ease-inout); }
+.eco .film { opacity: 0; transition: opacity 0.5s var(--ease-out); pointer-events: none; }
+.hero-eco.is-film .eco { overflow: hidden; }
+.hero-eco.is-film .eco .film { opacity: 1; }
+.hero-eco.is-film .eco .cap-r { opacity: 0; animation: none; }
+.eco .f-wave { fill: none; stroke: var(--violet-soft); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+.eco .f-line { fill: none; stroke: var(--blue-bright); stroke-opacity: 0.6; stroke-width: 1.3; stroke-dasharray: 1; }
+.eco .f-chip { fill: #0a1530; stroke: var(--blue-bright); stroke-width: 1; }
+.eco .f-chip-t { font: 500 12.5px var(--font-sans); fill: var(--text-primary); text-anchor: middle; }
+.eco .f-pkt { fill: var(--blue-bright); opacity: 0; }
+.eco .f-hl { fill: none; stroke: var(--blue-bright); stroke-width: 1.5; opacity: 0; }
+.eco .f-hl.f-amber { stroke: var(--amber); }
+.eco .f-s3.f-in, .eco .f-s3.f-draw { opacity: 0; }
+.hero-eco[data-scene="1"] .f-s1.f-draw { animation: film-draw var(--t, 1s) var(--ease-inout) var(--d, 0s) both; }
+.hero-eco[data-scene="1"] .f-s1.f-hl, .hero-eco[data-scene="2"] .f-s2.f-hl, .hero-eco[data-scene="4"] .f-s4.f-hl { animation: film-glow 2.6s var(--ease-out) 0.3s both; }
+.hero-eco[data-scene="3"] .f-s3.f-draw { animation: film-draw 0.5s var(--ease-inout) var(--d, 0s) both; }
+.hero-eco[data-scene="3"] .f-s3.f-in { animation: eco-in 0.5s var(--ease-out) var(--d, 0s) both; }
+.hero-eco[data-scene="3"] .f-s3.f-move { animation: film-move 0.9s var(--ease-inout) var(--d, 0s) both; }
+.hero-eco[data-scene="4"] .eco .bar { animation: film-grow 0.9s var(--ease-out) var(--d, 0s) both; }
+.hero-eco[data-scene="2"] .eco .ring { animation: eco-ring 1.6s ease-out 2 0.3s; }
+@keyframes film-draw { from { opacity: 1; stroke-dashoffset: 1; } to { opacity: 1; stroke-dashoffset: 0; } }
+@keyframes film-glow { 0% { opacity: 0; } 25% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0.35; } }
+@keyframes film-move { 0% { opacity: 0; transform: none; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), var(--y)); } }
+@keyframes film-grow { from { transform: scaleY(0); } to { transform: none; } }
+.film-ui { position: absolute; inset: 0; pointer-events: none; }
+.film-ui[hidden] { display: none; }
+.film-cap { position: absolute; top: 0; left: 0; display: grid; max-width: min(30rem, 100%); margin: 0; font-size: var(--fs-sm); line-height: 1.45; color: var(--text-primary); }
+.film-cap span { grid-area: 1 / 1; padding: 0.35rem 0.7rem; background: rgba(6, 13, 31, 0.82); border: 1px solid var(--navy-border); border-radius: var(--radius-sm); opacity: 0; transform: translateY(6px); transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out); }
+.hero-eco[data-scene="1"] .film-cap span:nth-child(1), .hero-eco[data-scene="2"] .film-cap span:nth-child(2),
+.hero-eco[data-scene="3"] .film-cap span:nth-child(3), .hero-eco[data-scene="4"] .film-cap span:nth-child(4) { opacity: 1; transform: none; }
+.film-tick { position: absolute; width: 0; height: 0; }
+.film-tick.is-on { animation: film-tick var(--scene, 2.6s) linear both; }
+.hero-eco.is-held .film-tick { animation-play-state: paused; }
+@keyframes film-tick { from { opacity: 0; } to { opacity: 0; } }
+.film-btn { position: absolute; top: calc(100% + 0.3rem); right: 0; min-width: 44px; min-height: 32px; padding: 0.3rem 0.8rem; font: 500 var(--fs-xs) var(--font-sans); color: var(--text-primary); background: rgba(6, 13, 31, 0.82); border: 1px solid var(--blue-a30); border-radius: 99px; cursor: pointer; pointer-events: auto; transition: border-color var(--dur-fast) var(--ease); }
+.film-btn:hover { border-color: var(--blue-bright); }

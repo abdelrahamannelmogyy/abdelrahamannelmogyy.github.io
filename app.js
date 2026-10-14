@@ -6,6 +6,8 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+  var calmMotion = reduceMotion.matches || saveData;   /* reduced motion or data saver: a complete, still page */
 
   /* ---------- Navigation (mobile menu) ---------- */
   var header = $('body > header');
@@ -81,7 +83,7 @@
 
   /* ---------- Reveal on scroll (content stays visible without JS) ---------- */
   var revealEls = $$('.reveal');
-  if ('IntersectionObserver' in window && !reduceMotion.matches) {
+  if ('IntersectionObserver' in window && !calmMotion) {
     var revealIO = new IntersectionObserver(function (entries) {
       var visible = entries.filter(function (e) { return e.isIntersecting; });
       visible.forEach(function (e, i) {
@@ -455,7 +457,7 @@
   });
 
     /* ---------- Hero: counting proof numbers ---------- */
-  if (!reduceMotion.matches) {
+  if (!calmMotion) {
     $$('[data-count]').forEach(function (el) {
       var target = parseFloat(el.getAttribute('data-count')), t0 = null, dur = 1100;
       el.style.display = 'inline-block';
@@ -473,24 +475,53 @@
 
   /* ---------- Motion system, release A: hero ecosystem and micro-interactions ---------- */
   var finePointer = window.matchMedia('(pointer: fine)').matches;
-  var saveData = !!(navigator.connection && navigator.connection.saveData);
-  var calmMotion = reduceMotion.matches || saveData;
   if (calmMotion) document.documentElement.classList.add('calm-motion');
   var eco = $('.hero-eco');
   if (eco) {
-    var ecoSvgs = $$('svg.eco', eco), inView = true, settled = false;
+    var ecoSvgs = $$('svg.eco', eco), inView = true, settled = false, held = false, settleT = 0;
     if (calmMotion) {
       eco.classList.add('is-calm');
       ecoSvgs.forEach(function (s) { var p = $('.pt', s); if (p) p.remove(); if (s.pauseAnimations) s.pauseAnimations(); });
     } else {
       var run = function () {
-        var on = inView && !document.hidden && !settled;
+        var on = inView && !document.hidden && !settled && !held;
         ecoSvgs.forEach(function (s) { if (on) s.unpauseAnimations(); else s.pauseAnimations(); });
         eco.classList.toggle('is-paused', !on);
       };
       if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; run(); }, { threshold: 0.05 }).observe(eco);
       document.addEventListener('visibilitychange', run);
-      setTimeout(function () { settled = true; eco.classList.add('is-calm'); run(); }, 30000);   /* the flow settles after 30 seconds */
+      var settle = function () { clearTimeout(settleT); settleT = setTimeout(function () { settled = true; eco.classList.add('is-calm'); run(); }, 30000); };   /* the flow settles after 30 seconds */
+      settle();
+      /* the hero film: a camera moves across the pipeline scene by scene, then pulls back to the still diagram */
+      var filmUi = $('.film-ui', eco), tick = $('.film-tick', eco), fbtn = $('.film-btn', eco);
+      if (filmUi && 'IntersectionObserver' in window) {
+        var scene = 0, playing = false, ended = false, startT = 0, raf2 = function (fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); };
+        var aim = function () {
+          ecoSvgs.forEach(function (s) {
+            var cam = $('.cam', s), vb = s.viewBox.baseVal, f = scene >= 1 && scene <= 4 ? JSON.parse(s.getAttribute('data-cam'))[scene - 1] : null;
+            if (!f) { cam.style.transform = ''; return; }
+            var k = f[2], cx = Math.min(Math.max(f[0], vb.width / (2 * k)), vb.width - vb.width / (2 * k)), cy = Math.min(Math.max(f[1], vb.height / (2 * k)), vb.height - vb.height / (2 * k));
+            cam.style.transform = 'translate(' + (vb.width / 2 - cx * k).toFixed(1) + 'px,' + (vb.height / 2 - cy * k).toFixed(1) + 'px) scale(' + k + ')';
+          });
+        };
+        var hold = function () { held = !playing || !inView || document.hidden; eco.classList.toggle('is-held', held); run(); };
+        var go = function (n) {
+          scene = n; eco.setAttribute('data-scene', String(n)); eco.classList.toggle('is-film', n >= 1 && n <= 4); aim();
+          tick.classList.remove('is-on');
+          if (n > 4) { playing = false; ended = true; fbtn.textContent = 'Replay film'; hold(); held = false; eco.classList.remove('is-held'); run(); return; }
+          raf2(function () { if (scene === n) tick.classList.add('is-on'); });
+        };
+        tick.addEventListener('animationend', function () { if (playing) go(scene + 1); });
+        fbtn.addEventListener('click', function () {
+          if (ended) { ended = false; playing = true; settled = false; eco.classList.remove('is-calm'); settle(); fbtn.textContent = 'Pause film'; hold(); go(1); return; }
+          playing = !playing; fbtn.textContent = playing ? 'Pause film' : 'Play film'; hold();
+          if (playing && scene === 0) { clearTimeout(startT); go(1); }
+        });
+        new IntersectionObserver(function (en) { inView = en[0].isIntersecting; if (scene >= 1 && scene <= 4) hold(); else run(); }, { threshold: 0.25 }).observe(eco);
+        document.addEventListener('visibilitychange', function () { if (scene >= 1 && scene <= 4) hold(); });
+        filmUi.hidden = false; playing = true;
+        startT = setTimeout(function () { if (playing && !ended) go(1); }, 2400);   /* after the opening draw */
+      }
       if (finePointer) {
         var hero = $('.hero'), tx = 0, ty = 0, pf = 0;
         var apply = function () { pf = 0; eco.style.setProperty('--px', tx.toFixed(3)); eco.style.setProperty('--py', ty.toFixed(3)); };
@@ -572,14 +603,14 @@
     var sStage = $('.story-stage', story), sList = $('.story-steps', story), sW = 0;
     /* try the pinned layout, measure it, and keep it only if every step really fits the screen */
     var sApply = function () {
-      if (reduceMotion.matches) return;
+      if (calmMotion) return;
       story.classList.add('is-pinned'); sList.style.minHeight = '';
       var tallest = 0; sSteps.forEach(function (s) { tallest = Math.max(tallest, s.offsetHeight); });
       sList.style.minHeight = tallest + 'px';
       if (sStage.scrollHeight > sStage.clientHeight + 1) { story.classList.remove('is-pinned'); sList.style.minHeight = ''; return; }
       sMeasure(); sUpdate();
     };
-    if (!reduceMotion.matches) {
+    if (!calmMotion) {
       var sTick = frame(function () { if (story.classList.contains('is-pinned')) sUpdate(); });
       window.addEventListener('scroll', sTick, { passive: true });
       window.addEventListener('resize', function () {          /* height-only changes (the address bar) never re-decide */
@@ -618,7 +649,7 @@
   }
   /* charts and rings draw when they scroll into view */
   var draws = $$('[data-draw]');
-  if ('IntersectionObserver' in window && !reduceMotion.matches) {
+  if ('IntersectionObserver' in window && !calmMotion) {
     var drawIO = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-drawn'); drawIO.unobserve(e.target); } }); }, { threshold: 0.5 });
     draws.forEach(function (d) { drawIO.observe(d); });
   } else { draws.forEach(function (d) { d.classList.add('is-drawn'); }); }
