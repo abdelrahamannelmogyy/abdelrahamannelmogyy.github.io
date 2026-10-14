@@ -629,4 +629,17 @@
     var ivTick = frame(function () { document.documentElement.classList.toggle('on-ivory', ivoryEl.getBoundingClientRect().top < window.innerHeight * 0.5); });
     window.addEventListener('scroll', ivTick, { passive: true }); window.addEventListener('resize', ivTick); ivTick();
   }
+  /* case-study signature visuals: play once when seen, replay on request (CSS keyframes do the motion) */
+  var sigs = $$('.sig');
+  if (sigs.length && !calmMotion && 'IntersectionObserver' in window) {
+    var playSig = function (s) { s.classList.remove('is-play'); void s.getBoundingClientRect(); s.classList.add('is-play'); };
+    var sigIO = new IntersectionObserver(function (en) {
+      en.forEach(function (e) { if (e.isIntersecting) { playSig(e.target); sigIO.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    sigs.forEach(function (s) {
+      var b = $('.sig-replay', s);
+      s.classList.add('is-armed'); sigIO.observe(s);
+      b.hidden = false; b.addEventListener('click', function () { playSig(s); });
+    });
+  }
 })();
