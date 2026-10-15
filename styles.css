@@ -2279,3 +2279,51 @@ html:not(.js) .eco .pt { display: none; }
 @keyframes film-tick { from { opacity: 0; } to { opacity: 0; } }
 .film-btn { position: absolute; top: calc(100% + 0.3rem); right: 0; min-width: 44px; min-height: 32px; padding: 0.3rem 0.8rem; font: 500 var(--fs-xs) var(--font-sans); color: var(--text-primary); background: rgba(6, 13, 31, 0.82); border: 1px solid var(--blue-a30); border-radius: 99px; cursor: pointer; pointer-events: auto; transition: border-color var(--dur-fast) var(--ease); }
 .film-btn:hover { border-color: var(--blue-bright); }
+
+/* ====================================================================
+   How I Work: one process line through the five steps. It draws once when seen;
+   hovering or focusing a step fills the line up to that step. Still and complete without motion.
+   ==================================================================== */
+.method { position: relative; --p: 1; }
+.method::before, .method::after { content: ""; position: absolute; top: 0; left: 0; right: calc((100% - 6.4rem) / 5); height: 1px; background: var(--blue-a20); pointer-events: none; }
+.method::after { height: 2px; top: -0.5px; background: var(--blue-bright); transform: scaleX(var(--p)); transform-origin: left; transition: transform 1.4s var(--ease-inout); }
+.method-step { border-top: 0; }
+.method-step::before { content: ""; position: absolute; top: -5px; left: 0; z-index: 1; width: 10px; height: 10px; background: var(--navy, #060d1f); border: 2px solid var(--blue-bright); border-radius: 50%; transition: background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease); }
+.method.is-drawn .method-step::before, html:not(.js) .method-step::before { background: var(--blue-bright); }
+.js .method:not(.is-drawn) { --p: 0; }
+.method.is-drawn .method-step::before { animation: node-on 0.35s var(--ease-out) var(--nd, 0s) backwards; }   /* the first drawing only; hovers react at once */
+.method.is-drawn .method-step:nth-child(2) { --nd: 0.35s; }
+.method.is-drawn .method-step:nth-child(3) { --nd: 0.7s; }
+.method.is-drawn .method-step:nth-child(4) { --nd: 1.05s; }
+.method.is-drawn .method-step:nth-child(5) { --nd: 1.4s; }
+@keyframes node-on { from { background: var(--navy, #060d1f); } }
+.method.is-drawn:has(> .method-step:nth-child(1):is(:hover, :focus-within)) { --p: 0; }
+.method.is-drawn:has(> .method-step:nth-child(2):is(:hover, :focus-within)) { --p: 0.25; }
+.method.is-drawn:has(> .method-step:nth-child(3):is(:hover, :focus-within)) { --p: 0.5; }
+.method.is-drawn:has(> .method-step:nth-child(4):is(:hover, :focus-within)) { --p: 0.75; }
+.method.is-drawn .method-step:is(:hover, :focus-within)::before { transform: scale(1.35); }
+.method.is-drawn:has(> .method-step:nth-child(1):is(:hover, :focus-within)) > .method-step:nth-child(n+2)::before,
+.method.is-drawn:has(> .method-step:nth-child(2):is(:hover, :focus-within)) > .method-step:nth-child(n+3)::before,
+.method.is-drawn:has(> .method-step:nth-child(3):is(:hover, :focus-within)) > .method-step:nth-child(n+4)::before,
+.method.is-drawn:has(> .method-step:nth-child(4):is(:hover, :focus-within)) > .method-step:nth-child(n+5)::before { background: var(--navy, #060d1f); }
+@media (max-width: 1000px) {
+  .method { grid-template-columns: 1fr; max-width: 46rem; padding-left: 1.7rem; gap: 1.4rem; }
+  .method-step:last-child { grid-column: auto; }
+  .method::before, .method::after { display: none; }
+  .method-step:not(:last-child)::after { display: block; content: ""; position: absolute; top: calc(0.15rem + 10px); bottom: -1.4rem; left: calc(-1.7rem + 4px); right: auto; width: 2px; height: auto; background: var(--blue-bright); transform-origin: top; transition: transform 0.4s var(--ease-inout); }
+  .js .method:not(.is-drawn) .method-step::after { transform: scaleY(0); }
+  .method.is-drawn .method-step:nth-child(2)::after { transition-delay: 0.35s; }
+  .method.is-drawn .method-step:nth-child(3)::after { transition-delay: 0.7s; }
+  .method.is-drawn .method-step:nth-child(4)::after { transition-delay: 1.05s; }
+  .method-step { padding-top: 0; }
+  .method-step::before { top: 0.15rem; left: -1.7rem; }
+  .method-eg { min-height: 0; }
+}
+.calm-motion .method.method::after, .calm-motion .method.is-drawn .method-step::before, .calm-motion .method.is-drawn .method-step::after { animation: none; transition: none; }   /* data saver: still */
+@media print { .js .method.method { --p: 1; } .method::after, .js .method .method-step::after { transition: none; transform: none; } .js .method .method-step::before, .method-step::before { background: var(--blue-bright); transition: none; animation: none; } }
+
+/* Skills: where each skill was used, in one plain line, with the project links arriving in turn */
+.cap-sum { display: block; margin: -0.35rem 0 0.55rem; font-size: var(--fs-xs); color: var(--text-muted); }
+.cap-used.is-anim strong, .cap-used.is-anim .cap-sum { animation: cap-in 0.35s var(--ease-out) both; }
+.cap-used.is-anim a { animation: cap-in 0.35s var(--ease-out) calc(80ms + var(--i, 0) * 55ms) both; }
+@keyframes cap-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
