@@ -266,17 +266,27 @@
       var panel = $('.cap-used', chip.closest('.cap-group'));
       var ids = chip.getAttribute('data-used').split(',');
       var strong = document.createElement('strong');
-      strong.textContent = chip.textContent;
       strong.textContent = chip.textContent + ' used in';
       panel.appendChild(strong);
+      var count = {}, k = 0;
       ids.forEach(function (id) {
         var el = document.getElementById(id);
         if (!el) return;
         el.classList.add('is-linked');
+        count[id.split('-')[0]] = (count[id.split('-')[0]] || 0) + 1;
         var a = document.createElement('a');
         a.href = '#' + id; a.setAttribute('data-goto', ''); a.textContent = el.getAttribute('data-label') || id;
+        a.style.setProperty('--i', k++);
         panel.appendChild(document.createTextNode(' ')); panel.appendChild(a);
       });
+      /* one plain line on where the skill was used, counted from the links above */
+      var parts = [], add = function (n, one, many) { if (n) parts.push(n + ' ' + (n > 1 ? many : one)); };
+      add(count.cs, 'case study', 'case studies'); add(count.w, 'other project', 'other projects'); add(count.exp, 'role', 'roles');
+      var sum = document.createElement('span');
+      sum.className = 'cap-sum';
+      sum.textContent = parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] : parts.join('');
+      panel.insertBefore(sum, strong.nextSibling);
+      panel.classList.toggle('is-anim', !calmMotion);
       panel.hidden = false;
     });
   });
