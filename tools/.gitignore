@@ -1,0 +1,7 @@
+node_modules/
+out/
+lh/
+res/
+*.png
+*.pdf
+*.log
