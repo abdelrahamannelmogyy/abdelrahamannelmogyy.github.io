@@ -2114,7 +2114,7 @@ section { padding: 3.9rem 2rem; }
    ==================================================================== */
 :root { --ivory-bg: #f2ece0; --ink: #14181f; --edge: clamp(44px, 7vw, 100px); }
 .ivory-edge { position: relative; height: var(--edge); margin-top: 1.5rem; }
-.ivory-edge::before { content: ""; position: absolute; inset: 0; background: var(--ivory-bg); border-radius: 50% 50% 0 0 / 100% 100% 0 0; box-shadow: 0 -18px 54px rgba(242, 236, 224, 0.08); }
+.ivory-edge::before { content: ""; position: absolute; inset: 0 0 -1px; background: var(--ivory-bg); border-radius: 50% 50% 0 0 / 100% 100% 0 0; box-shadow: 0 -18px 54px rgba(242, 236, 224, 0.08); }
 .ivory { --text-primary: var(--ink); --text-muted: #4b5565; --navy-border: #d6d0c2; --surface-glass: #fbf8f2; --ivory: var(--ink); --amber: #9a6200;
   --blue-accent: #1f5f8f; --blue-bright: #1f5f8f; --blue-btn: #1f5f8f; --blue-a10: rgba(31, 95, 143, 0.08); --blue-a15: rgba(31, 95, 143, 0.16); --blue-a28: rgba(31, 95, 143, 0.4); --blue-a30: rgba(31, 95, 143, 0.4);
   --success: #0e8f65; --success-soft: #0b6f4d; --danger-soft: #b42318; --warn-soft: #8a5a00; --success-a20: rgba(14, 143, 101, 0.28);
@@ -2327,3 +2327,15 @@ html:not(.js) .eco .pt { display: none; }
 .cap-used.is-anim strong, .cap-used.is-anim .cap-sum { animation: cap-in 0.35s var(--ease-out) both; }
 .cap-used.is-anim a { animation: cap-in 0.35s var(--ease-out) calc(80ms + var(--i, 0) * 55ms) both; }
 @keyframes cap-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* print: the pinned story becomes a plain list of its six steps (no tall scroll track, no blank pages) */
+@media print {
+  .story.is-pinned .story-track { height: auto; }
+  .story.is-pinned .story-stage { display: block; position: static; height: auto; padding-top: 0; padding-bottom: 0; overflow: visible; }
+  .story.is-pinned .story-rail, .story.is-pinned .story-hint { display: none; }
+  .story.is-pinned .story-steps { min-height: 0; }
+  .story.is-pinned .story-step { position: static; margin-bottom: 1rem; opacity: 1; transform: none; }
+}
+
+/* stories: one width for Play, Pause and Replay, so the controls never re-wrap (no layout shift) */
+.sig-play { min-width: 4.5rem; }
