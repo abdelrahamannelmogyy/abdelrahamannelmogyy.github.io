@@ -2339,3 +2339,72 @@ html:not(.js) .eco .pt { display: none; }
 
 /* stories: one width for Play, Pause and Replay, so the controls never re-wrap (no layout shift) */
 .sig-play { min-width: 4.5rem; }
+
+/* ====================================================================
+   Contact, "email first": the email address is the one large, memorable element.
+   One orchestrated moment when the section arrives: the flow draws, then the email underline.
+   Everything else answers the visitor (hover, focus, copy, send). No uppercase labels, no card stack.
+   ==================================================================== */
+.ct { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 3rem 4rem; align-items: start; }
+.ct-title { max-width: 14ch; margin-bottom: 0.9rem; font-size: var(--fs-4xl); line-height: 1.08; }
+.ct-sub { max-width: 34rem; margin: 0 0 1.4rem; font-size: var(--fs-lg); line-height: 1.6; color: var(--text-muted); }
+.cflow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem 0.8rem; margin: 0 0 2.2rem; font-size: var(--fs-sm); font-weight: 500; color: var(--text-primary); }
+.cflow-step { display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+.cflow-dot { width: 10px; height: 10px; flex: none; background: var(--blue-bright); border: 2px solid var(--blue-bright); border-radius: 50%; transition: background var(--dur-base) var(--ease); }
+.cflow-step:last-child .cflow-dot { background: var(--success); border-color: var(--success); }
+.cflow-line { position: relative; flex: 0 1 4.5rem; min-width: 2rem; height: 2px; overflow: hidden; background: var(--navy-border); border-radius: 2px; }
+.cflow-line::before { content: ""; position: absolute; inset: 0; background: var(--blue-bright); transform-origin: left; transition: transform 0.6s var(--ease-inout); }
+.cflow-pkt { position: absolute; inset: -3px 0; opacity: 0; background: radial-gradient(circle at 100% 50%, var(--blue-bright) 3px, transparent 3.5px); }
+.js .ct-lead:not(.is-drawn) .cflow-line::before { transform: scaleX(0); }
+.js .ct-lead:not(.is-drawn) .cflow-dot { background: transparent; }
+.ct-lead.is-drawn .cflow-line:nth-of-type(2)::before { transition-delay: 0.2s; }
+.ct-lead.is-drawn .cflow-line:nth-of-type(4)::before { transition-delay: 0.75s; }
+.ct-lead.is-drawn .cflow-step:nth-of-type(3) .cflow-dot { transition-delay: 0.7s; }
+.ct-lead.is-drawn .cflow-step:nth-of-type(5) .cflow-dot { transition-delay: 1.25s; }
+.ct-lead.is-drawn .cflow-line:nth-of-type(2) .cflow-pkt { animation: cflow-pkt 0.9s var(--ease-inout) 1.5s both; }
+.ct-lead.is-drawn .cflow-line:nth-of-type(4) .cflow-pkt { animation: cflow-pkt 0.9s var(--ease-inout) 1.95s both; }
+@keyframes cflow-pkt { 0% { opacity: 0; transform: translateX(-100%); } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: none; } }
+.ct-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin-bottom: 1.6rem; }
+.ct-mail-link { position: relative; min-width: 0; padding-bottom: 0.2rem; font-family: var(--font-display); font-size: clamp(1.55rem, 3.1vw, 2.55rem); line-height: 1.2; color: var(--ink); text-decoration: none; overflow-wrap: anywhere; }
+.ct-mail-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: #1f5f8f; transform-origin: left; transition: transform 0.8s var(--ease-inout) 2.1s, height var(--dur-fast) var(--ease); }
+.js .ct-lead:not(.is-drawn) .ct-mail-link::after { transform: scaleX(0); }
+.ct-mail-link:is(:hover, :focus-visible) { color: #1f5f8f; }
+.ct-mail-link:is(:hover, :focus-visible)::after { height: 3px; transition-delay: 0s; }
+.ct-copy { position: static; transform: none; }
+.ct-links { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; margin: 0 0 2rem; padding: 0; list-style: none; }
+.ct-links a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: var(--fs-md); font-weight: 500; color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease); }
+.ct-links a .i { color: #1f5f8f; transition: transform var(--dur-base) var(--ease-out); }
+.ct-links a:is(:hover, :focus-visible) { color: #1f5f8f; border-bottom-color: #1f5f8f; }
+.ct-links a:is(:hover, :focus-visible) .i { transform: translateY(-2px); }
+.ct-val { font-weight: 400; color: var(--text-muted); }
+.ct-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; }
+.ivory .ct-cv { color: var(--ink); border-color: #1f5f8f; }
+.ivory .ct-cv:hover { color: #fff; background: #1f5f8f; }
+.ct-cv .i { transition: transform var(--dur-base) var(--ease-out); }
+.ct-cv:is(:hover, :focus-visible) .i { transform: translateY(2px); }
+.ct-avail { display: inline-flex; align-items: center; gap: 0.55rem; font-size: var(--fs-sm); color: var(--success-soft); }
+.ct-form { padding: 1.6rem 1.7rem; }
+@media (min-width: 821px) { .ct-form .cf-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ct-form .cf-field, .ct-form .cf-field input { min-width: 0; }
+.ct-form-title { margin: 0 0 1.1rem; font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 500; color: var(--ink); }
+.cf-submit .icon-send { transition: transform var(--dur-base) var(--ease-out); }
+.cf-submit:not(:disabled):is(:hover, :focus-visible) .icon-send { transform: translate(3px, -3px) rotate(-10deg); }
+.cf-field label { transition: color var(--dur-base) var(--ease); }
+.ivory .cf-field:focus-within label { color: #1f5f8f; }
+@media (max-width: 900px) { .ct { grid-template-columns: 1fr; gap: 2.4rem; } .ct-title { max-width: none; } }
+@media (max-width: 600px) {
+  .ct-title { font-size: var(--fs-3xl); }
+  .cflow { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .cflow-line { flex: none; width: 2px; height: 1rem; min-width: 0; margin-left: 4px; }
+  .cflow-line::before { transform-origin: top; }
+  .js .ct-lead:not(.is-drawn) .cflow-line::before { transform: scaleY(0); }
+  .cflow-pkt { inset: 0 -3px; background: radial-gradient(circle at 50% 100%, var(--blue-bright) 3px, transparent 3.5px); }
+  .ct-lead.is-drawn .cflow-line .cflow-pkt { animation-name: cflow-pkt-v; }
+  .ct-form { padding: 1.2rem 1.1rem; }
+  .ct-links { gap: 0 1.4rem; margin-bottom: 1.4rem; }
+}
+@keyframes cflow-pkt-v { 0% { opacity: 0; transform: translateY(-100%); } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: none; } }
+.calm-motion .cflow-line::before, .calm-motion .cflow-dot, .calm-motion .ct-mail-link::after { transition: none; }
+.calm-motion .ct-lead.is-drawn .cflow-line .cflow-pkt { animation: none; }
+.calm-motion .reveal.is-in { animation: none; }   /* data saver: sections appear without the fade-in, site-wide */
+@media print { .cflow, .ct-copy { display: none; } .ct-mail-link::after { transform: none; } }
