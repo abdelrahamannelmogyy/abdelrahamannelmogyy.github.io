@@ -2253,20 +2253,6 @@ html:not(.js) .eco .pt { display: none; }
 .eco .f-line { fill: none; stroke: var(--blue-bright); stroke-opacity: 0.6; stroke-width: 1.3; stroke-dasharray: 1; }
 .eco .f-chip { fill: #0a1530; stroke: var(--blue-bright); stroke-width: 1; }
 .eco .f-chip-t { font: 500 12.5px var(--font-sans); fill: var(--text-primary); text-anchor: middle; }
-.eco .f-pkt { fill: var(--blue-bright); opacity: 0; }
-.eco .f-hl { fill: none; stroke: var(--blue-bright); stroke-width: 1.5; opacity: 0; }
-.eco .f-hl.f-amber { stroke: var(--amber); }
-.eco .f-s3.f-in, .eco .f-s3.f-draw { opacity: 0; }
-.hero-eco[data-scene="1"] .f-s1.f-draw { animation: film-draw var(--t, 1s) var(--ease-inout) calc(var(--d, 0s) + var(--lag, 0s)) both; }
-.hero-eco[data-scene="1"] .f-s1.f-hl, .hero-eco[data-scene="2"] .f-s2.f-hl, .hero-eco[data-scene="4"] .f-s4.f-hl { animation: film-glow 2.6s var(--ease-out) calc(var(--d, 0.3s) + var(--lag, 0s)) both; }
-.hero-eco[data-scene="3"] .f-s3.f-draw { animation: film-draw 0.5s var(--ease-inout) calc(var(--d, 0s) + var(--lag, 0s)) both; }
-.hero-eco[data-scene="3"] .f-s3.f-in { animation: eco-in 0.5s var(--ease-out) calc(var(--d, 0s) + var(--lag, 0s)) both; }
-.hero-eco[data-scene="3"] .f-s3.f-move { animation: film-move 0.9s var(--ease-inout) calc(var(--d, 0s) + var(--lag, 0s)) both; }
-.hero-eco[data-scene="4"] .eco .bar { animation: film-grow 0.9s var(--ease-out) var(--d, 0s) both; }
-.hero-eco[data-scene="2"] .eco .ring { animation: eco-ring 1.6s ease-out 2 calc(0.3s + var(--lag, 0s)); }
-@keyframes film-draw { from { opacity: 1; stroke-dashoffset: 1; } to { opacity: 1; stroke-dashoffset: 0; } }
-@keyframes film-glow { 0% { opacity: 0; } 25% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0.35; } }
-@keyframes film-move { 0% { opacity: 0; transform: none; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), var(--y)); } }
 @keyframes film-grow { from { transform: scaleY(0); } to { transform: none; } }
 .film-ui { position: absolute; inset: 0; pointer-events: none; }
 .film-ui[hidden] { display: none; }
@@ -2512,24 +2498,12 @@ html:not(.js) .eco .pt { display: none; }
 @keyframes prefill { 0%, 40% { box-shadow: 0 0 0 3px rgba(31, 95, 143, 0.35); } 100% { box-shadow: 0 0 0 0 rgba(31, 95, 143, 0); } }
 
 /* ====================================================================
-   Hero film 2.0: each scene reveals once the camera has landed (--lag), the volume is counted
-   on the diagram, scene 4 lights the outputs in the order the caption reads them, and the film
-   closes with one light pulse along the whole pipeline. Opt-in sound sits next to Pause.
+   Hero film controls: opt-in sound next to Pause.
    ==================================================================== */
-.hero-eco { --lag: 0.85s; }
-.hero-eco[data-scene="1"] { --lag: 1.05s; }
-.eco .f-s1.f-in { opacity: 0; transform: translateY(4px); transform-box: fill-box; }
-.hero-eco[data-scene="1"] .f-s1.f-in { animation: eco-in 0.5s var(--ease-out) calc(var(--d, 0s) + var(--lag, 0s)) both; }
 .eco .f-metric .f-chip { stroke: var(--amber); }
 .eco .f-metric .f-chip-t { font-variant-numeric: tabular-nums; fill: var(--amber); }
-.eco .f-streak { fill: none; stroke: #d6ecff; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 0.16 2; stroke-dashoffset: 0.16; opacity: 0; filter: drop-shadow(0 0 3px rgba(91, 163, 217, 0.9)); }
-.hero-eco[data-scene="5"] .eco .f-streak { animation: f-streak 0.85s var(--ease-inout) var(--d, 0s) both; }
-@keyframes f-streak { 0% { opacity: 0; stroke-dashoffset: 0.16; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; stroke-dashoffset: -1; } }
 .eco .glow { transform-box: fill-box; transform-origin: center; }
-.hero-eco[data-scene="5"] .eco .glow { animation: glow-beat 1.8s var(--ease-out) 1.15s; }
 @keyframes glow-beat { 30% { opacity: 0.32; transform: scale(1.12); } }
-.hero-eco[data-scene="5"] .eco .k-out { animation: out-beat 1.2s var(--ease-out) 1.45s; }
-@keyframes out-beat { 35% { stroke-width: 2.4; } }
 .film-ctl { position: absolute; top: calc(100% + 0.3rem); right: 0; display: flex; gap: 0.5rem; pointer-events: none; }
 .film-snd { position: relative; display: inline-flex; align-items: center; gap: 0.35rem; min-width: 44px; min-height: 32px; padding: 0.3rem 0.75rem 0.3rem 0.6rem; font: 500 var(--fs-xs) var(--font-sans); color: var(--text-muted); background: rgba(6, 13, 31, 0.82); border: 1px solid var(--blue-a30); border-radius: 99px; cursor: pointer; pointer-events: auto; transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
 .film-snd:hover { border-color: var(--blue-bright); color: var(--text-primary); }
@@ -2544,3 +2518,71 @@ html:not(.js) .eco .pt { display: none; }
 .hero-eco[data-scene="3"] .film-cap span:nth-child(3), .hero-eco[data-scene="4"] .film-cap span:nth-child(4) { transition: opacity 0.45s var(--ease-out) 0.24s, transform 0.45s var(--ease-out) 0.24s; }
 /* the pull-back stays inside its frame, so the zoomed drawing never slides under the controls */
 .hero-eco[data-scene="5"] .eco { overflow: hidden; }
+
+/* ====================================================================
+   Hero film 3.0. One vocabulary for every scene: app.js adds .on to an element at its moment
+   (data-at), and the scene group (.sc) fades as a whole when the story moves on. Entrances
+   overshoot a little and settle (follow-through); glows flare and settle; only one thing
+   is new at a time, so the eye always knows where to look.
+   ==================================================================== */
+.eco .sc { opacity: 0; transition: opacity 0.45s var(--ease); }
+.eco .sc.live { opacity: 1; }
+.eco .fx { opacity: 0; }
+.eco .fx.on { opacity: 1; }
+.eco .fx-in, .eco .fx-pop, .eco .fx-shock, .eco .ignite { transform-box: fill-box; transform-origin: center; }
+.eco .fx-in.on { animation: fx-in 0.5s var(--ease-out) both; }
+@keyframes fx-in { from { opacity: 0; transform: translateY(5px); } }
+.eco .fx-draw { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.eco .fx-draw.on { animation: fx-draw var(--t, 0.7s) var(--ease-inout) both; }
+@keyframes fx-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.eco .fx-pop.on { animation: fx-pop 0.6s cubic-bezier(0.3, 1.55, 0.5, 1) both; }
+@keyframes fx-pop { from { opacity: 0; transform: scale(0.55); } to { opacity: 1; transform: none; } }
+.eco rect.fx-glow { fill: rgba(91, 163, 217, 0.07); stroke: var(--blue-bright); stroke-width: 1.6; }
+.eco rect.fx-glow.f-amber { fill: rgba(233, 177, 90, 0.08); stroke: var(--amber); }
+.eco rect.fx-glow.f-ok { fill: none; stroke: var(--success); }
+.eco .fx-glow.on { animation: fx-glow 1.8s var(--ease-out) both; }
+@keyframes fx-glow { 0% { opacity: 0; } 22% { opacity: 1; } 100% { opacity: 0.45; } }
+.eco .fx-scan { fill: #d6ecff; filter: drop-shadow(0 0 4px rgba(91, 163, 217, 0.9)); }
+.eco .fx-scan.on { animation: fx-scan 0.9s var(--ease-inout) both; }
+@keyframes fx-scan { 0% { opacity: 0; transform: translateY(0); } 15%, 85% { opacity: 0.95; } 100% { opacity: 0; transform: translateY(var(--h)); } }
+.eco .f-rec { fill: var(--blue-bright); fill-opacity: 0.6; }
+.eco .f-tag { font: 500 10px var(--font-mono); letter-spacing: 0.05em; fill: var(--text-muted); }
+.eco .f-tag.f-amber { fill: var(--amber); }
+.eco .f-tag.f-green { fill: var(--success); }
+.eco .f-lookup { fill: none; stroke: var(--amber); stroke-width: 1.4; stroke-opacity: 0.85; }
+.eco .f-glyph { fill: none; stroke: var(--blue-bright); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.eco .f-chip-t { text-anchor: middle; }
+.eco .f-card { fill: #0a1530; stroke: var(--blue-bright); stroke-opacity: 0.6; }
+.eco .fx-sort .row { fill: var(--blue-bright); fill-opacity: 0.75; transition: transform 0.7s cubic-bezier(0.5, 0, 0.2, 1.3), fill 0.3s var(--ease) 0.5s; }
+.eco .fx-sort.sorted .row { transform: translateY(var(--y)); }
+.eco .fx-sort.sorted .row:nth-of-type(3) { fill: var(--amber); }
+.eco .f-link { fill: none; stroke: var(--blue-bright); stroke-width: 1.2; stroke-opacity: 0.6; }
+.eco .f-check { fill: none; stroke: var(--amber); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.eco .chart.regrow .bar { animation: film-grow 0.8s cubic-bezier(0.3, 1.5, 0.5, 1) both; }
+.eco .chart.regrow .bar:nth-child(2) { animation-delay: 0.1s; }
+.eco .chart.regrow .bar:nth-child(3) { animation-delay: 0.2s; }
+/* the finale: a light pulse runs the pipeline, nodes flare as it passes, the core sends a shockwave */
+.eco .fx-streak { fill: none; stroke: #d6ecff; stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 0.18 2; stroke-dashoffset: 0.18; filter: drop-shadow(0 0 3px rgba(91, 163, 217, 0.9)); }
+.eco .fx-streak.on { animation: fx-streak 0.6s var(--ease-inout) both; }
+@keyframes fx-streak { 0% { opacity: 0; stroke-dashoffset: 0.18; } 12%, 88% { opacity: 1; } 100% { opacity: 0; stroke-dashoffset: -1; } }
+.eco rect.fx-lit { fill: rgba(91, 163, 217, 0.14); stroke: #d6ecff; stroke-width: 1.8; filter: drop-shadow(0 0 6px rgba(91, 163, 217, 0.8)); }
+.eco .fx-lit.on { animation: fx-lit 1.7s var(--ease-out) both; }
+@keyframes fx-lit { 0% { opacity: 0; } 12% { opacity: 1; } 100% { opacity: 0; } }
+.eco .fx-shock, .eco .ignite { fill: none; stroke: #d6ecff; stroke-width: 2; }
+.eco .fx-shock.on { animation: fx-shock 1.3s cubic-bezier(0.15, 0.7, 0.3, 1) both; }
+@keyframes fx-shock { from { opacity: 0.9; transform: scale(0.5); stroke-width: 3; } to { opacity: 0; transform: scale(5); stroke-width: 0.5; } }
+.hero-eco.is-boom .eco .glow { animation: glow-beat 1.6s var(--ease-out); }
+/* depth and light: a parallax dust layer, a vignette that keeps the eye on the action, a tension dim */
+.eco .dust { opacity: 0; transition: opacity 0.8s var(--ease); }
+.eco .dust circle { fill: var(--blue-bright); opacity: 0.4; }
+.hero-eco[data-scene] .eco .dust { opacity: 1; }
+.eco .vig { opacity: 0; pointer-events: none; transition: opacity 0.8s var(--ease); }
+.hero-eco.is-film .eco .vig, .hero-eco.is-dim .eco .vig { opacity: 1; }
+.eco .ly { transition: transform 0.5s var(--ease-out), opacity 0.6s var(--ease); }
+.hero-eco.is-dim .eco .ly-net, .hero-eco.is-dim .eco .ly-nodes { opacity: 0.35; }
+/* the opening: the core ignites and the network radiates outward (sources draw from the bridge end) */
+.eco .ignite { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .js:not(.calm-motion) .eco .ignite { animation: fx-shock 1.3s cubic-bezier(0.15, 0.7, 0.3, 1) 0.1s both; }
+  .js:not(.calm-motion) .eco .pth.rev { stroke-dashoffset: -330; }
+}
