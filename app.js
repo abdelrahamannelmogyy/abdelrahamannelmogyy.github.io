@@ -502,46 +502,58 @@
       document.addEventListener('visibilitychange', run);
       var settle = function () { clearTimeout(settleT); settleT = setTimeout(function () { settled = true; eco.classList.add('is-calm'); run(); }, 30000); };   /* the flow settles after 30 seconds */
       settle();
-      /* the hero film: a camera dollies across the pipeline scene by scene, then pulls back to the still diagram.
-         The camera is one zoom and one focus point eased together, frame by frame: the zoom changes at a
-         constant perceived speed and every point travels in a straight line. Each scene reveals its detail
-         only once the camera has landed (--lag in the CSS), then the camera keeps a slow push-in. */
+      /* the hero film 3.0: a story in four scenes and a finale, on one clock.
+         Every film element carries data-s (its scene) and data-at (ms after the scene starts); at that moment
+         it gets .on (or its packets launch), and its data-snd sound fires with it, so picture and sound cannot drift.
+         The camera is one zoom and one focus point eased together (log-scale zoom, scaling about the point both
+         framings share), it can take several shots per scene, and a slow CSS push-in holds the last one. */
       var filmUi = $('.film-ui', eco), tick = $('.film-tick', eco), fbtn = $('.film-btn', eco), sbtn = $('.film-snd', eco);
       if (filmUi && 'IntersectionObserver' in window) {
         var scene = 0, playing = false, ended = false, startT = 0, raf2 = function (fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); };
-        var SCENE_MS = [3300, 3000, 3500, 3700], MOVE_MS = [1500, 1300, 1300, 1300, 1800], LAG_MS = [1050, 850, 850, 850];
-        var clock = 0, last = 0, loop = 0, sceneT = 0, cues = [];
+        var SCENE_MS = [3800, 3500, 3900, 4200], FINALE_MS = 3800;
+        var clock = 0, last = 0, loop = 0, sceneT = 0, cues = [], pausedAnims = [];
         var ease = function (u) { return u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; };
         var phoneMQ = window.matchMedia('(max-width: 560px)');   /* the same breakpoint that swaps the two drawings */
-        var cams = ecoSvgs.map(function (s) { var vb = s.viewBox.baseVal; return { el: $('.cam', s), m: s.classList.contains('eco-m'), w: vb.width, h: vb.height, list: JSON.parse(s.getAttribute('data-cam')), s: 1, tx: 0, ty: 0, a: null, b: null, t0: 0, dur: 1, push: 0, fx: 0, fy: 0, css: false, pa: null, pt: null, pw0: 0, pdur: 1 }; });
+        var cams = ecoSvgs.map(function (s) { var vb = s.viewBox.baseVal; return { svg: s, el: $('.cam', s), dust: $('.dust', s), m: s.classList.contains('eco-m'), w: vb.width, h: vb.height, list: JSON.parse(s.getAttribute('data-cam')), s: 1, tx: 0, ty: 0, a: null, b: null, t0: 0, dur: 1, push: 0, fx: 0, fy: 0, css: false, pa: null, pt: null, pw0: 0, pdur: 1, end: 0 }; });
         var live = function (c) { return c.m === phoneMQ.matches; };   /* only the drawing on screen is animated */
-        /* screen = s * world + t; a focus point (fx, fy) at zoom s, kept inside the drawing */
+        var liveEl = function (el) { var s = el.ownerSVGElement || el.closest('svg'); return !!s && s.classList.contains('eco-m') === phoneMQ.matches; };
+        /* screen = s * world + t; a focus point at zoom s, kept inside the drawing (centred when zoomed out) */
         var place = function (c, fx, fy, s) {
           var hx = c.w / (2 * s), hy = c.h / (2 * s);
-          fx = Math.min(Math.max(fx, hx), c.w - hx); fy = Math.min(Math.max(fy, hy), c.h - hy);
+          fx = hx >= c.w / 2 ? c.w / 2 : Math.min(Math.max(fx, hx), c.w - hx); fy = hy >= c.h / 2 ? c.h / 2 : Math.min(Math.max(fy, hy), c.h - hy);
           return { s: s, tx: c.w / 2 - fx * s, ty: c.h / 2 - fy * s };
         };
-        var paint = function (c) { c.el.style.transform = 'translate(' + c.tx.toFixed(2) + 'px,' + c.ty.toFixed(2) + 'px) scale(' + c.s.toFixed(4) + ')'; };
-        /* where the camera is right now, even in the middle of a CSS push-in */
+        var paint = function (c) {
+          c.el.style.transform = 'translate(' + c.tx.toFixed(2) + 'px,' + c.ty.toFixed(2) + 'px) scale(' + c.s.toFixed(4) + ')';
+          if (c.dust) c.dust.style.transform = 'translate(' + (c.tx * 0.3).toFixed(2) + 'px,' + (c.ty * 0.3).toFixed(2) + 'px)';   /* far layer: parallax */
+        };
         var settleCss = function (c) {   /* worked out from the linear push-in, not read back: no forced style recalculation */
           if (!c.css) return;
           var k = Math.min(1, (performance.now() - c.pw0) / c.pdur);
           c.s = c.pa.s + (c.pt.s - c.pa.s) * k; c.tx = c.pa.tx + (c.pt.tx - c.pa.tx) * k; c.ty = c.pa.ty + (c.pt.ty - c.pa.ty) * k;
-          c.el.style.transition = 'none'; paint(c); c.css = false;
+          c.el.style.transition = 'none'; if (c.dust) c.dust.style.transition = 'none'; paint(c); c.css = false;
         };
-        /* the slow push-in after landing is a plain linear CSS transition: smooth, and no per-frame script */
-        var pushIn = function (c) {
-          var rest = c.t0 + SCENE_MS[scene - 1] - clock; if (rest < 200) return;
-          c.pa = { s: c.s, tx: c.tx, ty: c.ty }; c.pt = place(c, c.fx, c.fy, c.s * (1 + 0.04 * rest / Math.max(1, SCENE_MS[scene - 1] - c.dur)));
+        var pushIn = function (c) {   /* the slow 4% push-in after the last shot is a plain linear CSS transition */
+          var rest = c.end - clock; if (rest < 250) return;
+          c.pa = { s: c.s, tx: c.tx, ty: c.ty }; c.pt = place(c, c.fx, c.fy, c.s * (1 + 0.04 * Math.min(1, rest / 2500)));
           c.pw0 = performance.now(); c.pdur = Math.round(rest);
-          c.el.style.transition = 'transform ' + c.pdur + 'ms linear'; c.s = c.pt.s; c.tx = c.pt.tx; c.ty = c.pt.ty; paint(c); c.css = true;
+          var tr = 'transform ' + c.pdur + 'ms linear'; c.el.style.transition = tr; if (c.dust) c.dust.style.transition = tr;
+          c.s = c.pt.s; c.tx = c.pt.tx; c.ty = c.pt.ty; paint(c); c.css = true;
+        };
+        var shoot = function (c, f, push) {   /* one camera move: from wherever the camera is to shot f = [x, y, zoom, at, ms] */
+          settleCss(c); c.a = { s: c.s, tx: c.tx, ty: c.ty }; c.b = place(c, f[0], f[1], f[2]); c.fx = f[0]; c.fy = f[1];
+          c.t0 = clock; c.dur = f[4]; c.push = push;
+          if (!live(c)) { c.a = null; c.s = c.b.s; c.tx = c.b.tx; c.ty = c.b.ty; paint(c); return; }   /* the hidden drawing just takes the framing */
+          sfx('move:' + f[4]); kick();
         };
         var aim = function (n) {
           cams.forEach(function (c) {
-            var f = n >= 1 && n <= 4 ? c.list[n - 1] : [c.w / 2, c.h / 2, 1];
-            settleCss(c); c.a = { s: c.s, tx: c.tx, ty: c.ty }; c.b = place(c, f[0], f[1], f[2]); c.fx = f[0]; c.fy = f[1];
-            c.t0 = clock; c.dur = MOVE_MS[Math.min(n, 5) - 1]; c.push = n >= 1 && n <= 4 ? 1 : 0;
-            if (!live(c)) { c.a = null; c.s = c.b.s; c.tx = c.b.tx; c.ty = c.b.ty; paint(c); }   /* the hidden drawing just takes the framing */
+            var shots = n >= 1 && n <= 4 ? c.list[n - 1] : [[c.w / 2, c.h / 2, 0.965, 0, 1450], [c.w / 2, c.h / 2, 1, 1450, 650]];   /* finale: pull back past the frame, then settle */
+            c.end = clock + (n >= 1 && n <= 4 ? SCENE_MS[n - 1] : FINALE_MS);
+            shots.forEach(function (f, i) {
+              var isLast = i === shots.length - 1 && n >= 1 && n <= 4;
+              if (!f[3]) shoot(c, f, isLast); else cue(f[3], function () { if (scene === n) shoot(c, f, isLast); });
+            });
           });
         };
         var step = function (c) {
@@ -552,15 +564,15 @@
             tx = a.tx + (a.s - s) * wx; ty = a.ty + (a.s - s) * wy;
           } else { tx = a.tx + (b.tx - a.tx) * e; ty = a.ty + (b.ty - a.ty) * e; }
           c.s = s; c.tx = tx; c.ty = ty; paint(c);
-          if (u >= 1) { c.a = null; if (c.push && !held) pushIn(c); }   /* landed: hand over to the push-in */
+          if (u >= 1) { c.a = null; if (c.push && !held) pushIn(c); }
           return u < 1;
         };
-        /* scene 1 volume counter, driven by the same clock */
+        /* the volume counter in scene 1 climbs while the calls stream in */
         var counts = $$('.f-count', eco);
         var count = function () {
           if (scene !== 1) return;
-          var u = Math.min(1, Math.max(0, (clock - sceneT - LAG_MS[0] - 350) / 1300)), v = Math.round(85000 * (1 - Math.pow(1 - u, 3)));
-          counts.forEach(function (t) { t.textContent = (u >= 1 ? '85,000+' : String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ',')) + ' a day'; });   /* no toLocaleString: its first call loads locale data (about 100 ms on a slow phone) */
+          var u = Math.min(1, Math.max(0, (clock - sceneT - 1150) / 1400)), v = Math.round(85000 * (1 - Math.pow(1 - u, 3)));
+          counts.forEach(function (t) { t.textContent = (u >= 1 ? '85,000+' : String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ',')) + ' a day'; });   /* no toLocaleString: its first call loads locale data */
         };
         var frame2 = function (now) {
           loop = 0;
@@ -570,92 +582,163 @@
           cams.forEach(function (c) { if (c.a && step(c)) busy = true; });
           count();
           while (cues.length && cues[0].at <= clock) cues.shift().fn();
-          if ((busy || cues.length || (scene === 1 && clock - sceneT < LAG_MS[0] + 1800)) && (!held || ended)) loop = requestAnimationFrame(frame2);   /* idle between moves, while paused and off screen */
+          if ((busy || cues.length || (scene === 1 && clock - sceneT < 2700)) && (!held || ended)) loop = requestAnimationFrame(frame2);   /* idle between moments, while paused and off screen */
         };
         var kick = function () { if (!loop) { last = performance.now(); loop = requestAnimationFrame(frame2); } };
-        var cue = function (ms, fn) { cues.push({ at: clock + ms, fn: fn }); cues.sort(function (x, y) { return x.at - y.at; }); };
+        var cue = function (ms, fn) { cues.push({ at: clock + ms, fn: fn }); cues.sort(function (x, y) { return x.at - y.at; }); kick(); };
 
-        /* opt-in sound: synthesised with Web Audio (no files), only after the visitor turns it on */
+        /* one moment of the film: the element reveals, its packets launch, its sound fires */
+        var fire = function (el) {
+          var sc = el.closest('.sc'), svg = el.ownerSVGElement;
+          if (el.classList.contains('fx-sorter')) { var q = $('.fx-sort', sc); if (q) q.classList.add('sorted'); }
+          else if (el.classList.contains('fx-regrow')) { var ch = $('.chart', svg); if (ch) { ch.classList.remove('regrow'); void ch.getBBox(); ch.classList.add('regrow'); } }
+          else if (el.classList.contains('pk')) { $$('animateMotion, animate', el).forEach(function (a) { try { a.beginElement(); } catch (e) {} }); }
+          else if (!el.classList.contains('fx-cue')) el.classList.add('on');
+          var sn = el.getAttribute('data-snd'); if (sn) sfx(sn);
+        };
+        var stage = function (n) {
+          $$('.sc', eco).forEach(function (g) { g.classList.toggle('live', +g.getAttribute('data-s') === n); });
+          $$('.sc[data-s="' + n + '"]', eco).forEach(function (g) {
+            $$('.on, .sorted', g).forEach(function (el) { el.classList.remove('on', 'sorted'); });
+            if (!liveEl(g)) return;
+            $$('[data-at]', g).forEach(function (el) { cue(+el.getAttribute('data-at'), function () { if (scene === n) fire(el); }); });
+          });
+        };
+
+        /* ---------- sound: synthesised with Web Audio (no files), only after the visitor turns it on ----------
+           A chord per scene (A minor, F, C, G), an arpeggio that enters with the bridge and grows,
+           a sound for every visual event, a riser and a beat of silence before the finale,
+           then an impact and the resolution to A major with a shimmer. */
         var snd = null, soundOn = false;
+        var CHORD = { 1: [110, 220, 261.63, 329.63], 2: [87.31, 174.61, 220, 261.63], 3: [130.81, 261.63, 329.63, 392], 4: [98, 196, 246.94, 293.66], 5: [110, 220, 277.18, 329.63] };
         var audio = function () {
           if (snd) return snd;
           var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
-          var ctx = new AC(), comp = ctx.createDynamicsCompressor(), master = ctx.createGain();
-          master.gain.value = 0.9; master.connect(comp); comp.connect(ctx.destination);
+          var ctx = new AC(), comp = ctx.createDynamicsCompressor(), master = ctx.createGain(), music = ctx.createGain();
+          comp.threshold.value = -18; comp.ratio.value = 3; master.gain.value = 1.5; music.gain.value = 1;
+          music.connect(master); master.connect(comp); comp.connect(ctx.destination);
           var nb = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate), nd = nb.getChannelData(0);
           for (var i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
-          snd = { ctx: ctx, master: master, noise: nb, pad: null };
+          snd = { ctx: ctx, master: master, music: music, noise: nb, pad: null, arp: { on: false, next: 0, i: 0, level: 0 }, timer: 0 };
+          snd.timer = setInterval(arpTick, 90);
           return snd;
         };
         var env = function (g, t, a, peak, d) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
-        var whoosh = function (dur, lo, hi, peak) {
-          if (!soundOn || !snd) return; var c = snd.ctx, t = c.currentTime, src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(), pan = c.createStereoPanner ? c.createStereoPanner() : null;
-          src.buffer = snd.noise; src.loop = true; f.type = 'bandpass'; f.Q.value = 1.1;
-          f.frequency.setValueAtTime(lo, t); f.frequency.exponentialRampToValueAtTime(hi, t + dur * 0.7); f.frequency.exponentialRampToValueAtTime(lo * 1.4, t + dur);
-          env(g, t, dur * 0.45, peak, dur * 0.55);
-          src.connect(f); f.connect(g);
-          if (pan) { pan.pan.setValueAtTime(-0.4, t); pan.pan.linearRampToValueAtTime(0.4, t + dur); g.connect(pan); pan.connect(snd.master); } else g.connect(snd.master);
+        var tone = function (freq, peak, d, type, to, delay, dest) {
+          var c = snd.ctx, t = c.currentTime + (delay || 0), o = c.createOscillator(), g = c.createGain();
+          o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t); if (to) o.frequency.exponentialRampToValueAtTime(to, t + d * 0.8);
+          env(g, t, 0.006, peak, d); o.connect(g); g.connect(dest || snd.master); o.start(t); o.stop(t + d + 0.05);
+        };
+        var noise = function (type, f0, f1, dur, peak, q, delay, pan) {
+          var c = snd.ctx, t = c.currentTime + (delay || 0), src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(), p = c.createStereoPanner ? c.createStereoPanner() : null;
+          src.buffer = snd.noise; src.loop = true; f.type = type; f.Q.value = q || 1;
+          f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(f1, t + dur * 0.75);
+          env(g, t, dur * 0.4, peak, dur * 0.6); src.connect(f); f.connect(g);
+          if (p) { p.pan.setValueAtTime(pan ? pan[0] : 0, t); p.pan.linearRampToValueAtTime(pan ? pan[1] : 0, t + dur); g.connect(p); p.connect(snd.master); } else g.connect(snd.master);
           src.start(t); src.stop(t + dur + 0.05);
         };
-        var blip = function (freq, peak) {
-          if (!soundOn || !snd) return; var c = snd.ctx, t = c.currentTime;
-          [[freq, peak], [freq * 1.5, peak * 0.4]].forEach(function (p) { var o = c.createOscillator(), g = c.createGain(); o.type = 'sine'; o.frequency.value = p[0]; env(g, t, 0.008, p[1], 0.16); o.connect(g); g.connect(snd.master); o.start(t); o.stop(t + 0.2); });
-        };
-        var impact = function () {
-          if (!soundOn || !snd) return; var c = snd.ctx, t = c.currentTime, o = c.createOscillator(), g = c.createGain();
-          o.type = 'sine'; o.frequency.setValueAtTime(92, t); o.frequency.exponentialRampToValueAtTime(38, t + 0.9); env(g, t, 0.01, 0.55, 1.3); o.connect(g); g.connect(snd.master); o.start(t); o.stop(t + 1.4);
-          var n = c.createBufferSource(), f = c.createBiquadFilter(), ng = c.createGain(); n.buffer = snd.noise; f.type = 'lowpass'; f.frequency.value = 1800; env(ng, t, 0.005, 0.18, 0.35); n.connect(f); f.connect(ng); ng.connect(snd.master); n.start(t); n.stop(t + 0.45);
-        };
-        /* a soft pad in A minor that opens up scene by scene, dips before the close, then resolves */
-        var pad = function (level) {
-          if (!soundOn || !snd) return; var c = snd.ctx, t = c.currentTime;
+        var pad = function (n, level) {
+          var c = snd.ctx, t = c.currentTime, ch = CHORD[n];
           if (!snd.pad) {
-            var lp = c.createBiquadFilter(), g = c.createGain(); lp.type = 'lowpass'; lp.frequency.value = 500; lp.Q.value = 0.5; g.gain.value = 0.0001; lp.connect(g); g.connect(snd.master);
-            var osc = [220, 261.63, 329.63, 110].map(function (fq, i) { var o = c.createOscillator(); o.type = i === 3 ? 'sine' : 'triangle'; o.frequency.value = fq; o.detune.value = i % 2 ? 4 : -4; o.connect(lp); o.start(); return o; });
+            var lp = c.createBiquadFilter(), g = c.createGain(); lp.type = 'lowpass'; lp.frequency.value = 500; lp.Q.value = 0.6; g.gain.value = 0.0001; lp.connect(g); g.connect(snd.music);
+            var osc = ch.map(function (fq, i) { var o = c.createOscillator(); o.type = i === 0 ? 'sine' : 'triangle'; o.frequency.value = fq; o.detune.value = i % 2 ? 5 : -5; o.connect(lp); o.start(); return o; });
             snd.pad = { lp: lp, g: g, osc: osc };
           }
           var pd = snd.pad;
-          pd.g.gain.cancelScheduledValues(t); pd.g.gain.setValueAtTime(Math.max(0.0001, pd.g.gain.value), t);
-          pd.lp.frequency.cancelScheduledValues(t); pd.lp.frequency.setValueAtTime(pd.lp.frequency.value, t);
-          if (level === 'dip') { pd.g.gain.exponentialRampToValueAtTime(0.008, t + 0.35); return; }
-          if (level === 'end') {
-            pd.osc[1].frequency.setTargetAtTime(277.18, t, 0.08);   /* C to C sharp: the minor chord resolves to major */
-            pd.g.gain.exponentialRampToValueAtTime(0.07, t + 0.25); pd.lp.frequency.exponentialRampToValueAtTime(2200, t + 0.4);
-            pd.g.gain.exponentialRampToValueAtTime(0.0001, t + 4.2);
-            var old = pd; snd.pad = null; setTimeout(function () { old.osc.forEach(function (o) { try { o.stop(); } catch (e) {} }); }, 4500);
-            return;
+          pd.osc.forEach(function (o, i) { o.frequency.setTargetAtTime(ch[i], t, 0.12); });   /* the chord changes with the scene */
+          pd.g.gain.cancelScheduledValues(t); pd.g.gain.setValueAtTime(Math.max(0.0001, pd.g.gain.value), t); pd.g.gain.exponentialRampToValueAtTime(level, t + 0.9);
+          pd.lp.frequency.cancelScheduledValues(t); pd.lp.frequency.setValueAtTime(pd.lp.frequency.value, t); pd.lp.frequency.exponentialRampToValueAtTime(420 + 230 * n, t + 1.2);
+        };
+        var padOff = function (sec) {
+          if (!snd || !snd.pad) return; var pd = snd.pad, t = snd.ctx.currentTime; snd.pad = null;
+          pd.g.gain.cancelScheduledValues(t); pd.g.gain.setValueAtTime(Math.max(0.0001, pd.g.gain.value), t); pd.g.gain.exponentialRampToValueAtTime(0.0001, t + sec);
+          setTimeout(function () { pd.osc.forEach(function (o) { try { o.stop(); } catch (e) {} }); }, sec * 1000 + 200);
+        };
+        function arpTick() {   /* look-ahead scheduler: soft plucks on eighth notes at 120 bpm; stops by itself while suspended */
+          if (!snd || !soundOn || !snd.arp.on) return;
+          var c = snd.ctx, a = snd.arp, ch = CHORD[Math.min(Math.max(scene, 1), 4)];
+          if (a.next < c.currentTime) a.next = c.currentTime + 0.05;
+          while (a.next < c.currentTime + 0.2) {
+            var f = [ch[1] * 2, ch[2] * 2, ch[3] * 2, ch[2] * 2][a.i % 4] * (a.i % 8 >= 4 ? 1.5 : 1), o = c.createOscillator(), g = c.createGain(), lp = c.createBiquadFilter();
+            o.type = 'triangle'; o.frequency.value = f; lp.type = 'lowpass'; lp.frequency.value = 2400;
+            g.gain.setValueAtTime(0.0001, a.next); g.gain.exponentialRampToValueAtTime(a.level * (a.i % 4 === 0 ? 1.3 : 1), a.next + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, a.next + 0.22);
+            o.connect(lp); lp.connect(g); g.connect(snd.music); o.start(a.next); o.stop(a.next + 0.25);
+            if (scene === 4 && a.i % 2 === 0) tone(62, 0.09, 0.3, 'sine', 44, a.next - c.currentTime, snd.music);   /* the pulse that drives into the finale */
+            a.next += 0.25; a.i++;
           }
-          pd.g.gain.exponentialRampToValueAtTime(0.025 + 0.008 * level, t + 1.2);
-          pd.lp.frequency.exponentialRampToValueAtTime(500 + 260 * level, t + 1.2);
+        }
+        var PENT = [523.25, 587.33, 659.25, 783.99, 880, 987.77, 1174.66, 1318.51];
+        var sfx = function (name) {
+          if (!soundOn || !snd) return;
+          var p = name.split(':'), k = p[0], i = +(p[1] || 0);
+          switch (k) {
+            case 'move': noise('bandpass', 280, 2200, Math.min(1.6, i / 1000 + 0.2), 0.13, 1.1, 0, [-0.5, 0.5]); break;
+            case 'call': tone(620 + 70 * i, 0.028, 0.06, 'sine'); noise('highpass', 3000, 5000, 0.05, 0.02); break;
+            case 'pop': tone(i * 0.8, 0.06, 0.18, 'sine', i * 1.25); break;
+            case 'query': tone(1046.5, 0.045, 0.08); tone(1318.5, 0.045, 0.1, 'sine', 0, 0.08); break;
+            case 'reply': tone(1318.5, 0.04, 0.08); tone(987.77, 0.045, 0.14, 'sine', 0, 0.08); break;
+            case 'raw': noise('bandpass', 900 + 450 * (i % 4), 1400 + 500 * (i % 4), 0.07, 0.05, 4, 0, [(i % 2) ? 0.4 : -0.4, 0]); break;
+            case 'scan': noise('bandpass', 400, 4200, 0.85, 0.07, 3, 0, [-0.3, 0.3]); break;
+            case 'clean': tone(783.99, 0.032, 0.09); break;
+            case 'stack': tone(330 + 40 * i, 0.07, 0.09, 'sine', 220 + 30 * i); break;
+            case 'pop-ivr': tone(523.25, 0.05, 0.07); tone(523.25, 0.05, 0.07, 'sine', 0, 0.1); break;
+            case 'pop-wa': tone(880, 0.06, 0.16, 'sine', 1318.5); break;
+            case 'pop-mail': noise('highpass', 2500, 7000, 0.25, 0.05, 0.8, 0, [0.4, -0.2]); tone(659.25, 0.035, 0.12); break;
+            case 'send': noise('bandpass', 600, 3200, 0.3, 0.045, 2, 0, [0, (i - 1) * 0.6]); break;
+            case 'ret': tone(1318.5, 0.04, 0.16, 'sine', 1760); break;
+            case 'feed': tone(659.25, 0.03, 0.1); break;
+            case 'chart': [523.25, 659.25, 783.99].forEach(function (f, j) { tone(f, 0.045, 0.16, 'triangle', 0, j * 0.07); }); break;
+            case 'ai': [1567.98, 2093, 2637].forEach(function (f, j) { tone(f, 0.02, 0.7, 'sine', 0, j * 0.05); }); break;
+            case 'sort': [0, 0.06, 0.12].forEach(function (d) { noise('bandpass', 2400, 2600, 0.04, 0.05, 6, d); }); break;
+            case 'decide': tone(880, 0.06, 0.16); tone(1318.5, 0.065, 0.32, 'sine', 0, 0.12); break;
+            case 'check': tone(1760, 0.035, 0.12); break;
+            case 'riser':   /* tension: the music falls away, a noise and tone rise for 1.7 s, then cut to silence */
+              snd.arp.on = false; padOff(0.6);
+              noise('lowpass', 180, 6000, 1.7, 0.1, 0.8);
+              tone(220, 0.03, 1.7, 'sawtooth', 880);
+              break;
+            case 'lit': tone(PENT[i] || 880, 0.05, 0.4, 'sine'); tone((PENT[i] || 880) * 2, 0.012, 0.3, 'sine'); break;
+            case 'impact':
+              tone(95, 0.5, 1.5, 'sine', 36); noise('lowpass', 2400, 300, 0.5, 0.2, 0.7);
+              pad(5, 0.06); var t = snd.ctx.currentTime; snd.pad.lp.frequency.cancelScheduledValues(t); snd.pad.lp.frequency.setValueAtTime(2600, t);
+              [880, 1318.51, 1760].forEach(function (f, j) { tone(f, 0.018, 3.2, 'sine', 0, 0.05 + j * 0.06); });
+              setTimeout(function () { if (scene === 5) padOff(3.2); }, 1300);
+              break;
+          }
         };
         var sceneSound = function (n) {
-          if (n === 1) { whoosh(1.4, 260, 1800, 0.22); pad(1); }
-          else if (n <= 4) { whoosh(1.15, 320, 2400, 0.18); pad(n); }
-          if (n >= 1 && n <= 4) cue(LAG_MS[n - 1] - 150, function () { blip(n === 4 ? 988 : 784, 0.06); });
-          if (n === 3) [450, 570, 690].forEach(function (d) { cue(LAG_MS[2] + d, function () { blip(1318, 0.035); }); });
-          if (n === 4) [200, 650, 1100].forEach(function (d, i) { cue(LAG_MS[3] + d, function () { blip([880, 988, 1175][i], 0.04); }); });
-          if (n === 1) cue(LAG_MS[0] + 1650, function () { blip(1568, 0.05); });   /* the counter lands */
+          if (!soundOn || !snd) return;
+          pad(n, [0, 0.02, 0.026, 0.034, 0.044][n]);
+          if (n >= 2) { snd.arp.on = true; snd.arp.level = [0, 0, 0.014, 0.022, 0.032][n]; }
         };
         var setSound = function (on) {
           soundOn = on && !!audio();
           sbtn.setAttribute('aria-pressed', String(soundOn)); sbtn.setAttribute('aria-label', soundOn ? 'Turn sound off' : 'Turn sound on');
           if (!snd) return;
-          if (soundOn) { snd.ctx.resume(); if (scene >= 1 && scene <= 4) pad(scene); }
-          else if (snd.pad) { var g = snd.pad.g, t = snd.ctx.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(Math.max(0.0001, g.gain.value), t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3); }
+          if (soundOn) { snd.ctx.resume(); if (scene >= 1 && scene <= 4) sceneSound(scene); }
+          else { snd.arp.on = false; padOff(0.3); }
         };
 
         var hold = function () {
           held = !playing || !inView || document.hidden; eco.classList.toggle('is-held', held); run();
           cams.forEach(function (c) { if (held && c.css) settleCss(c); else if (!held && live(c) && !c.a && !c.css && c.push && scene >= 1 && scene <= 4) pushIn(c); });
+          if (eco.getAnimations) {   /* reveals, glows and scans pause with the film and resume where they were */
+            if (held && !ended) { pausedAnims = eco.getAnimations({ subtree: true }).filter(function (a) { return a.playState === 'running'; }); pausedAnims.forEach(function (a) { a.pause(); }); }
+            else { pausedAnims.forEach(function (a) { try { a.play(); } catch (e) {} }); pausedAnims = []; }
+          }
           if (snd) { if (held && !ended) snd.ctx.suspend(); else if (soundOn) snd.ctx.resume(); }
           if (!held) kick();
         };
         var go = function (n) {
-          scene = n; sceneT = clock; eco.setAttribute('data-scene', String(n)); eco.classList.toggle('is-film', n >= 1 && n <= 4); aim(n); kick();
+          scene = n; sceneT = clock; eco.setAttribute('data-scene', String(n)); eco.classList.toggle('is-film', n >= 1 && n <= 4);
           tick.classList.remove('is-on');
+          stage(n); aim(n);
           if (n > 4) {
             playing = false; ended = true; fbtn.textContent = 'Replay film'; hold(); held = false; eco.classList.remove('is-held'); run();
-            pad('dip'); cue(380, function () { whoosh(1.5, 1600, 240, 0.16); }); cue(1150, function () { impact(); pad('end'); });
+            cue(150, function () { eco.classList.add('is-dim'); });
+            cue(1850, function () { eco.classList.remove('is-dim'); });
+            cue(2450, function () { eco.classList.add('is-boom'); });
+            cue(4100, function () { eco.classList.remove('is-boom'); });
             return;
           }
           tick.style.setProperty('--scene', SCENE_MS[n - 1] + 'ms');
@@ -664,7 +747,7 @@
         };
         tick.addEventListener('animationend', function () { if (playing) go(scene + 1); });
         fbtn.addEventListener('click', function () {
-          if (ended) { ended = false; playing = true; settled = false; eco.classList.remove('is-calm'); settle(); fbtn.textContent = 'Pause film'; hold(); go(1); return; }
+          if (ended) { ended = false; playing = true; settled = false; eco.classList.remove('is-calm', 'is-dim', 'is-boom'); settle(); fbtn.textContent = 'Pause film'; hold(); go(1); return; }
           playing = !playing; fbtn.textContent = playing ? 'Pause film' : 'Play film'; hold();
           if (playing && scene === 0) { clearTimeout(startT); go(1); }
         });
@@ -672,12 +755,11 @@
           var on = sbtn.getAttribute('aria-pressed') !== 'true';
           setSound(on);
           if (on && ended) fbtn.click();   /* turning sound on after the film ended replays it with sound */
-          else if (on && soundOn && scene >= 1 && scene <= 4) whoosh(0.6, 400, 1600, 0.08);
         });
         new IntersectionObserver(function (en) { inView = en[0].isIntersecting; if (scene >= 1 && scene <= 4) hold(); else run(); }, { threshold: 0.25 }).observe(eco);
         document.addEventListener('visibilitychange', function () { if (scene >= 1 && scene <= 4) hold(); });
         filmUi.hidden = false; playing = true;
-        startT = setTimeout(function () { if (playing && !ended) go(1); }, 2400);   /* after the opening draw */
+        startT = setTimeout(function () { if (playing && !ended) go(1); }, 2000);   /* after the ignition: the network has radiated out from the core */
       }
       if (finePointer) {
         var hero = $('.hero'), tx = 0, ty = 0, pf = 0;
