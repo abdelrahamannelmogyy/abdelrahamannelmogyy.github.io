@@ -502,23 +502,164 @@
       document.addEventListener('visibilitychange', run);
       var settle = function () { clearTimeout(settleT); settleT = setTimeout(function () { settled = true; eco.classList.add('is-calm'); run(); }, 30000); };   /* the flow settles after 30 seconds */
       settle();
-      /* the hero film: a camera moves across the pipeline scene by scene, then pulls back to the still diagram */
-      var filmUi = $('.film-ui', eco), tick = $('.film-tick', eco), fbtn = $('.film-btn', eco);
+      /* the hero film: a camera dollies across the pipeline scene by scene, then pulls back to the still diagram.
+         The camera is one zoom and one focus point eased together, frame by frame: the zoom changes at a
+         constant perceived speed and every point travels in a straight line. Each scene reveals its detail
+         only once the camera has landed (--lag in the CSS), then the camera keeps a slow push-in. */
+      var filmUi = $('.film-ui', eco), tick = $('.film-tick', eco), fbtn = $('.film-btn', eco), sbtn = $('.film-snd', eco);
       if (filmUi && 'IntersectionObserver' in window) {
         var scene = 0, playing = false, ended = false, startT = 0, raf2 = function (fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); };
-        var aim = function () {
-          ecoSvgs.forEach(function (s) {
-            var cam = $('.cam', s), vb = s.viewBox.baseVal, f = scene >= 1 && scene <= 4 ? JSON.parse(s.getAttribute('data-cam'))[scene - 1] : null;
-            if (!f) { cam.style.transform = ''; return; }
-            var k = f[2], cx = Math.min(Math.max(f[0], vb.width / (2 * k)), vb.width - vb.width / (2 * k)), cy = Math.min(Math.max(f[1], vb.height / (2 * k)), vb.height - vb.height / (2 * k));
-            cam.style.transform = 'translate(' + (vb.width / 2 - cx * k).toFixed(1) + 'px,' + (vb.height / 2 - cy * k).toFixed(1) + 'px) scale(' + k + ')';
+        var SCENE_MS = [3300, 3000, 3500, 3700], MOVE_MS = [1500, 1300, 1300, 1300, 1800], LAG_MS = [1050, 850, 850, 850];
+        var clock = 0, last = 0, loop = 0, sceneT = 0, cues = [];
+        var ease = function (u) { return u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; };
+        var phoneMQ = window.matchMedia('(max-width: 560px)');   /* the same breakpoint that swaps the two drawings */
+        var cams = ecoSvgs.map(function (s) { var vb = s.viewBox.baseVal; return { el: $('.cam', s), m: s.classList.contains('eco-m'), w: vb.width, h: vb.height, list: JSON.parse(s.getAttribute('data-cam')), s: 1, tx: 0, ty: 0, a: null, b: null, t0: 0, dur: 1, push: 0, fx: 0, fy: 0, css: false, pa: null, pt: null, pw0: 0, pdur: 1 }; });
+        var live = function (c) { return c.m === phoneMQ.matches; };   /* only the drawing on screen is animated */
+        /* screen = s * world + t; a focus point (fx, fy) at zoom s, kept inside the drawing */
+        var place = function (c, fx, fy, s) {
+          var hx = c.w / (2 * s), hy = c.h / (2 * s);
+          fx = Math.min(Math.max(fx, hx), c.w - hx); fy = Math.min(Math.max(fy, hy), c.h - hy);
+          return { s: s, tx: c.w / 2 - fx * s, ty: c.h / 2 - fy * s };
+        };
+        var paint = function (c) { c.el.style.transform = 'translate(' + c.tx.toFixed(2) + 'px,' + c.ty.toFixed(2) + 'px) scale(' + c.s.toFixed(4) + ')'; };
+        /* where the camera is right now, even in the middle of a CSS push-in */
+        var settleCss = function (c) {   /* worked out from the linear push-in, not read back: no forced style recalculation */
+          if (!c.css) return;
+          var k = Math.min(1, (performance.now() - c.pw0) / c.pdur);
+          c.s = c.pa.s + (c.pt.s - c.pa.s) * k; c.tx = c.pa.tx + (c.pt.tx - c.pa.tx) * k; c.ty = c.pa.ty + (c.pt.ty - c.pa.ty) * k;
+          c.el.style.transition = 'none'; paint(c); c.css = false;
+        };
+        /* the slow push-in after landing is a plain linear CSS transition: smooth, and no per-frame script */
+        var pushIn = function (c) {
+          var rest = c.t0 + SCENE_MS[scene - 1] - clock; if (rest < 200) return;
+          c.pa = { s: c.s, tx: c.tx, ty: c.ty }; c.pt = place(c, c.fx, c.fy, c.s * (1 + 0.04 * rest / Math.max(1, SCENE_MS[scene - 1] - c.dur)));
+          c.pw0 = performance.now(); c.pdur = Math.round(rest);
+          c.el.style.transition = 'transform ' + c.pdur + 'ms linear'; c.s = c.pt.s; c.tx = c.pt.tx; c.ty = c.pt.ty; paint(c); c.css = true;
+        };
+        var aim = function (n) {
+          cams.forEach(function (c) {
+            var f = n >= 1 && n <= 4 ? c.list[n - 1] : [c.w / 2, c.h / 2, 1];
+            settleCss(c); c.a = { s: c.s, tx: c.tx, ty: c.ty }; c.b = place(c, f[0], f[1], f[2]); c.fx = f[0]; c.fy = f[1];
+            c.t0 = clock; c.dur = MOVE_MS[Math.min(n, 5) - 1]; c.push = n >= 1 && n <= 4 ? 1 : 0;
+            if (!live(c)) { c.a = null; c.s = c.b.s; c.tx = c.b.tx; c.ty = c.b.ty; paint(c); }   /* the hidden drawing just takes the framing */
           });
         };
-        var hold = function () { held = !playing || !inView || document.hidden; eco.classList.toggle('is-held', held); run(); };
+        var step = function (c) {
+          var u = Math.min(1, (clock - c.t0) / c.dur), e = ease(u), a = c.a, b = c.b, s, tx, ty;
+          s = a.s * Math.pow(b.s / a.s, e);   /* zoom interpolated on a log scale */
+          if (Math.abs(b.s - a.s) > 1e-3) {   /* scale about the one point both framings share: straight paths, no swing */
+            var wx = (b.tx - a.tx) / (a.s - b.s), wy = (b.ty - a.ty) / (a.s - b.s);
+            tx = a.tx + (a.s - s) * wx; ty = a.ty + (a.s - s) * wy;
+          } else { tx = a.tx + (b.tx - a.tx) * e; ty = a.ty + (b.ty - a.ty) * e; }
+          c.s = s; c.tx = tx; c.ty = ty; paint(c);
+          if (u >= 1) { c.a = null; if (c.push && !held) pushIn(c); }   /* landed: hand over to the push-in */
+          return u < 1;
+        };
+        /* scene 1 volume counter, driven by the same clock */
+        var counts = $$('.f-count', eco);
+        var count = function () {
+          if (scene !== 1) return;
+          var u = Math.min(1, Math.max(0, (clock - sceneT - LAG_MS[0] - 350) / 1300)), v = Math.round(85000 * (1 - Math.pow(1 - u, 3)));
+          counts.forEach(function (t) { t.textContent = (u >= 1 ? '85,000+' : String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ',')) + ' a day'; });   /* no toLocaleString: its first call loads locale data (about 100 ms on a slow phone) */
+        };
+        var frame2 = function (now) {
+          loop = 0;
+          if (!held || ended) clock += Math.min(64, now - last);
+          last = now;
+          var busy = false;
+          cams.forEach(function (c) { if (c.a && step(c)) busy = true; });
+          count();
+          while (cues.length && cues[0].at <= clock) cues.shift().fn();
+          if ((busy || cues.length || (scene === 1 && clock - sceneT < LAG_MS[0] + 1800)) && (!held || ended)) loop = requestAnimationFrame(frame2);   /* idle between moves, while paused and off screen */
+        };
+        var kick = function () { if (!loop) { last = performance.now(); loop = requestAnimationFrame(frame2); } };
+        var cue = function (ms, fn) { cues.push({ at: clock + ms, fn: fn }); cues.sort(function (x, y) { return x.at - y.at; }); };
+
+        /* opt-in sound: synthesised with Web Audio (no files), only after the visitor turns it on */
+        var snd = null, soundOn = false;
+        var audio = function () {
+          if (snd) return snd;
+          var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+          var ctx = new AC(), comp = ctx.createDynamicsCompressor(), master = ctx.createGain();
+          master.gain.value = 0.9; master.connect(comp); comp.connect(ctx.destination);
+          var nb = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate), nd = nb.getChannelData(0);
+          for (var i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+          snd = { ctx: ctx, master: master, noise: nb, pad: null };
+          return snd;
+        };
+        var env = function (g, t, a, peak, d) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
+        var whoosh = function (dur, lo, hi, peak) {
+          if (!soundOn || !snd) return; var c = snd.ctx, t = c.currentTime, src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(), pan = c.createStereoPanner ? c.createStereoPanner() : null;
+          src.buffer = snd.noise; src.loop = true; f.type = 'bandpass'; f.Q.value = 1.1;
+          f.frequency.setValueAtTime(lo, t); f.frequency.exponentialRampToValueAtTime(hi, t + dur * 0.7); f.frequency.exponentialRampToValueAtTime(lo * 1.4, t + dur);
+          env(g, t, dur * 0.45, peak, dur * 0.55);
+          src.connect(f); f.connect(g);
+          if (pan) { pan.pan.setValueAtTime(-0.4, t); pan.pan.linearRampToValueAtTime(0.4, t + dur); g.connect(pan); pan.connect(snd.master); } else g.connect(snd.master);
+          src.start(t); src.stop(t + dur + 0.05);
+        };
+        var blip = function (freq, peak) {
+          if (!soundOn || !snd) return; var c = snd.ctx, t = c.currentTime;
+          [[freq, peak], [freq * 1.5, peak * 0.4]].forEach(function (p) { var o = c.createOscillator(), g = c.createGain(); o.type = 'sine'; o.frequency.value = p[0]; env(g, t, 0.008, p[1], 0.16); o.connect(g); g.connect(snd.master); o.start(t); o.stop(t + 0.2); });
+        };
+        var impact = function () {
+          if (!soundOn || !snd) return; var c = snd.ctx, t = c.currentTime, o = c.createOscillator(), g = c.createGain();
+          o.type = 'sine'; o.frequency.setValueAtTime(92, t); o.frequency.exponentialRampToValueAtTime(38, t + 0.9); env(g, t, 0.01, 0.55, 1.3); o.connect(g); g.connect(snd.master); o.start(t); o.stop(t + 1.4);
+          var n = c.createBufferSource(), f = c.createBiquadFilter(), ng = c.createGain(); n.buffer = snd.noise; f.type = 'lowpass'; f.frequency.value = 1800; env(ng, t, 0.005, 0.18, 0.35); n.connect(f); f.connect(ng); ng.connect(snd.master); n.start(t); n.stop(t + 0.45);
+        };
+        /* a soft pad in A minor that opens up scene by scene, dips before the close, then resolves */
+        var pad = function (level) {
+          if (!soundOn || !snd) return; var c = snd.ctx, t = c.currentTime;
+          if (!snd.pad) {
+            var lp = c.createBiquadFilter(), g = c.createGain(); lp.type = 'lowpass'; lp.frequency.value = 500; lp.Q.value = 0.5; g.gain.value = 0.0001; lp.connect(g); g.connect(snd.master);
+            var osc = [220, 261.63, 329.63, 110].map(function (fq, i) { var o = c.createOscillator(); o.type = i === 3 ? 'sine' : 'triangle'; o.frequency.value = fq; o.detune.value = i % 2 ? 4 : -4; o.connect(lp); o.start(); return o; });
+            snd.pad = { lp: lp, g: g, osc: osc };
+          }
+          var pd = snd.pad;
+          pd.g.gain.cancelScheduledValues(t); pd.g.gain.setValueAtTime(Math.max(0.0001, pd.g.gain.value), t);
+          pd.lp.frequency.cancelScheduledValues(t); pd.lp.frequency.setValueAtTime(pd.lp.frequency.value, t);
+          if (level === 'dip') { pd.g.gain.exponentialRampToValueAtTime(0.008, t + 0.35); return; }
+          if (level === 'end') {
+            pd.osc[1].frequency.setTargetAtTime(277.18, t, 0.08);   /* C to C sharp: the minor chord resolves to major */
+            pd.g.gain.exponentialRampToValueAtTime(0.07, t + 0.25); pd.lp.frequency.exponentialRampToValueAtTime(2200, t + 0.4);
+            pd.g.gain.exponentialRampToValueAtTime(0.0001, t + 4.2);
+            var old = pd; snd.pad = null; setTimeout(function () { old.osc.forEach(function (o) { try { o.stop(); } catch (e) {} }); }, 4500);
+            return;
+          }
+          pd.g.gain.exponentialRampToValueAtTime(0.025 + 0.008 * level, t + 1.2);
+          pd.lp.frequency.exponentialRampToValueAtTime(500 + 260 * level, t + 1.2);
+        };
+        var sceneSound = function (n) {
+          if (n === 1) { whoosh(1.4, 260, 1800, 0.22); pad(1); }
+          else if (n <= 4) { whoosh(1.15, 320, 2400, 0.18); pad(n); }
+          if (n >= 1 && n <= 4) cue(LAG_MS[n - 1] - 150, function () { blip(n === 4 ? 988 : 784, 0.06); });
+          if (n === 3) [450, 570, 690].forEach(function (d) { cue(LAG_MS[2] + d, function () { blip(1318, 0.035); }); });
+          if (n === 4) [200, 650, 1100].forEach(function (d, i) { cue(LAG_MS[3] + d, function () { blip([880, 988, 1175][i], 0.04); }); });
+          if (n === 1) cue(LAG_MS[0] + 1650, function () { blip(1568, 0.05); });   /* the counter lands */
+        };
+        var setSound = function (on) {
+          soundOn = on && !!audio();
+          sbtn.setAttribute('aria-pressed', String(soundOn)); sbtn.setAttribute('aria-label', soundOn ? 'Turn sound off' : 'Turn sound on');
+          if (!snd) return;
+          if (soundOn) { snd.ctx.resume(); if (scene >= 1 && scene <= 4) pad(scene); }
+          else if (snd.pad) { var g = snd.pad.g, t = snd.ctx.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(Math.max(0.0001, g.gain.value), t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3); }
+        };
+
+        var hold = function () {
+          held = !playing || !inView || document.hidden; eco.classList.toggle('is-held', held); run();
+          cams.forEach(function (c) { if (held && c.css) settleCss(c); else if (!held && live(c) && !c.a && !c.css && c.push && scene >= 1 && scene <= 4) pushIn(c); });
+          if (snd) { if (held && !ended) snd.ctx.suspend(); else if (soundOn) snd.ctx.resume(); }
+          if (!held) kick();
+        };
         var go = function (n) {
-          scene = n; eco.setAttribute('data-scene', String(n)); eco.classList.toggle('is-film', n >= 1 && n <= 4); aim();
+          scene = n; sceneT = clock; eco.setAttribute('data-scene', String(n)); eco.classList.toggle('is-film', n >= 1 && n <= 4); aim(n); kick();
           tick.classList.remove('is-on');
-          if (n > 4) { playing = false; ended = true; fbtn.textContent = 'Replay film'; hold(); held = false; eco.classList.remove('is-held'); run(); return; }
+          if (n > 4) {
+            playing = false; ended = true; fbtn.textContent = 'Replay film'; hold(); held = false; eco.classList.remove('is-held'); run();
+            pad('dip'); cue(380, function () { whoosh(1.5, 1600, 240, 0.16); }); cue(1150, function () { impact(); pad('end'); });
+            return;
+          }
+          tick.style.setProperty('--scene', SCENE_MS[n - 1] + 'ms');
+          sceneSound(n);
           raf2(function () { if (scene === n) tick.classList.add('is-on'); });
         };
         tick.addEventListener('animationend', function () { if (playing) go(scene + 1); });
@@ -526,6 +667,12 @@
           if (ended) { ended = false; playing = true; settled = false; eco.classList.remove('is-calm'); settle(); fbtn.textContent = 'Pause film'; hold(); go(1); return; }
           playing = !playing; fbtn.textContent = playing ? 'Pause film' : 'Play film'; hold();
           if (playing && scene === 0) { clearTimeout(startT); go(1); }
+        });
+        sbtn.addEventListener('click', function () {
+          var on = sbtn.getAttribute('aria-pressed') !== 'true';
+          setSound(on);
+          if (on && ended) fbtn.click();   /* turning sound on after the film ended replays it with sound */
+          else if (on && soundOn && scene >= 1 && scene <= 4) whoosh(0.6, 400, 1600, 0.08);
         });
         new IntersectionObserver(function (en) { inView = en[0].isIntersecting; if (scene >= 1 && scene <= 4) hold(); else run(); }, { threshold: 0.25 }).observe(eco);
         document.addEventListener('visibilitychange', function () { if (scene >= 1 && scene <= 4) hold(); });
