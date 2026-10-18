@@ -34,9 +34,9 @@ const cornerDots = p => p.evaluate(() => {
     await p.click('.film-btn'); await sleep(5000); R.paused5s = await st(p);
     await p.click('.film-btn'); await sleep(300); R.resumed = await st(p);
     await p.evaluate(() => scrollTo(0, 2500)); await sleep(5000); R.scrolledAway5s = await st(p);
-    await p.evaluate(() => scrollTo(0, 0)); await sleep(9000); R.ended = await st(p);
+    await p.evaluate(() => scrollTo(0, 0)); await sleep(13000); R.ended = await st(p);   // film 2.0 runs about 17.7 s
     await p.click('.film-btn'); await sleep(400); R.replay = await st(p);
-    await sleep(11500); R.replayEnded = await st(p);
+    await sleep(16500); R.replayEnded = await st(p);
     R.clsDuringFilm = await p.evaluate(() => +window.__ls.toFixed(4));
     await p.focus('.film-btn'); R.btnFocus = await p.evaluate(() => { const c = getComputedStyle(document.activeElement); return document.activeElement.className + ' ' + c.outlineStyle + ' ' + c.outlineWidth; });
     await p.addScriptTag({ content: AXE });
