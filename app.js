@@ -13,7 +13,7 @@
   var header = $('body > header');
   var hamburger = $('#hamburger');
   var navLinks = $('#navLinks');
-  var mobileMQ = window.matchMedia('(max-width: 768px)');
+  var mobileMQ = window.matchMedia('(max-width: 1140px)');
 
   function setMenu(open, returnFocus) {
     hamburger.classList.toggle('open', open);
@@ -634,7 +634,7 @@
   /* the spine: page progress as a line, with a marker for each section */
   var spine = $('.spine');
   if (spine && window.matchMedia('(min-width: 1200px)').matches) {
-    var stops = [['home', 'Intro'], ['story', 'One call'], ['projects', 'Work'], ['method', 'Method'], ['skills', 'Skills'], ['experience', 'Experience'], ['about', 'About'], ['certifications', 'Credentials'], ['contact', 'Contact']]
+    var stops = [['home', 'Intro'], ['story', 'One call'], ['projects', 'Work'], ['method', 'Method'], ['skills', 'Skills'], ['experience', 'Experience'], ['about', 'About'], ['more-work', 'More work'], ['certifications', 'Credentials'], ['services', 'Services'], ['contact', 'Contact']]
       .map(function (s) { return { el: document.getElementById(s[0]), label: s[1] }; }).filter(function (s) { return s.el; });
     spine.innerHTML = '<span class="sp-line"></span><span class="sp-fill"></span>' + stops.map(function (s) { return '<b class="sp-mark"><em>' + s.label + '</em></b>'; }).join('') + '<i class="sp-dot"></i>';
     var marks = $$('.sp-mark', spine);
@@ -664,6 +664,24 @@
     draws.forEach(function (d) { drawIO.observe(d); });
   } else { draws.forEach(function (d) { d.classList.add('is-drawn'); }); }
 
+  /* request a quote: fill in the form subject, bring the form into view, then put the cursor in the name field */
+  $$('[data-quote]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var subj = document.getElementById('cf-subject'), form = document.getElementById('contactForm'), name = document.getElementById('cf-name');
+      if (!subj || !form || form.hidden) return;
+      e.preventDefault();
+      subj.value = a.getAttribute('data-quote') === 'Freelance project' ? 'Freelance project: quote request' : 'Freelance project: ' + a.getAttribute('data-quote');
+      subj.dispatchEvent(new Event('input', { bubbles: true }));
+      subj.classList.remove('is-prefilled'); void subj.offsetWidth; if (!calmMotion) subj.classList.add('is-prefilled');
+      form.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
+      setTimeout(function () { if (name) name.focus({ preventScroll: true }); }, reduceMotion.matches ? 0 : 650);
+    });
+  });
+  /* back-to-top steps aside while the contact form is on screen */
+  var formEl = document.getElementById('contactForm');
+  if (formEl && topBtn && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) { topBtn.classList.toggle('is-aside', en[0].isIntersecting); }, { threshold: 0.15 }).observe(formEl);
+  }
   /* the ivory band: tell the page when it is over the light surface (spine, back-to-top button) on every screen size */
   var ivoryEl = document.getElementById('contact');
   if (ivoryEl) {
